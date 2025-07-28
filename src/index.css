@@ -8,35 +8,50 @@ All colors MUST be HSL.
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
+    --background: 220 13% 8%;
+    --foreground: 120 100% 75%;
 
-    --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
+    --card: 220 15% 12%;
+    --card-foreground: 120 100% 85%;
 
-    --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
+    --popover: 220 15% 10%;
+    --popover-foreground: 120 100% 85%;
 
-    --primary: 222.2 47.4% 11.2%;
-    --primary-foreground: 210 40% 98%;
+    --primary: 315 100% 50%;
+    --primary-foreground: 0 0% 0%;
 
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
+    --secondary: 45 100% 50%;
+    --secondary-foreground: 0 0% 0%;
 
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
+    --muted: 220 15% 15%;
+    --muted-foreground: 120 50% 60%;
 
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
+    --accent: 280 100% 70%;
+    --accent-foreground: 0 0% 0%;
 
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 210 40% 98%;
 
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 222.2 84% 4.9%;
+    --border: 120 30% 25%;
+    --input: 220 15% 18%;
+    --ring: 315 100% 50%;
 
-    --radius: 0.5rem;
+    --radius: 0.3rem;
+    
+    /* Couleurs cracra custom */
+    --cracra-green: 120 100% 40%;
+    --cracra-pink: 315 100% 50%;
+    --cracra-yellow: 45 100% 50%;
+    --cracra-purple: 280 100% 70%;
+    --cracra-dark: 220 15% 8%;
+    
+    /* Gradients underground */
+    --gradient-cracra: linear-gradient(135deg, hsl(var(--cracra-green)), hsl(var(--cracra-pink)));
+    --gradient-ghetto: linear-gradient(45deg, hsl(var(--cracra-dark)), hsl(var(--cracra-purple)));
+    
+    /* Shadows glitch */
+    --shadow-glitch: 0 0 20px hsl(var(--cracra-green) / 0.5), 0 0 40px hsl(var(--cracra-pink) / 0.3);
+    --shadow-neon: 0 0 10px hsl(var(--cracra-yellow) / 0.8);
 
     --sidebar-background: 0 0% 98%;
 
@@ -101,5 +116,128 @@ All colors MUST be HSL.
 
   body {
     @apply bg-background text-foreground;
+    font-family: 'Courier New', monospace;
   }
+}
+
+@layer components {
+  /* Effets glitch cracra */
+  .glitch-text {
+    position: relative;
+    animation: glitch 2s infinite;
+  }
+  
+  .glitch-text::before,
+  .glitch-text::after {
+    content: attr(data-text);
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+  }
+  
+  .glitch-text::before {
+    animation: glitch-1 0.5s infinite;
+    color: hsl(var(--cracra-green));
+    z-index: -1;
+  }
+  
+  .glitch-text::after {
+    animation: glitch-2 0.5s infinite;
+    color: hsl(var(--cracra-pink));
+    z-index: -2;
+  }
+  
+  /* Animation hover cracra */
+  .cracra-hover {
+    transition: all 0.3s ease;
+    cursor: pointer;
+  }
+  
+  .cracra-hover:hover {
+    transform: rotate(-2deg) scale(1.05);
+    box-shadow: var(--shadow-glitch);
+    filter: brightness(1.2);
+  }
+  
+  /* Background graffiti effect */
+  .graffiti-bg {
+    background: var(--gradient-ghetto);
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .graffiti-bg::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: 
+      radial-gradient(circle at 20% 80%, hsl(var(--cracra-green) / 0.1) 0%, transparent 50%),
+      radial-gradient(circle at 80% 20%, hsl(var(--cracra-pink) / 0.1) 0%, transparent 50%);
+    animation: float 6s ease-in-out infinite;
+  }
+  
+  /* Navigation cracra */
+  .nav-cracra {
+    background: hsl(var(--card));
+    border: 2px solid hsl(var(--cracra-green));
+    box-shadow: var(--shadow-neon);
+    transform: skew(-2deg);
+  }
+  
+  .nav-cracra > * {
+    transform: skew(2deg);
+  }
+}
+
+@layer utilities {
+  .text-cracra-green { color: hsl(var(--cracra-green)); }
+  .text-cracra-pink { color: hsl(var(--cracra-pink)); }
+  .text-cracra-yellow { color: hsl(var(--cracra-yellow)); }
+  .text-cracra-purple { color: hsl(var(--cracra-purple)); }
+  
+  .bg-cracra-green { background-color: hsl(var(--cracra-green)); }
+  .bg-cracra-pink { background-color: hsl(var(--cracra-pink)); }
+  .bg-cracra-yellow { background-color: hsl(var(--cracra-yellow)); }
+  .bg-cracra-purple { background-color: hsl(var(--cracra-purple)); }
+  
+  .border-cracra-green { border-color: hsl(var(--cracra-green)); }
+  .border-cracra-pink { border-color: hsl(var(--cracra-pink)); }
+}
+
+/* Animations cracra */
+@keyframes glitch {
+  0% { transform: translate(0); }
+  20% { transform: translate(-2px, 2px); }
+  40% { transform: translate(-2px, -2px); }
+  60% { transform: translate(2px, 2px); }
+  80% { transform: translate(2px, -2px); }
+  100% { transform: translate(0); }
+}
+
+@keyframes glitch-1 {
+  0% { clip-path: inset(40% 0 61% 0); }
+  20% { clip-path: inset(92% 0 1% 0); }
+  40% { clip-path: inset(43% 0 1% 0); }
+  60% { clip-path: inset(25% 0 58% 0); }
+  80% { clip-path: inset(54% 0 7% 0); }
+  100% { clip-path: inset(58% 0 43% 0); }
+}
+
+@keyframes glitch-2 {
+  0% { clip-path: inset(25% 0 58% 0); }
+  20% { clip-path: inset(54% 0 7% 0); }
+  40% { clip-path: inset(58% 0 43% 0); }
+  60% { clip-path: inset(40% 0 61% 0); }
+  80% { clip-path: inset(92% 0 1% 0); }
+  100% { clip-path: inset(43% 0 1% 0); }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  50% { transform: translateY(-10px) rotate(1deg); }
 }

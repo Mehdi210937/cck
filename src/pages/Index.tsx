@@ -1,32 +1,106 @@
-import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import Navigation from "@/components/Navigation";
 
 const Index = () => {
+  const recentNews = [
+    {
+      id: 1,
+      title: "NOUVEAU CLIP CRACRA DISPO",
+      content: "Le crew balance un nouveau clip sale qui déchire grave ! 📹",
+      category: "VIDEO",
+      date: "Il y a 2h"
+    },
+    {
+      id: 2,
+      title: "TRACK UNDERGROUND EN PRÉPARATION", 
+      content: "Un son immonde qui va faire mal aux oreilles des bourgeois 🎵",
+      category: "SON",
+      date: "Il y a 5h"
+    },
+    {
+      id: 3,
+      title: "NOUVELLE SÉRIE DE GRAFFITIS",
+      content: "Des tags cracra qui envahissent la ville ! 🎨",
+      category: "VISUEL", 
+      date: "Il y a 1 jour"
+    }
+  ];
+
   return (
-    <div className="min-h-screen bg-gradient-to-br from-primary/10 via-background to-secondary/10 flex items-center justify-center p-4">
-      <Card className="w-full max-w-md shadow-xl">
-        <CardHeader className="text-center space-y-2">
-          <CardTitle className="text-3xl font-bold text-primary">
-            🚀 CRACRA KREW HQ
-          </CardTitle>
-          <CardDescription className="text-lg">
-            Votre application est maintenant active !
-          </CardDescription>
-        </CardHeader>
-        <CardContent className="space-y-4">
-          <div className="text-center space-y-3">
-            <p className="text-muted-foreground">
-              ✅ Preview chargé avec succès
-            </p>
-            <p className="text-sm text-muted-foreground">
-              Prêt à développer votre projet
-            </p>
-            <Button className="w-full" size="lg">
-              Commencer
-            </Button>
+    <div className="min-h-screen graffiti-bg">
+      <div className="container mx-auto px-4 py-8">
+        <Navigation />
+        
+        {/* Header principal */}
+        <div className="text-center mb-12">
+          <h1 
+            className="text-8xl md:text-9xl font-bold mb-6 glitch-text text-cracra-green"
+            data-text="CRACRA KREW"
+          >
+            CRACRA KREW
+          </h1>
+          <p className="text-2xl text-cracra-pink mb-4">
+            🍺 UNDERGROUND LABEL - PAS DE GIN TONIC ICI 🍺
+          </p>
+          <p className="text-lg text-cracra-yellow">
+            On reste cracra, on reste vrais - 8.6 GANG 💀
+          </p>
+        </div>
+
+        {/* Section News */}
+        <div className="mb-12">
+          <h2 className="text-4xl font-bold text-cracra-pink mb-8 text-center">
+            📰 DERNIÈRES NEWS DU LABEL 📰
+          </h2>
+          
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {recentNews.map((news) => (
+              <Card key={news.id} className="cracra-hover border-cracra-green">
+                <CardHeader>
+                  <div className="flex justify-between items-center mb-2">
+                    <span className="text-sm text-cracra-yellow bg-muted px-2 py-1 rounded">
+                      {news.category}
+                    </span>
+                    <span className="text-xs text-muted-foreground">
+                      {news.date}
+                    </span>
+                  </div>
+                  <CardTitle className="text-cracra-pink">{news.title}</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <CardDescription className="text-foreground mb-4">
+                    {news.content}
+                  </CardDescription>
+                  <Button className="w-full bg-cracra-green hover:bg-cracra-pink">
+                    VOIR PLUS
+                  </Button>
+                </CardContent>
+              </Card>
+            ))}
           </div>
-        </CardContent>
-      </Card>
+        </div>
+
+        {/* Call to action */}
+        <div className="text-center">
+          <Card className="max-w-2xl mx-auto border-cracra-pink">
+            <CardHeader>
+              <CardTitle className="text-3xl text-cracra-pink">
+                REJOINS LE CREW !
+              </CardTitle>
+              <CardDescription className="text-lg">
+                Tu fais de la musique, des visuels, de l'écriture ? 
+                Viens montrer ton côté cracra !
+              </CardDescription>
+            </CardHeader>
+            <CardContent>
+              <Button size="lg" className="bg-cracra-pink hover:bg-cracra-yellow text-black text-lg px-8">
+                CONTACTE NOUS 💀
+              </Button>
+            </CardContent>
+          </Card>
+        </div>
+      </div>
     </div>
   );
 };
