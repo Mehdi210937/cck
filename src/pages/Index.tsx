@@ -1,31 +1,35 @@
+import { useState, useEffect } from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { useNavigate } from "react-router-dom";
+import { supabase } from '@/integrations/supabase/client';
 import Navigation from "@/components/Navigation";
 import Header from "@/components/Header";
 import ParticleSystem from "@/components/ParticleSystem";
 import SprayTag from "@/components/SprayTag";
 const Index = () => {
   const navigate = useNavigate();
-  const recentNews = [{
-    id: 1,
-    title: "NOUVEAU CLIP CRACRA DISPO",
-    content: "Le crew balance un nouveau clip sale qui déchire grave ! 📹",
-    category: "VIDEO",
-    date: "Il y a 2h"
-  }, {
-    id: 2,
-    title: "TRACK UNDERGROUND EN PRÉPARATION",
-    content: "Un son immonde qui va faire mal aux oreilles des bourgeois 🎵",
-    category: "SON",
-    date: "Il y a 5h"
-  }, {
-    id: 3,
-    title: "NOUVELLE SÉRIE DE GRAFFITIS",
-    content: "Des tags cracra qui envahissent la ville ! 🎨",
-    category: "VISUEL",
-    date: "Il y a 1 jour"
-  }];
+  const [news, setNews] = useState<any[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchNews = async () => {
+      const { data, error } = await supabase
+        .from('news')
+        .select('*')
+        .order('created_at', { ascending: false })
+        .limit(6);
+      
+      if (error) {
+        console.error('Error fetching news:', error);
+      } else {
+        setNews(data || []);
+      }
+      setLoading(false);
+    };
+
+    fetchNews();
+  }, []);
   return (
     <div className="min-h-screen graffiti-bg cracra-cursor">
       <ParticleSystem />
@@ -50,30 +54,35 @@ const Index = () => {
 
         {/* Section News */}
         <div className="mb-12">
-          
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {recentNews.map(news => <Card key={news.id} className="cracra-hover-intense spray-effect torn-edge border-cracra-green">
-                <CardHeader>
-                  <div className="flex justify-between items-center mb-2">
-                    <span className="text-sm text-cracra-yellow bg-muted px-2 py-1 rounded">
-                      {news.category}
-                    </span>
-                    <span className="text-xs text-muted-foreground">
-                      {news.date}
-                    </span>
-                  </div>
-                  <CardTitle className="text-cracra-pink">{news.title}</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <CardDescription className="text-foreground mb-4">
-                    {news.content}
-                  </CardDescription>
-                  <Button className="w-full bg-cracra-green hover:bg-cracra-pink cracra-shake">
-                    VOIR PLUS 🍺
-                  </Button>
-                </CardContent>
-              </Card>)}
-          </div>
+          {loading ? (
+            <div className="text-center text-cracra-green text-2xl">Chargement des news...</div>
+          ) : (
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {news.map(newsItem => (
+                <Card key={newsItem.id} className="cracra-hover-intense spray-effect torn-edge border-cracra-green">
+                  <CardHeader>
+                    <div className="flex justify-between items-center mb-2">
+                      <span className="text-sm text-cracra-yellow bg-muted px-2 py-1 rounded">
+                        {newsItem.category}
+                      </span>
+                      <span className="text-xs text-muted-foreground">
+                        {new Date(newsItem.created_at).toLocaleDateString('fr-FR')}
+                      </span>
+                    </div>
+                    <CardTitle className="text-cracra-pink">{newsItem.title}</CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <CardDescription className="text-foreground mb-4">
+                      {newsItem.content}
+                    </CardDescription>
+                    <Button className="w-full bg-cracra-green hover:bg-cracra-pink cracra-shake">
+                      VOIR PLUS 🍺
+                    </Button>
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
+          )}
         </div>
 
         {/* Call to action */}

@@ -10,6 +10,7 @@ import Ecrits from "./pages/Ecrits";
 import Visuels from "./pages/Visuels";
 import Troisd from "./pages/Troisd";
 import Auth from "./pages/Auth";
+import Admin from "./pages/Admin";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -28,6 +29,7 @@ const App = () => (
           <Route path="/visuels" element={<Visuels />} />
           <Route path="/3d" element={<Troisd />} />
           <Route path="/auth" element={<Auth />} />
+          <Route path="/admin" element={<Admin />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
