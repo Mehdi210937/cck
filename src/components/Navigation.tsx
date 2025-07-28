@@ -5,7 +5,6 @@ const Navigation = () => {
   const location = useLocation();
 
   const navItems = [
-    { path: "/", label: "NEWS", icon: "📰" },
     { path: "/videos", label: "ODIEUSES VIDEOS", icon: "📹" },
     { path: "/sons", label: "IMMONDES SONS", icon: "🎵" },
     { path: "/ecrits", label: "TERRIFIANTS ECRITS", icon: "📝" },

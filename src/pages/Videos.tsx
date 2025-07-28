@@ -1,10 +1,12 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import Navigation from "@/components/Navigation";
+import Header from "@/components/Header";
 
 const Videos = () => {
   return (
     <div className="min-h-screen graffiti-bg">
+      <Header />
       <div className="container mx-auto px-4 py-8">
         <Navigation />
         

@@ -1,6 +1,7 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import Navigation from "@/components/Navigation";
+import Header from "@/components/Header";
 import ParticleSystem from "@/components/ParticleSystem";
 import SprayTag from "@/components/SprayTag";
 const Index = () => {
@@ -23,30 +24,30 @@ const Index = () => {
     category: "VISUEL",
     date: "Il y a 1 jour"
   }];
-  return <div className="min-h-screen graffiti-bg cracra-cursor">
+  return (
+    <div className="min-h-screen graffiti-bg cracra-cursor">
       <ParticleSystem />
       <SprayTag />
+      <Header />
+      
       <div className="container mx-auto px-4 py-8">
         <Navigation />
         
-        {/* Header principal */}
+        {/* Hero Section - News Focus */}
         <div className="text-center mb-12">
-          <h1 className="text-8xl md:text-9xl font-bold mb-6 glitch-text text-cracra-green graffiti-shadow" data-text="CRACRA KREW">
-            CRACRA KREW
+          <h1 
+            className="text-6xl md:text-8xl font-bold mb-4 glitch-text text-cracra-green graffiti-shadow"
+            data-text="CRACRA NEWS"
+          >
+            CRACRA NEWS
           </h1>
-          <p className="text-2xl text-cracra-pink mb-4">
-            🍺 UNDERGROUND LABEL - PAS DE GIN TONIC ICI 🍺
-          </p>
-          <p className="text-lg text-cracra-yellow">
-            On reste cracra, on reste vrais - 8.6 GANG 💀
+          <p className="text-xl md:text-2xl text-cracra-yellow">
+            📰 Les dernières nouvelles du crew underground 📰
           </p>
         </div>
 
         {/* Section News */}
         <div className="mb-12">
-          <h2 className="text-4xl font-bold text-cracra-pink mb-8 text-center">
-            📰 DERNIÈRES NEWS DU LABEL 📰
-          </h2>
           
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
             {recentNews.map(news => <Card key={news.id} className="cracra-hover-intense spray-effect torn-edge border-cracra-green">
@@ -100,6 +101,7 @@ const Index = () => {
           </Card>
         </div>
       </div>
-    </div>;
+    </div>
+  );
 };
 export default Index;
