@@ -154,8 +154,10 @@ const Admin = () => {
 
   const handleSonSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    console.log('Son form submitted', { sonTitle, sonDescription, sonFile });
     
     if (!sonFile) {
+      console.log('No son file selected');
       toast({
         title: "Erreur",
         description: "Veuillez sélectionner un fichier audio",
@@ -184,6 +186,9 @@ const Admin = () => {
       setSonTitle('');
       setSonDescription('');
       setSonFile(null);
+      // Reset file input
+      const fileInput = document.querySelector('input[type="file"][accept="audio/*"]') as HTMLInputElement;
+      if (fileInput) fileInput.value = '';
     } catch (error: any) {
       toast({
         title: "Erreur",
@@ -357,8 +362,23 @@ const Admin = () => {
   };
 
   const handleLogout = async () => {
-    await supabase.auth.signOut();
-    navigate('/');
+    console.log('Logout button clicked');
+    try {
+      const { error } = await supabase.auth.signOut();
+      if (error) {
+        console.error('Logout error:', error);
+        toast({
+          title: "Erreur de déconnexion",
+          description: error.message,
+          variant: "destructive",
+        });
+      } else {
+        console.log('Logout successful');
+        navigate('/');
+      }
+    } catch (err) {
+      console.error('Logout exception:', err);
+    }
   };
 
   if (loading) {
