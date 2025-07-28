@@ -52,6 +52,11 @@ All colors MUST be HSL.
     /* Shadows glitch */
     --shadow-glitch: 0 0 20px hsl(var(--cracra-green) / 0.5), 0 0 40px hsl(var(--cracra-pink) / 0.3);
     --shadow-neon: 0 0 10px hsl(var(--cracra-yellow) / 0.8);
+    
+    /* Animations & Effects */
+    --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    --particle-size: 4px;
+    --particle-opacity: 0.6;
 
     --sidebar-background: 0 0% 98%;
 
@@ -207,6 +212,95 @@ All colors MUST be HSL.
   
   .border-cracra-green { border-color: hsl(var(--cracra-green)); }
   .border-cracra-pink { border-color: hsl(var(--cracra-pink)); }
+  .border-cracra-yellow { border-color: hsl(var(--cracra-yellow)); }
+  .border-cracra-purple { border-color: hsl(var(--cracra-purple)); }
+
+  /* Custom cursor */
+  .cracra-cursor {
+    cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><text y="20" font-size="20">🎨</text></svg>'), auto;
+  }
+
+  /* Particle animation */
+  .particles {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: -1;
+  }
+
+  .particle {
+    position: absolute;
+    width: var(--particle-size);
+    height: var(--particle-size);
+    background: hsl(var(--cracra-green));
+    border-radius: 50%;
+    opacity: var(--particle-opacity);
+    animation: float-particle 6s infinite linear;
+  }
+
+  /* Enhanced hover effects */
+  .cracra-hover-intense {
+    transition: all 0.3s ease;
+    transform-origin: center;
+  }
+
+  .cracra-hover-intense:hover {
+    transform: scale(1.05) rotate(1deg);
+    box-shadow: 0 10px 30px hsl(var(--cracra-green) / 0.4);
+    filter: brightness(1.1) contrast(1.1);
+  }
+
+  /* Shake animation for buttons */
+  .cracra-shake:hover {
+    animation: shake 0.5s ease-in-out;
+  }
+
+  /* Graffiti-style text shadow */
+  .graffiti-shadow {
+    text-shadow: 
+      3px 3px 0 hsl(var(--cracra-pink)),
+      -1px -1px 0 hsl(var(--cracra-green)),
+      1px -1px 0 hsl(var(--cracra-yellow)),
+      -1px 1px 0 hsl(var(--cracra-purple));
+  }
+
+  /* Spray paint effect */
+  .spray-effect {
+    position: relative;
+  }
+
+  .spray-effect::before {
+    content: '';
+    position: absolute;
+    top: -10px;
+    left: -10px;
+    right: -10px;
+    bottom: -10px;
+    background: radial-gradient(circle at 20% 20%, hsl(var(--cracra-green) / 0.3) 0%, transparent 50%),
+                radial-gradient(circle at 80% 30%, hsl(var(--cracra-pink) / 0.2) 0%, transparent 40%),
+                radial-gradient(circle at 40% 70%, hsl(var(--cracra-yellow) / 0.25) 0%, transparent 45%);
+    border-radius: inherit;
+    z-index: -1;
+  }
+
+  /* Torn paper effect */
+  .torn-edge {
+    position: relative;
+  }
+
+  .torn-edge::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 6px;
+    background: linear-gradient(45deg, transparent 33%, hsl(var(--background)) 33%, hsl(var(--background)) 66%, transparent 66%);
+    background-size: 12px 6px;
+  }
 }
 
 /* Animations cracra */
@@ -240,4 +334,50 @@ All colors MUST be HSL.
 @keyframes float {
   0%, 100% { transform: translateY(0px) rotate(0deg); }
   50% { transform: translateY(-10px) rotate(1deg); }
+}
+
+@keyframes float-particle {
+  0% {
+    transform: translateY(100vh) rotate(0deg);
+    opacity: 0;
+  }
+  10% {
+    opacity: var(--particle-opacity);
+  }
+  90% {
+    opacity: var(--particle-opacity);
+  }
+  100% {
+    transform: translateY(-100px) rotate(360deg);
+    opacity: 0;
+  }
+}
+
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  10% { transform: translateX(-2px); }
+  20% { transform: translateX(2px); }
+  30% { transform: translateX(-2px); }
+  40% { transform: translateX(2px); }
+  50% { transform: translateX(-2px); }
+  60% { transform: translateX(2px); }
+  70% { transform: translateX(-2px); }
+  80% { transform: translateX(2px); }
+  90% { transform: translateX(-2px); }
+}
+
+@keyframes spray-appear {
+  0% {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+  50% {
+    opacity: 0.8;
+    transform: scale(1.1);
+  }
+  100% {
+    opacity: 0.6;
+    transform: scale(1);
+  }
+}
 }
