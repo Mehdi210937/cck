@@ -1,10 +1,12 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
+import { useNavigate } from "react-router-dom";
 import Navigation from "@/components/Navigation";
 import Header from "@/components/Header";
 import ParticleSystem from "@/components/ParticleSystem";
 import SprayTag from "@/components/SprayTag";
 const Index = () => {
+  const navigate = useNavigate();
   const recentNews = [{
     id: 1,
     title: "NOUVEAU CLIP CRACRA DISPO",
@@ -94,8 +96,11 @@ const Index = () => {
                 <p>9. Respecte PAPAFITO</p>
                 <p>10. CRACRA KREW À VIE !</p>
               </div>
-              <Button className="w-full mt-6 bg-cracra-pink hover:bg-cracra-purple cracra-shake text-black font-bold">
-                REJOINDRE LE KREW 3
+              <Button 
+                onClick={() => navigate('/auth')}
+                className="w-full mt-6 bg-cracra-pink hover:bg-cracra-purple cracra-shake text-black font-bold"
+              >
+                REJOINDRE LE KREW 💀
               </Button>
             </CardContent>
           </Card>
