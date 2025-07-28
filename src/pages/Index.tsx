@@ -94,7 +94,7 @@ const Index = () => {
                 <p>10. CRACRA KREW À VIE !</p>
               </div>
               <Button className="w-full mt-6 bg-cracra-pink hover:bg-cracra-purple cracra-shake text-black font-bold">
-                REJOINDRE LE KREW "<"3
+                REJOINDRE LE KREW /<3
               </Button>
             </CardContent>
           </Card>
