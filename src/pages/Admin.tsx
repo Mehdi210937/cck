@@ -416,12 +416,12 @@ const Admin = () => {
 
         <Tabs defaultValue="news" className="w-full">
           <TabsList className="grid w-full grid-cols-6 mb-8">
-            <TabsTrigger value="news" className="text-cracra-green">📰 News</TabsTrigger>
-            <TabsTrigger value="sons" className="text-cracra-green">🎵 Sons</TabsTrigger>
-            <TabsTrigger value="videos" className="text-cracra-green">🎬 Vidéos</TabsTrigger>
-            <TabsTrigger value="visuels" className="text-cracra-green">🎨 Visuels</TabsTrigger>
-            <TabsTrigger value="ecrits" className="text-cracra-green">✍️ Écrits</TabsTrigger>
-            <TabsTrigger value="troisd" className="text-cracra-green">🧊 3D</TabsTrigger>
+            <TabsTrigger value="news" className="text-cracra-green relative z-50 pointer-events-auto">📰 News</TabsTrigger>
+            <TabsTrigger value="sons" className="text-cracra-green relative z-50 pointer-events-auto">🎵 Sons</TabsTrigger>
+            <TabsTrigger value="videos" className="text-cracra-green relative z-50 pointer-events-auto">🎬 Vidéos</TabsTrigger>
+            <TabsTrigger value="visuels" className="text-cracra-green relative z-50 pointer-events-auto">🎨 Visuels</TabsTrigger>
+            <TabsTrigger value="ecrits" className="text-cracra-green relative z-50 pointer-events-auto">✍️ Écrits</TabsTrigger>
+            <TabsTrigger value="troisd" className="text-cracra-green relative z-50 pointer-events-auto">🧊 3D</TabsTrigger>
           </TabsList>
 
           {/* NEWS TAB */}
