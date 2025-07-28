@@ -82,19 +82,19 @@ const Index = () => {
             </CardHeader>
             <CardContent>
               <div className="text-left space-y-2 text-cracra-green font-mono">
-                <p>1. Tu boiras de la 8.6, jamais de gin tonic 🍺</p>
+                <p>1. Tu boiras de la 8.6, jamais de gin to</p>
                 <p>2. Tu resteras underground, toujours 🏴</p>
-                <p>3. Tu créeras du contenu cracra sans limite 🎨</p>
-                <p>4. Tu soutiendras tes frères du crew 🤝</p>
-                <p>5. Tu garderas l'esprit ghetto vivant 💀</p>
-                <p>6. Tu partageras tes créations ignobles 📱</p>
-                <p>7. Tu rejetteras le mainstream et les bourgeois 🚫</p>
-                <p>8. Tu taggueras partout où tu passes 🎯</p>
-                <p>9. Tu respecteras la culture de la rue 🛤️</p>
-                <p>10. CRACRA KREW À VIE ! 🔥</p>
+                <p>3. Tu créeras du contenu cracra peu importe ta shit 🎨</p>
+                <p>4. Tu soutiendras tes zins du crew </p>
+                <p>5. Tu garderas l'esprit ghetto vivant </p>
+                <p>6. Tu partageras tes créations ignobles </p>
+                <p>7. L'état du cul</p>
+                <p>8. CE genre de PAF</p>
+                <p>9. Respecte PAPAFITO</p>
+                <p>10. CRACRA KREW À VIE !</p>
               </div>
               <Button className="w-full mt-6 bg-cracra-pink hover:bg-cracra-purple cracra-shake text-black font-bold">
-                REJOINDRE LE KREW 🤘
+                REJOINDRE LE KREW "<"3
               </Button>
             </CardContent>
           </Card>
