@@ -1,9 +1,29 @@
+import { useState, useEffect } from "react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import Navigation from "@/components/Navigation";
 import Header from "@/components/Header";
+import { supabase } from "@/integrations/supabase/client";
 
 const Sons = () => {
+  const [sons, setSons] = useState<any[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const loadSons = async () => {
+      const { data, error } = await supabase
+        .from('sons')
+        .select('*')
+        .order('created_at', { ascending: false });
+
+      if (!error && data) {
+        setSons(data);
+      }
+      setLoading(false);
+    };
+
+    loadSons();
+  }, []);
   return (
     <div className="min-h-screen graffiti-bg">
       <Header />
@@ -22,26 +42,54 @@ const Sons = () => {
           </p>
         </div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {[1, 2, 3, 4, 5, 6].map((i) => (
-            <Card key={i} className="cracra-hover border-cracra-yellow">
-              <CardHeader>
-                <CardTitle className="text-cracra-yellow">TRACK IMMONDE #{i}</CardTitle>
-                <CardDescription className="text-cracra-green">
-                  Du son sale qui déchire
-                </CardDescription>
-              </CardHeader>
-              <CardContent>
-                <div className="aspect-square bg-muted rounded-lg mb-4 flex items-center justify-center">
-                  <span className="text-6xl">🎵</span>
-                </div>
-                <Button className="w-full bg-cracra-yellow text-black hover:bg-cracra-green">
-                  ÉCOUTER CE SON
-                </Button>
-              </CardContent>
-            </Card>
-          ))}
-        </div>
+        {loading ? (
+          <div className="text-center text-cracra-yellow text-xl">
+            Chargement des sons cracra...
+          </div>
+        ) : sons.length === 0 ? (
+          <div className="text-center text-cracra-yellow text-xl">
+            Aucun son pour le moment... 🎵
+          </div>
+        ) : (
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {sons.map((son) => (
+              <Card key={son.id} className="cracra-hover border-cracra-yellow">
+                <CardHeader>
+                  <CardTitle className="text-cracra-yellow">{son.title}</CardTitle>
+                  <CardDescription className="text-cracra-green">
+                    {son.description || "Du son sale qui déchire"}
+                  </CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <div className="aspect-square bg-muted rounded-lg mb-4 flex items-center justify-center">
+                    <audio 
+                      controls 
+                      className="w-full"
+                      src={son.audio_url}
+                    >
+                      Votre navigateur ne supporte pas l'audio.
+                    </audio>
+                  </div>
+                  <Button 
+                    className="w-full bg-cracra-yellow text-black hover:bg-cracra-green"
+                    onClick={() => {
+                      const audio = document.querySelector(`audio[src="${son.audio_url}"]`) as HTMLAudioElement;
+                      if (audio) {
+                        if (audio.paused) {
+                          audio.play();
+                        } else {
+                          audio.pause();
+                        }
+                      }
+                    }}
+                  >
+                    ÉCOUTER CE SON
+                  </Button>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+        )}
       </div>
     </div>
   );

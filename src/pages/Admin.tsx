@@ -28,27 +28,32 @@ const Admin = () => {
   const [sonTitle, setSonTitle] = useState('');
   const [sonDescription, setSonDescription] = useState('');
   const [sonFile, setSonFile] = useState<File | null>(null);
+  const [existingSons, setExistingSons] = useState<any[]>([]);
 
   // Videos form
   const [videoTitle, setVideoTitle] = useState('');
   const [videoDescription, setVideoDescription] = useState('');
   const [videoFile, setVideoFile] = useState<File | null>(null);
   const [thumbnailFile, setThumbnailFile] = useState<File | null>(null);
+  const [existingVideos, setExistingVideos] = useState<any[]>([]);
 
   // Visuels form
   const [visuelTitle, setVisuelTitle] = useState('');
   const [visuelDescription, setVisuelDescription] = useState('');
   const [imageFile, setImageFile] = useState<File | null>(null);
+  const [existingVisuels, setExistingVisuels] = useState<any[]>([]);
 
   // Ecrits form
   const [ecritTitle, setEcritTitle] = useState('');
   const [ecritContent, setEcritContent] = useState('');
+  const [existingEcrits, setExistingEcrits] = useState<any[]>([]);
 
   // 3D form
   const [troisDTitle, setTroisDTitle] = useState('');
   const [troisDDescription, setTroisDDescription] = useState('');
   const [modelFile, setModelFile] = useState<File | null>(null);
   const [previewImageFile, setPreviewImageFile] = useState<File | null>(null);
+  const [existingTroisD, setExistingTroisD] = useState<any[]>([]);
 
   useEffect(() => {
     const checkAdmin = async () => {
@@ -65,6 +70,11 @@ const Admin = () => {
       if (session.user.email === 'cracrakrew@gmail.com') {
         setIsAdmin(true);
         await loadExistingNews();
+        await loadExistingSons();
+        await loadExistingVideos();
+        await loadExistingVisuels();
+        await loadExistingEcrits();
+        await loadExistingTroisD();
       } else {
         navigate('/');
         return;
@@ -84,6 +94,61 @@ const Admin = () => {
 
     if (!error && data) {
       setExistingNews(data);
+    }
+  };
+
+  const loadExistingSons = async () => {
+    const { data, error } = await supabase
+      .from('sons')
+      .select('*')
+      .order('created_at', { ascending: false });
+
+    if (!error && data) {
+      setExistingSons(data);
+    }
+  };
+
+  const loadExistingVideos = async () => {
+    const { data, error } = await supabase
+      .from('videos')
+      .select('*')
+      .order('created_at', { ascending: false });
+
+    if (!error && data) {
+      setExistingVideos(data);
+    }
+  };
+
+  const loadExistingVisuels = async () => {
+    const { data, error } = await supabase
+      .from('visuels')
+      .select('*')
+      .order('created_at', { ascending: false });
+
+    if (!error && data) {
+      setExistingVisuels(data);
+    }
+  };
+
+  const loadExistingEcrits = async () => {
+    const { data, error } = await supabase
+      .from('ecrits')
+      .select('*')
+      .order('created_at', { ascending: false });
+
+    if (!error && data) {
+      setExistingEcrits(data);
+    }
+  };
+
+  const loadExistingTroisD = async () => {
+    const { data, error } = await supabase
+      .from('troisd')
+      .select('*')
+      .order('created_at', { ascending: false });
+
+    if (!error && data) {
+      setExistingTroisD(data);
     }
   };
 
@@ -120,6 +185,111 @@ const Admin = () => {
         description: "La news a été supprimée avec succès",
       });
       await loadExistingNews();
+    }
+  };
+
+  const deleteSon = async (id: string) => {
+    const { error } = await supabase
+      .from('sons')
+      .delete()
+      .eq('id', id);
+
+    if (error) {
+      toast({
+        title: "Erreur",
+        description: error.message,
+        variant: "destructive",
+      });
+    } else {
+      toast({
+        title: "Son supprimé ! 🗑️",
+        description: "Le son a été supprimé avec succès",
+      });
+      await loadExistingSons();
+    }
+  };
+
+  const deleteVideo = async (id: string) => {
+    const { error } = await supabase
+      .from('videos')
+      .delete()
+      .eq('id', id);
+
+    if (error) {
+      toast({
+        title: "Erreur",
+        description: error.message,
+        variant: "destructive",
+      });
+    } else {
+      toast({
+        title: "Vidéo supprimée ! 🗑️",
+        description: "La vidéo a été supprimée avec succès",
+      });
+      await loadExistingVideos();
+    }
+  };
+
+  const deleteVisuel = async (id: string) => {
+    const { error } = await supabase
+      .from('visuels')
+      .delete()
+      .eq('id', id);
+
+    if (error) {
+      toast({
+        title: "Erreur",
+        description: error.message,
+        variant: "destructive",
+      });
+    } else {
+      toast({
+        title: "Visuel supprimé ! 🗑️",
+        description: "Le visuel a été supprimé avec succès",
+      });
+      await loadExistingVisuels();
+    }
+  };
+
+  const deleteEcrit = async (id: string) => {
+    const { error } = await supabase
+      .from('ecrits')
+      .delete()
+      .eq('id', id);
+
+    if (error) {
+      toast({
+        title: "Erreur",
+        description: error.message,
+        variant: "destructive",
+      });
+    } else {
+      toast({
+        title: "Écrit supprimé ! 🗑️",
+        description: "L'écrit a été supprimé avec succès",
+      });
+      await loadExistingEcrits();
+    }
+  };
+
+  const deleteTroisD = async (id: string) => {
+    const { error } = await supabase
+      .from('troisd')
+      .delete()
+      .eq('id', id);
+
+    if (error) {
+      toast({
+        title: "Erreur",
+        description: error.message,
+        variant: "destructive",
+      });
+    } else {
+      toast({
+        title: "Modèle 3D supprimé ! 🗑️",
+        description: "Le modèle 3D a été supprimé avec succès",
+      });
+      await loadExistingTroisD();
     }
   };
 
@@ -186,6 +356,7 @@ const Admin = () => {
       setSonTitle('');
       setSonDescription('');
       setSonFile(null);
+      await loadExistingSons();
       // Reset file input
       const fileInput = document.querySelector('input[type="file"][accept="audio/*"]') as HTMLInputElement;
       if (fileInput) fileInput.value = '';
@@ -237,6 +408,7 @@ const Admin = () => {
       setVideoDescription('');
       setVideoFile(null);
       setThumbnailFile(null);
+      await loadExistingVideos();
     } catch (error: any) {
       toast({
         title: "Erreur",
@@ -278,6 +450,7 @@ const Admin = () => {
       setVisuelTitle('');
       setVisuelDescription('');
       setImageFile(null);
+      await loadExistingVisuels();
     } catch (error: any) {
       toast({
         title: "Erreur",
@@ -310,6 +483,7 @@ const Admin = () => {
       });
       setEcritTitle('');
       setEcritContent('');
+      await loadExistingEcrits();
     }
   };
 
@@ -352,6 +526,7 @@ const Admin = () => {
       setTroisDDescription('');
       setModelFile(null);
       setPreviewImageFile(null);
+      await loadExistingTroisD();
     } catch (error: any) {
       toast({
         title: "Erreur",
@@ -491,7 +666,7 @@ const Admin = () => {
           </TabsContent>
 
           {/* SONS TAB */}
-          <TabsContent value="sons">
+          <TabsContent value="sons" className="space-y-6">
             <Card className="border-cracra-green cracra-hover-intense spray-effect">
               <CardHeader>
                 <CardTitle className="text-cracra-pink">Ajouter un Son 🎵</CardTitle>
@@ -525,10 +700,38 @@ const Admin = () => {
                 </form>
               </CardContent>
             </Card>
+
+            {/* Existing Sons */}
+            <Card className="border-cracra-pink cracra-hover-intense spray-effect">
+              <CardHeader>
+                <CardTitle className="text-cracra-yellow">Sons existants 🗂️</CardTitle>
+                <CardDescription>Gérer les sons publiés</CardDescription>
+              </CardHeader>
+              <CardContent>
+                <div className="space-y-4">
+                  {existingSons.map((son) => (
+                    <div key={son.id} className="flex justify-between items-center p-4 border border-cracra-green rounded-lg">
+                      <div>
+                        <h3 className="font-bold text-cracra-pink">{son.title}</h3>
+                        <p className="text-sm text-cracra-green">{son.description}</p>
+                        <p className="text-xs text-gray-500">{new Date(son.created_at).toLocaleDateString('fr-FR')}</p>
+                      </div>
+                      <Button 
+                        onClick={() => deleteSon(son.id)}
+                        variant="destructive"
+                        size="sm"
+                      >
+                        Supprimer 🗑️
+                      </Button>
+                    </div>
+                  ))}
+                </div>
+              </CardContent>
+            </Card>
           </TabsContent>
 
           {/* VIDEOS TAB */}
-          <TabsContent value="videos">
+          <TabsContent value="videos" className="space-y-6">
             <Card className="border-cracra-green cracra-hover-intense spray-effect">
               <CardHeader>
                 <CardTitle className="text-cracra-pink">Ajouter une Vidéo 🎬</CardTitle>
@@ -569,10 +772,38 @@ const Admin = () => {
                 </form>
               </CardContent>
             </Card>
+
+            {/* Existing Videos */}
+            <Card className="border-cracra-pink cracra-hover-intense spray-effect">
+              <CardHeader>
+                <CardTitle className="text-cracra-yellow">Vidéos existantes 🗂️</CardTitle>
+                <CardDescription>Gérer les vidéos publiées</CardDescription>
+              </CardHeader>
+              <CardContent>
+                <div className="space-y-4">
+                  {existingVideos.map((video) => (
+                    <div key={video.id} className="flex justify-between items-center p-4 border border-cracra-green rounded-lg">
+                      <div>
+                        <h3 className="font-bold text-cracra-pink">{video.title}</h3>
+                        <p className="text-sm text-cracra-green">{video.description}</p>
+                        <p className="text-xs text-gray-500">{new Date(video.created_at).toLocaleDateString('fr-FR')}</p>
+                      </div>
+                      <Button 
+                        onClick={() => deleteVideo(video.id)}
+                        variant="destructive"
+                        size="sm"
+                      >
+                        Supprimer 🗑️
+                      </Button>
+                    </div>
+                  ))}
+                </div>
+              </CardContent>
+            </Card>
           </TabsContent>
 
           {/* VISUELS TAB */}
-          <TabsContent value="visuels">
+          <TabsContent value="visuels" className="space-y-6">
             <Card className="border-cracra-green cracra-hover-intense spray-effect">
               <CardHeader>
                 <CardTitle className="text-cracra-pink">Ajouter un Visuel 🎨</CardTitle>
@@ -606,10 +837,38 @@ const Admin = () => {
                 </form>
               </CardContent>
             </Card>
+
+            {/* Existing Visuels */}
+            <Card className="border-cracra-pink cracra-hover-intense spray-effect">
+              <CardHeader>
+                <CardTitle className="text-cracra-yellow">Visuels existants 🗂️</CardTitle>
+                <CardDescription>Gérer les visuels publiés</CardDescription>
+              </CardHeader>
+              <CardContent>
+                <div className="space-y-4">
+                  {existingVisuels.map((visuel) => (
+                    <div key={visuel.id} className="flex justify-between items-center p-4 border border-cracra-green rounded-lg">
+                      <div>
+                        <h3 className="font-bold text-cracra-pink">{visuel.title}</h3>
+                        <p className="text-sm text-cracra-green">{visuel.description}</p>
+                        <p className="text-xs text-gray-500">{new Date(visuel.created_at).toLocaleDateString('fr-FR')}</p>
+                      </div>
+                      <Button 
+                        onClick={() => deleteVisuel(visuel.id)}
+                        variant="destructive"
+                        size="sm"
+                      >
+                        Supprimer 🗑️
+                      </Button>
+                    </div>
+                  ))}
+                </div>
+              </CardContent>
+            </Card>
           </TabsContent>
 
           {/* ECRITS TAB */}
-          <TabsContent value="ecrits">
+          <TabsContent value="ecrits" className="space-y-6">
             <Card className="border-cracra-green cracra-hover-intense spray-effect">
               <CardHeader>
                 <CardTitle className="text-cracra-pink">Ajouter un Écrit ✍️</CardTitle>
@@ -638,10 +897,38 @@ const Admin = () => {
                 </form>
               </CardContent>
             </Card>
+
+            {/* Existing Ecrits */}
+            <Card className="border-cracra-pink cracra-hover-intense spray-effect">
+              <CardHeader>
+                <CardTitle className="text-cracra-yellow">Écrits existants 🗂️</CardTitle>
+                <CardDescription>Gérer les écrits publiés</CardDescription>
+              </CardHeader>
+              <CardContent>
+                <div className="space-y-4">
+                  {existingEcrits.map((ecrit) => (
+                    <div key={ecrit.id} className="flex justify-between items-center p-4 border border-cracra-green rounded-lg">
+                      <div>
+                        <h3 className="font-bold text-cracra-pink">{ecrit.title}</h3>
+                        <p className="text-sm text-cracra-green">{ecrit.content.substring(0, 100)}...</p>
+                        <p className="text-xs text-gray-500">{new Date(ecrit.created_at).toLocaleDateString('fr-FR')}</p>
+                      </div>
+                      <Button 
+                        onClick={() => deleteEcrit(ecrit.id)}
+                        variant="destructive"
+                        size="sm"
+                      >
+                        Supprimer 🗑️
+                      </Button>
+                    </div>
+                  ))}
+                </div>
+              </CardContent>
+            </Card>
           </TabsContent>
 
           {/* 3D TAB */}
-          <TabsContent value="troisd">
+          <TabsContent value="troisd" className="space-y-6">
             <Card className="border-cracra-green cracra-hover-intense spray-effect">
               <CardHeader>
                 <CardTitle className="text-cracra-pink">Ajouter un Modèle 3D 🧊</CardTitle>
@@ -680,6 +967,34 @@ const Admin = () => {
                     Publier le Modèle 3D 🧊
                   </Button>
                 </form>
+              </CardContent>
+            </Card>
+
+            {/* Existing 3D Models */}
+            <Card className="border-cracra-pink cracra-hover-intense spray-effect">
+              <CardHeader>
+                <CardTitle className="text-cracra-yellow">Modèles 3D existants 🗂️</CardTitle>
+                <CardDescription>Gérer les modèles 3D publiés</CardDescription>
+              </CardHeader>
+              <CardContent>
+                <div className="space-y-4">
+                  {existingTroisD.map((model) => (
+                    <div key={model.id} className="flex justify-between items-center p-4 border border-cracra-green rounded-lg">
+                      <div>
+                        <h3 className="font-bold text-cracra-pink">{model.title}</h3>
+                        <p className="text-sm text-cracra-green">{model.description}</p>
+                        <p className="text-xs text-gray-500">{new Date(model.created_at).toLocaleDateString('fr-FR')}</p>
+                      </div>
+                      <Button 
+                        onClick={() => deleteTroisD(model.id)}
+                        variant="destructive"
+                        size="sm"
+                      >
+                        Supprimer 🗑️
+                      </Button>
+                    </div>
+                  ))}
+                </div>
               </CardContent>
             </Card>
           </TabsContent>
