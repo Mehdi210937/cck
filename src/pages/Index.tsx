@@ -49,9 +49,6 @@ const Index = () => {
           >
             CRACRA NEWS
           </h1>
-          <p className="text-xl md:text-2xl text-cracra-yellow">
-            📰 Les dernières nouvelles du crew underground 📰
-          </p>
         </div>
 
         {/* Section News */}
