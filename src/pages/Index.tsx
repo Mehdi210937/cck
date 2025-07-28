@@ -7,8 +7,10 @@ import Navigation from "@/components/Navigation";
 import Header from "@/components/Header";
 import ParticleSystem from "@/components/ParticleSystem";
 import SprayTag from "@/components/SprayTag";
+import { useToast } from "@/hooks/use-toast";
 const Index = () => {
   const navigate = useNavigate();
+  const { toast } = useToast();
   const [news, setNews] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
 
@@ -75,7 +77,16 @@ const Index = () => {
                     <CardDescription className="text-foreground mb-4">
                       {newsItem.content}
                     </CardDescription>
-                    <Button className="w-full bg-cracra-green hover:bg-cracra-pink cracra-shake">
+                    <Button 
+                      onClick={() => {
+                        toast({
+                          title: "CRACRA MESSAGE",
+                          description: "QUEL SERA TON PUT1 DE PROCHAIN MOUVEMENT ? DEGAGE YA RIEN A VOIR",
+                          variant: "destructive",
+                        });
+                      }}
+                      className="w-full bg-cracra-green hover:bg-cracra-pink cracra-shake"
+                    >
                       VOIR PLUS 🍺
                     </Button>
                   </CardContent>

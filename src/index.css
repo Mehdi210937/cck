@@ -191,11 +191,13 @@ All colors MUST be HSL.
     background: hsl(var(--card));
     border: 2px solid hsl(var(--cracra-green));
     box-shadow: var(--shadow-neon);
-    transform: skew(-2deg);
+    position: relative;
+    z-index: 50;
   }
   
   .nav-cracra > * {
-    transform: skew(2deg);
+    position: relative;
+    z-index: 51;
   }
 }
 
@@ -228,7 +230,7 @@ All colors MUST be HSL.
     width: 100%;
     height: 100%;
     pointer-events: none;
-    z-index: -1;
+    z-index: 1;
   }
 
   .particle {

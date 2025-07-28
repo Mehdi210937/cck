@@ -20,9 +20,9 @@ const Navigation = () => {
             key={item.path}
             asChild
             variant={location.pathname === item.path ? "default" : "outline"}
-            className="cracra-hover text-xs md:text-sm px-2 md:px-4 py-2"
+            className="cracra-hover text-xs md:text-sm px-2 md:px-4 py-2 relative z-20 pointer-events-auto"
           >
-            <Link to={item.path}>
+            <Link to={item.path} className="pointer-events-auto">
               <span className="mr-1">{item.icon}</span>
               {item.label}
             </Link>
