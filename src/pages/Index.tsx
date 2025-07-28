@@ -103,15 +103,15 @@ const Index = () => {
             <CardContent>
               <div className="text-left space-y-2 text-cracra-green font-mono">
                 <p>1. Tu boiras de la 8.6, jamais de gin to</p>
-                <p>2. Tu resteras underground, toujours 🏴</p>
+                <p>2. Respecte PAPAFITO</p>
                 <p>3. Tu créeras du contenu cracra peu importe ta shit 🎨</p>
                 <p>4. Tu soutiendras tes zins du crew </p>
                 <p>5. Tu garderas l'esprit ghetto vivant </p>
                 <p>6. Tu partageras tes créations ignobles </p>
                 <p>7. L'état du cul</p>
-                <p>8. CE genre de PAF</p>
-                <p>9. Respecte PAPAFITO</p>
-                <p>10. CRACRA KREW À VIE !</p>
+                <p>8. tu accepteras que la DMT est plus dégueu que toi</p>
+                <p>9. Si c'est toi la DMT jtinvite a me sucer le paF</p>
+                <p>10. CRACRA KREW VIE !</p>
               </div>
               <Button 
                 onClick={() => navigate('/auth')}
