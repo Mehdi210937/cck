@@ -519,7 +519,7 @@ const Admin = () => {
                     required
                     className="border-cracra-green focus:border-cracra-pink"
                   />
-                  <Button type="submit" className="bg-cracra-green hover:bg-cracra-pink cracra-shake relative z-50">
+                  <Button type="submit" className="bg-cracra-green hover:bg-cracra-pink cracra-shake relative z-50 pointer-events-auto">
                     Publier le Son 🎵
                   </Button>
                 </form>
@@ -563,7 +563,7 @@ const Admin = () => {
                     onChange={(e) => setThumbnailFile(e.target.files?.[0] || null)}
                     className="border-cracra-green focus:border-cracra-pink"
                   />
-                  <Button type="submit" className="bg-cracra-green hover:bg-cracra-pink cracra-shake relative z-50">
+                  <Button type="submit" className="bg-cracra-green hover:bg-cracra-pink cracra-shake relative z-50 pointer-events-auto">
                     Publier la Vidéo 🎬
                   </Button>
                 </form>
@@ -600,7 +600,7 @@ const Admin = () => {
                     required
                     className="border-cracra-green focus:border-cracra-pink"
                   />
-                  <Button type="submit" className="bg-cracra-green hover:bg-cracra-pink cracra-shake relative z-50">
+                  <Button type="submit" className="bg-cracra-green hover:bg-cracra-pink cracra-shake relative z-50 pointer-events-auto">
                     Publier le Visuel 🎨
                   </Button>
                 </form>
@@ -632,7 +632,7 @@ const Admin = () => {
                     className="border-cracra-green focus:border-cracra-pink"
                     rows={8}
                   />
-                  <Button type="submit" className="bg-cracra-green hover:bg-cracra-pink cracra-shake relative z-50">
+                  <Button type="submit" className="bg-cracra-green hover:bg-cracra-pink cracra-shake relative z-50 pointer-events-auto">
                     Publier l'Écrit ✍️
                   </Button>
                 </form>
@@ -676,7 +676,7 @@ const Admin = () => {
                     onChange={(e) => setPreviewImageFile(e.target.files?.[0] || null)}
                     className="border-cracra-green focus:border-cracra-pink"
                   />
-                  <Button type="submit" className="bg-cracra-green hover:bg-cracra-pink cracra-shake relative z-50">
+                  <Button type="submit" className="bg-cracra-green hover:bg-cracra-pink cracra-shake relative z-50 pointer-events-auto">
                     Publier le Modèle 3D 🧊
                   </Button>
                 </form>
