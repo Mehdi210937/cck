@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import Navigation from "@/components/Navigation";
 import Header from "@/components/Header";
 import { supabase } from "@/integrations/supabase/client";
+import { ContentViewer } from "@/components/ui/dialog-content";
 
 const Videos = () => {
   const [videos, setVideos] = useState<any[]>([]);
@@ -71,21 +72,17 @@ const Videos = () => {
                       Votre navigateur ne supporte pas la vidéo.
                     </video>
                   </div>
-                  <Button 
-                    className="w-full bg-cracra-green hover:bg-cracra-pink"
-                    onClick={() => {
-                      const videoElement = document.querySelector(`video source[src="${video.video_url}"]`)?.parentElement as HTMLVideoElement;
-                      if (videoElement) {
-                        if (videoElement.paused) {
-                          videoElement.play();
-                        } else {
-                          videoElement.pause();
-                        }
-                      }
-                    }}
-                  >
-                    REGARDER CETTE MERDE
-                  </Button>
+                  <ContentViewer
+                    trigger={
+                      <Button className="w-full bg-cracra-green hover:bg-cracra-pink">
+                        REGARDER
+                      </Button>
+                    }
+                    title={video.title}
+                    content={video.description || "Vidéo underground qui déchire"}
+                    type="video"
+                    url={video.video_url}
+                  />
                 </CardContent>
               </Card>
             ))}

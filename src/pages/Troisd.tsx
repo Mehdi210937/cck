@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import Navigation from "@/components/Navigation";
 import Header from "@/components/Header";
 import { supabase } from "@/integrations/supabase/client";
+import { ContentViewer } from "@/components/ui/dialog-content";
 
 const Troisd = () => {
   const [troisd, setTroisd] = useState<any[]>([]);
@@ -79,12 +80,17 @@ const Troisd = () => {
                       <span className="text-6xl">🗿</span>
                     )}
                   </div>
-                  <Button 
-                    className="w-full bg-cracra-pink hover:bg-cracra-yellow text-black"
-                    onClick={() => window.open(model.model_url, '_blank')}
-                  >
-                    VOIR CE MODÈLE
-                  </Button>
+                  <ContentViewer
+                    trigger={
+                      <Button className="w-full bg-cracra-pink hover:bg-cracra-yellow text-black">
+                        VOIR CE MODÈLE
+                      </Button>
+                    }
+                    title={model.title}
+                    content={model.description || "Modèle 3D underground"}
+                    type="model"
+                    url={model.model_url}
+                  />
                 </CardContent>
               </Card>
             ))}

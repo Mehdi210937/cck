@@ -10,6 +10,7 @@ import Header from '@/components/Header';
 import ParticleSystem from '@/components/ParticleSystem';
 import SprayTag from '@/components/SprayTag';
 import { useNavigate } from 'react-router-dom';
+import { EditForm } from '@/components/ui/dialog-content';
 
 const Admin = () => {
   const [user, setUser] = useState<any>(null);
@@ -23,12 +24,14 @@ const Admin = () => {
   const [newsContent, setNewsContent] = useState('');
   const [newsCategory, setNewsCategory] = useState('');
   const [existingNews, setExistingNews] = useState<any[]>([]);
+  const [editingNews, setEditingNews] = useState<any>(null);
 
   // Sons form
   const [sonTitle, setSonTitle] = useState('');
   const [sonDescription, setSonDescription] = useState('');
   const [sonFile, setSonFile] = useState<File | null>(null);
   const [existingSons, setExistingSons] = useState<any[]>([]);
+  const [editingSon, setEditingSon] = useState<any>(null);
 
   // Videos form
   const [videoTitle, setVideoTitle] = useState('');
@@ -36,17 +39,20 @@ const Admin = () => {
   const [videoFile, setVideoFile] = useState<File | null>(null);
   const [thumbnailFile, setThumbnailFile] = useState<File | null>(null);
   const [existingVideos, setExistingVideos] = useState<any[]>([]);
+  const [editingVideo, setEditingVideo] = useState<any>(null);
 
   // Visuels form
   const [visuelTitle, setVisuelTitle] = useState('');
   const [visuelDescription, setVisuelDescription] = useState('');
   const [imageFile, setImageFile] = useState<File | null>(null);
   const [existingVisuels, setExistingVisuels] = useState<any[]>([]);
+  const [editingVisuel, setEditingVisuel] = useState<any>(null);
 
   // Ecrits form
   const [ecritTitle, setEcritTitle] = useState('');
   const [ecritContent, setEcritContent] = useState('');
   const [existingEcrits, setExistingEcrits] = useState<any[]>([]);
+  const [editingEcrit, setEditingEcrit] = useState<any>(null);
 
   // 3D form
   const [troisDTitle, setTroisDTitle] = useState('');
@@ -54,6 +60,7 @@ const Admin = () => {
   const [modelFile, setModelFile] = useState<File | null>(null);
   const [previewImageFile, setPreviewImageFile] = useState<File | null>(null);
   const [existingTroisD, setExistingTroisD] = useState<any[]>([]);
+  const [editingTroisD, setEditingTroisD] = useState<any>(null);
 
   useEffect(() => {
     const checkAdmin = async () => {
@@ -536,6 +543,204 @@ const Admin = () => {
     }
   };
 
+  // Edit functions
+  const editNews = async (data: any) => {
+    try {
+      const { error } = await supabase
+        .from('news')
+        .update({
+          title: data.title,
+          content: data.content,
+          category: data.category
+        })
+        .eq('id', editingNews.id);
+
+      if (error) throw error;
+
+      toast({
+        title: "News modifiée ! ✏️",
+        description: "La news a été mise à jour avec succès",
+      });
+      await loadExistingNews();
+    } catch (error: any) {
+      toast({
+        title: "Erreur",
+        description: error.message,
+        variant: "destructive",
+      });
+    }
+  };
+
+  const editSon = async (data: any) => {
+    try {
+      let audioUrl = editingSon.audio_url;
+      
+      if (data.audio_file) {
+        audioUrl = await uploadFile(data.audio_file, 'audio');
+      }
+
+      const { error } = await supabase
+        .from('sons')
+        .update({
+          title: data.title,
+          description: data.description,
+          audio_url: audioUrl
+        })
+        .eq('id', editingSon.id);
+
+      if (error) throw error;
+
+      toast({
+        title: "Son modifié ! ✏️",
+        description: "Le son a été mis à jour avec succès",
+      });
+      await loadExistingSons();
+    } catch (error: any) {
+      toast({
+        title: "Erreur",
+        description: error.message,
+        variant: "destructive",
+      });
+    }
+  };
+
+  const editVideo = async (data: any) => {
+    try {
+      let videoUrl = editingVideo.video_url;
+      let thumbnailUrl = editingVideo.thumbnail_url;
+      
+      if (data.video_file) {
+        videoUrl = await uploadFile(data.video_file, 'videos');
+      }
+      
+      if (data.thumbnail_file) {
+        thumbnailUrl = await uploadFile(data.thumbnail_file, 'images');
+      }
+
+      const { error } = await supabase
+        .from('videos')
+        .update({
+          title: data.title,
+          description: data.description,
+          video_url: videoUrl,
+          thumbnail_url: thumbnailUrl
+        })
+        .eq('id', editingVideo.id);
+
+      if (error) throw error;
+
+      toast({
+        title: "Vidéo modifiée ! ✏️",
+        description: "La vidéo a été mise à jour avec succès",
+      });
+      await loadExistingVideos();
+    } catch (error: any) {
+      toast({
+        title: "Erreur",
+        description: error.message,
+        variant: "destructive",
+      });
+    }
+  };
+
+  const editVisuel = async (data: any) => {
+    try {
+      let imageUrl = editingVisuel.image_url;
+      
+      if (data.image_file) {
+        imageUrl = await uploadFile(data.image_file, 'images');
+      }
+
+      const { error } = await supabase
+        .from('visuels')
+        .update({
+          title: data.title,
+          description: data.description,
+          image_url: imageUrl
+        })
+        .eq('id', editingVisuel.id);
+
+      if (error) throw error;
+
+      toast({
+        title: "Visuel modifié ! ✏️",
+        description: "Le visuel a été mis à jour avec succès",
+      });
+      await loadExistingVisuels();
+    } catch (error: any) {
+      toast({
+        title: "Erreur",
+        description: error.message,
+        variant: "destructive",
+      });
+    }
+  };
+
+  const editEcrit = async (data: any) => {
+    try {
+      const { error } = await supabase
+        .from('ecrits')
+        .update({
+          title: data.title,
+          content: data.content
+        })
+        .eq('id', editingEcrit.id);
+
+      if (error) throw error;
+
+      toast({
+        title: "Écrit modifié ! ✏️",
+        description: "L'écrit a été mis à jour avec succès",
+      });
+      await loadExistingEcrits();
+    } catch (error: any) {
+      toast({
+        title: "Erreur",
+        description: error.message,
+        variant: "destructive",
+      });
+    }
+  };
+
+  const editTroisD = async (data: any) => {
+    try {
+      let modelUrl = editingTroisD.model_url;
+      let previewUrl = editingTroisD.preview_image_url;
+      
+      if (data.model_file) {
+        modelUrl = await uploadFile(data.model_file, 'models');
+      }
+      
+      if (data.preview_file) {
+        previewUrl = await uploadFile(data.preview_file, 'images');
+      }
+
+      const { error } = await supabase
+        .from('troisd')
+        .update({
+          title: data.title,
+          description: data.description,
+          model_url: modelUrl,
+          preview_image_url: previewUrl
+        })
+        .eq('id', editingTroisD.id);
+
+      if (error) throw error;
+
+      toast({
+        title: "Modèle 3D modifié ! ✏️",
+        description: "Le modèle 3D a été mis à jour avec succès",
+      });
+      await loadExistingTroisD();
+    } catch (error: any) {
+      toast({
+        title: "Erreur",
+        description: error.message,
+        variant: "destructive",
+      });
+    }
+  };
+
   const handleLogout = async () => {
     console.log('Logout button clicked');
     try {
@@ -651,13 +856,33 @@ const Admin = () => {
                         <p className="text-sm text-cracra-green">{news.category}</p>
                         <p className="text-xs text-gray-500">{new Date(news.created_at).toLocaleDateString('fr-FR')}</p>
                       </div>
-                      <Button 
-                        onClick={() => deleteNews(news.id)}
-                        variant="destructive"
-                        size="sm"
-                      >
-                        Supprimer 🗑️
-                      </Button>
+                       <div className="flex gap-2">
+                         <EditForm
+                           trigger={
+                             <Button size="sm" variant="outline" className="border-cracra-yellow text-cracra-yellow">
+                               Modifier ✏️
+                             </Button>
+                           }
+                           title="Modifier la News"
+                           initialData={news}
+                           onSave={(data) => {
+                             setEditingNews(news);
+                             editNews(data);
+                           }}
+                           fields={[
+                             { name: 'title', label: 'Titre', type: 'text', required: true },
+                             { name: 'content', label: 'Contenu', type: 'textarea', required: true },
+                             { name: 'category', label: 'Catégorie', type: 'text', required: true }
+                           ]}
+                         />
+                         <Button 
+                           onClick={() => deleteNews(news.id)}
+                           variant="destructive"
+                           size="sm"
+                         >
+                           Supprimer 🗑️
+                         </Button>
+                       </div>
                     </div>
                   ))}
                 </div>
@@ -716,13 +941,33 @@ const Admin = () => {
                         <p className="text-sm text-cracra-green">{son.description}</p>
                         <p className="text-xs text-gray-500">{new Date(son.created_at).toLocaleDateString('fr-FR')}</p>
                       </div>
-                      <Button 
-                        onClick={() => deleteSon(son.id)}
-                        variant="destructive"
-                        size="sm"
-                      >
-                        Supprimer 🗑️
-                      </Button>
+                       <div className="flex gap-2">
+                         <EditForm
+                           trigger={
+                             <Button size="sm" variant="outline" className="border-cracra-yellow text-cracra-yellow">
+                               Modifier ✏️
+                             </Button>
+                           }
+                           title="Modifier le Son"
+                           initialData={son}
+                           onSave={(data) => {
+                             setEditingSon(son);
+                             editSon(data);
+                           }}
+                           fields={[
+                             { name: 'title', label: 'Titre', type: 'text', required: true },
+                             { name: 'description', label: 'Description', type: 'textarea' },
+                             { name: 'audio_file', label: 'Nouveau fichier audio (optionnel)', type: 'file', accept: 'audio/*' }
+                           ]}
+                         />
+                         <Button 
+                           onClick={() => deleteSon(son.id)}
+                           variant="destructive"
+                           size="sm"
+                         >
+                           Supprimer 🗑️
+                         </Button>
+                       </div>
                     </div>
                   ))}
                 </div>
@@ -788,13 +1033,34 @@ const Admin = () => {
                         <p className="text-sm text-cracra-green">{video.description}</p>
                         <p className="text-xs text-gray-500">{new Date(video.created_at).toLocaleDateString('fr-FR')}</p>
                       </div>
-                      <Button 
-                        onClick={() => deleteVideo(video.id)}
-                        variant="destructive"
-                        size="sm"
-                      >
-                        Supprimer 🗑️
-                      </Button>
+                       <div className="flex gap-2">
+                         <EditForm
+                           trigger={
+                             <Button size="sm" variant="outline" className="border-cracra-yellow text-cracra-yellow">
+                               Modifier ✏️
+                             </Button>
+                           }
+                           title="Modifier la Vidéo"
+                           initialData={video}
+                           onSave={(data) => {
+                             setEditingVideo(video);
+                             editVideo(data);
+                           }}
+                           fields={[
+                             { name: 'title', label: 'Titre', type: 'text', required: true },
+                             { name: 'description', label: 'Description', type: 'textarea' },
+                             { name: 'video_file', label: 'Nouveau fichier vidéo (optionnel)', type: 'file', accept: 'video/*' },
+                             { name: 'thumbnail_file', label: 'Nouvelle miniature (optionnel)', type: 'file', accept: 'image/*' }
+                           ]}
+                         />
+                         <Button 
+                           onClick={() => deleteVideo(video.id)}
+                           variant="destructive"
+                           size="sm"
+                         >
+                           Supprimer 🗑️
+                         </Button>
+                       </div>
                     </div>
                   ))}
                 </div>
@@ -853,13 +1119,33 @@ const Admin = () => {
                         <p className="text-sm text-cracra-green">{visuel.description}</p>
                         <p className="text-xs text-gray-500">{new Date(visuel.created_at).toLocaleDateString('fr-FR')}</p>
                       </div>
-                      <Button 
-                        onClick={() => deleteVisuel(visuel.id)}
-                        variant="destructive"
-                        size="sm"
-                      >
-                        Supprimer 🗑️
-                      </Button>
+                       <div className="flex gap-2">
+                         <EditForm
+                           trigger={
+                             <Button size="sm" variant="outline" className="border-cracra-yellow text-cracra-yellow">
+                               Modifier ✏️
+                             </Button>
+                           }
+                           title="Modifier le Visuel"
+                           initialData={visuel}
+                           onSave={(data) => {
+                             setEditingVisuel(visuel);
+                             editVisuel(data);
+                           }}
+                           fields={[
+                             { name: 'title', label: 'Titre', type: 'text', required: true },
+                             { name: 'description', label: 'Description', type: 'textarea' },
+                             { name: 'image_file', label: 'Nouvelle image (optionnel)', type: 'file', accept: 'image/*' }
+                           ]}
+                         />
+                         <Button 
+                           onClick={() => deleteVisuel(visuel.id)}
+                           variant="destructive"
+                           size="sm"
+                         >
+                           Supprimer 🗑️
+                         </Button>
+                       </div>
                     </div>
                   ))}
                 </div>
@@ -913,13 +1199,32 @@ const Admin = () => {
                         <p className="text-sm text-cracra-green">{ecrit.content.substring(0, 100)}...</p>
                         <p className="text-xs text-gray-500">{new Date(ecrit.created_at).toLocaleDateString('fr-FR')}</p>
                       </div>
-                      <Button 
-                        onClick={() => deleteEcrit(ecrit.id)}
-                        variant="destructive"
-                        size="sm"
-                      >
-                        Supprimer 🗑️
-                      </Button>
+                       <div className="flex gap-2">
+                         <EditForm
+                           trigger={
+                             <Button size="sm" variant="outline" className="border-cracra-yellow text-cracra-yellow">
+                               Modifier ✏️
+                             </Button>
+                           }
+                           title="Modifier l'Écrit"
+                           initialData={ecrit}
+                           onSave={(data) => {
+                             setEditingEcrit(ecrit);
+                             editEcrit(data);
+                           }}
+                           fields={[
+                             { name: 'title', label: 'Titre', type: 'text', required: true },
+                             { name: 'content', label: 'Contenu', type: 'textarea', required: true }
+                           ]}
+                         />
+                         <Button 
+                           onClick={() => deleteEcrit(ecrit.id)}
+                           variant="destructive"
+                           size="sm"
+                         >
+                           Supprimer 🗑️
+                         </Button>
+                       </div>
                     </div>
                   ))}
                 </div>
@@ -985,13 +1290,34 @@ const Admin = () => {
                         <p className="text-sm text-cracra-green">{model.description}</p>
                         <p className="text-xs text-gray-500">{new Date(model.created_at).toLocaleDateString('fr-FR')}</p>
                       </div>
-                      <Button 
-                        onClick={() => deleteTroisD(model.id)}
-                        variant="destructive"
-                        size="sm"
-                      >
-                        Supprimer 🗑️
-                      </Button>
+                       <div className="flex gap-2">
+                         <EditForm
+                           trigger={
+                             <Button size="sm" variant="outline" className="border-cracra-yellow text-cracra-yellow">
+                               Modifier ✏️
+                             </Button>
+                           }
+                           title="Modifier le Modèle 3D"
+                           initialData={model}
+                           onSave={(data) => {
+                             setEditingTroisD(model);
+                             editTroisD(data);
+                           }}
+                           fields={[
+                             { name: 'title', label: 'Titre', type: 'text', required: true },
+                             { name: 'description', label: 'Description', type: 'textarea' },
+                             { name: 'model_file', label: 'Nouveau fichier 3D (optionnel)', type: 'file', accept: '.obj,.fbx,.gltf,.glb,.blend,.3ds' },
+                             { name: 'preview_file', label: 'Nouvelle image d\'aperçu (optionnel)', type: 'file', accept: 'image/*' }
+                           ]}
+                         />
+                         <Button 
+                           onClick={() => deleteTroisD(model.id)}
+                           variant="destructive"
+                           size="sm"
+                         >
+                           Supprimer 🗑️
+                         </Button>
+                       </div>
                     </div>
                   ))}
                 </div>

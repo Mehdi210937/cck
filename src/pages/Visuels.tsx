@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import Navigation from "@/components/Navigation";
 import Header from "@/components/Header";
 import { supabase } from "@/integrations/supabase/client";
+import { ContentViewer } from "@/components/ui/dialog-content";
 
 const Visuels = () => {
   const [visuels, setVisuels] = useState<any[]>([]);
@@ -71,12 +72,17 @@ const Visuels = () => {
                       }}
                     />
                   </div>
-                  <Button 
-                    className="w-full bg-cracra-green hover:bg-cracra-purple"
-                    onClick={() => window.open(visuel.image_url, '_blank')}
-                  >
-                    VOIR CETTE ŒUVRE
-                  </Button>
+                  <ContentViewer
+                    trigger={
+                      <Button className="w-full bg-cracra-green hover:bg-cracra-purple">
+                        VOIR CETTE ŒUVRE
+                      </Button>
+                    }
+                    title={visuel.title}
+                    content={visuel.description || "Design sale et créatif"}
+                    type="image"
+                    url={visuel.image_url}
+                  />
                 </CardContent>
               </Card>
             ))}

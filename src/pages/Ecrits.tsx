@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import Navigation from "@/components/Navigation";
 import Header from "@/components/Header";
 import { supabase } from "@/integrations/supabase/client";
+import { ContentViewer } from "@/components/ui/dialog-content";
 
 const Ecrits = () => {
   const [ecrits, setEcrits] = useState<any[]>([]);
@@ -66,15 +67,16 @@ const Ecrits = () => {
                       {ecrit.content}
                     </p>
                   </div>
-                  <Button 
-                    className="w-full bg-cracra-purple hover:bg-cracra-pink"
-                    onClick={() => {
-                      // Create a modal or expand the text
-                      alert(ecrit.content);
-                    }}
-                  >
-                    LIRE CE TRUC
-                  </Button>
+                  <ContentViewer
+                    trigger={
+                      <Button className="w-full bg-cracra-purple hover:bg-cracra-pink">
+                        LIRE CE TRUC
+                      </Button>
+                    }
+                    title={ecrit.title}
+                    content={ecrit.content}
+                    type="text"
+                  />
                 </CardContent>
               </Card>
             ))}

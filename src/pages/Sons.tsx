@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import Navigation from "@/components/Navigation";
 import Header from "@/components/Header";
 import { supabase } from "@/integrations/supabase/client";
+import { ContentViewer } from "@/components/ui/dialog-content";
 
 const Sons = () => {
   const [sons, setSons] = useState<any[]>([]);
@@ -70,21 +71,17 @@ const Sons = () => {
                       Votre navigateur ne supporte pas l'audio.
                     </audio>
                   </div>
-                  <Button 
-                    className="w-full bg-cracra-yellow text-black hover:bg-cracra-green"
-                    onClick={() => {
-                      const audio = document.querySelector(`audio[src="${son.audio_url}"]`) as HTMLAudioElement;
-                      if (audio) {
-                        if (audio.paused) {
-                          audio.play();
-                        } else {
-                          audio.pause();
-                        }
-                      }
-                    }}
-                  >
-                    ÉCOUTER CE SON
-                  </Button>
+                  <ContentViewer
+                    trigger={
+                      <Button className="w-full bg-cracra-yellow text-black hover:bg-cracra-green">
+                        ÉCOUTER CE SON
+                      </Button>
+                    }
+                    title={son.title}
+                    content={son.description || "Du son sale qui déchire"}
+                    type="audio"
+                    url={son.audio_url}
+                  />
                 </CardContent>
               </Card>
             ))}
