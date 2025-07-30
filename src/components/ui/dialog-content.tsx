@@ -1,5 +1,11 @@
 import { useState } from 'react';
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
+import { 
+  Dialog, 
+  DialogContent, 
+  DialogHeader, 
+  DialogTitle, 
+  DialogTrigger 
+} from '@/components/ui/dialog';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
@@ -14,9 +20,11 @@ interface ContentViewerProps {
 }
 
 export const ContentViewer = ({ trigger, title, content, type, url }: ContentViewerProps) => {
+  const [open, setOpen] = useState(false);
+
   return (
-    <Dialog>
-      <DialogTrigger asChild>
+    <Dialog open={open} onOpenChange={setOpen}>
+      <DialogTrigger asChild onClick={() => setOpen(true)}>
         {trigger}
       </DialogTrigger>
       <DialogContent className="max-w-4xl max-h-[90vh] overflow-auto bg-background border-cracra-green">
@@ -101,7 +109,7 @@ export const EditForm = ({ trigger, title, initialData, onSave, fields }: EditFo
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
-      <DialogTrigger asChild>
+      <DialogTrigger asChild onClick={() => setOpen(true)}>
         {trigger}
       </DialogTrigger>
       <DialogContent className="max-w-2xl bg-background border-cracra-yellow">
