@@ -22,9 +22,17 @@ interface ContentViewerProps {
 export const ContentViewer = ({ trigger, title, content, type, url }: ContentViewerProps) => {
   const [open, setOpen] = useState(false);
 
+  console.log('ContentViewer rendered', { title, open });
+
   return (
-    <Dialog open={open} onOpenChange={setOpen}>
-      <DialogTrigger asChild>
+    <Dialog open={open} onOpenChange={(newOpen) => {
+      console.log('Dialog onOpenChange', newOpen);
+      setOpen(newOpen);
+    }}>
+      <DialogTrigger asChild onClick={() => {
+        console.log('DialogTrigger clicked');
+        setOpen(true);
+      }}>
         {trigger}
       </DialogTrigger>
       <DialogContent className="max-w-4xl max-h-[90vh] overflow-auto bg-background border-cracra-green">
