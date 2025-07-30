@@ -24,7 +24,7 @@ export const ContentViewer = ({ trigger, title, content, type, url }: ContentVie
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
-      <DialogTrigger asChild onClick={() => setOpen(true)}>
+      <DialogTrigger asChild>
         {trigger}
       </DialogTrigger>
       <DialogContent className="max-w-4xl max-h-[90vh] overflow-auto bg-background border-cracra-green">
@@ -109,7 +109,7 @@ export const EditForm = ({ trigger, title, initialData, onSave, fields }: EditFo
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
-      <DialogTrigger asChild onClick={() => setOpen(true)}>
+      <DialogTrigger asChild>
         {trigger}
       </DialogTrigger>
       <DialogContent className="max-w-2xl bg-background border-cracra-yellow">
