@@ -32,24 +32,28 @@ const Header = () => {
   }, []);
 
   return (
-    <header className="sticky top-0 z-50 w-full border-b border-cracra-green bg-card/95 backdrop-blur supports-[backdrop-filter]:bg-card/60">
-      <div className="container mx-auto px-4 py-3 flex justify-between items-center">
+    <header className="sticky top-0 z-50 w-full bg-background border-b border-border">
+      <div className="container mx-auto px-6 py-4 flex justify-between items-center">
         <Link 
           to="/" 
-          className="inline-block cracra-hover"
+          className="flex items-center space-x-3 hover:opacity-70 transition-opacity"
         >
-          <h1 
-            className="text-2xl md:text-4xl font-bold glitch-text text-cracra-yellow graffiti-shadow"
-            data-text="CRACRAKREW"
-          >
-            CRACRAKREW
-          </h1>
+          <div className="logo-vinyl">
+          </div>
+          <div>
+            <h1 className="text-xl font-semibold tracking-tight">
+              CRACRAKREW
+            </h1>
+            <p className="text-xs text-muted-foreground tracking-wider">
+              EST. 2024
+            </p>
+          </div>
         </Link>
         
         {isAdmin && (
           <Link to="/admin">
-            <Button variant="outline" className="border-cracra-pink text-cracra-pink hover:bg-cracra-pink hover:text-black">
-              ADMIN 👑
+            <Button variant="outline" className="text-xs">
+              ADMIN
             </Button>
           </Link>
         )}

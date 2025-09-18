@@ -5,29 +5,31 @@ const Navigation = () => {
   const location = useLocation();
 
   const navItems = [
-    { path: "/videos", label: "ODIEUSES VIDEOS", icon: "📹" },
-    { path: "/sons", label: "IMMONDES SONS", icon: "🎵" },
-    { path: "/ecrits", label: "TERRIFIANTS ECRITS", icon: "📝" },
-    { path: "/visuels", label: "INFÂMES VISUELS", icon: "🎨" },
-    { path: "/3d", label: "IGNOBLE 3D", icon: "🗿" }
+    { path: "/videos", label: "Videos" },
+    { path: "/sons", label: "Audio" },
+    { path: "/ecrits", label: "Texts" },
+    { path: "/visuels", label: "Visuals" },
+    { path: "/3d", label: "3D" }
   ];
 
   return (
-    <nav className="nav-cracra p-4 mb-8 mx-4 rounded-lg">
-      <div className="flex flex-wrap justify-center gap-2 md:gap-4">
-        {navItems.map((item) => (
-          <Button
-            key={item.path}
-            asChild
-            variant={location.pathname === item.path ? "default" : "outline"}
-            className="cracra-hover text-xs md:text-sm px-2 md:px-4 py-2 relative z-20 pointer-events-auto"
-          >
-            <Link to={item.path} className="pointer-events-auto">
-              <span className="mr-1">{item.icon}</span>
+    <nav className="minimal-nav bg-background">
+      <div className="container mx-auto px-6 py-4">
+        <div className="flex space-x-8">
+          {navItems.map((item) => (
+            <Link
+              key={item.path}
+              to={item.path}
+              className={`text-sm tracking-wide transition-colors ${
+                location.pathname === item.path 
+                  ? 'text-foreground active' 
+                  : 'text-muted-foreground hover:text-foreground'
+              }`}
+            >
               {item.label}
             </Link>
-          </Button>
-        ))}
+          ))}
+        </div>
       </div>
     </nav>
   );

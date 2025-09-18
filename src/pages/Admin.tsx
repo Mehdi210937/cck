@@ -7,8 +7,6 @@ import { Textarea } from '@/components/ui/textarea';
 import { useToast } from '@/hooks/use-toast';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import Header from '@/components/Header';
-import ParticleSystem from '@/components/ParticleSystem';
-import SprayTag from '@/components/SprayTag';
 import { useNavigate } from 'react-router-dom';
 import { EditForm } from '@/components/ui/dialog-content';
 

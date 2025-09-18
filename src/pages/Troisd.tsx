@@ -1,102 +1,115 @@
-import { useState, useEffect } from "react";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import Navigation from "@/components/Navigation";
-import Header from "@/components/Header";
+import { useEffect, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
-import { ContentViewer } from "@/components/ui/dialog-content";
+import Header from "@/components/Header";
+import Navigation from "@/components/Navigation";
+import { Button } from "@/components/ui/button";
+
+interface ThreeD {
+  id: string;
+  title: string;
+  description?: string;
+  model_url?: string;
+  preview_url?: string;
+  artist?: string;
+  created_at: string;
+}
 
 const Troisd = () => {
-  const [troisd, setTroisd] = useState<any[]>([]);
+  const [models, setModels] = useState<ThreeD[]>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const loadTroisd = async () => {
-      const { data, error } = await supabase
-        .from('troisd')
-        .select('*')
-        .order('created_at', { ascending: false });
-
-      if (!error && data) {
-        setTroisd(data);
-      }
-      setLoading(false);
-    };
-
-    loadTroisd();
+    fetchModels();
   }, []);
+
+  const fetchModels = async () => {
+    try {
+      const { data, error } = await supabase
+        .from("troisd")
+        .select("*")
+        .order("created_at", { ascending: false });
+
+      if (error) {
+        console.error("Error fetching 3D models:", error);
+      } else {
+        setModels(data || []);
+      }
+    } catch (error) {
+      console.error("Error:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
-    <div className="min-h-screen graffiti-bg">
+    <div className="min-h-screen bg-background">
       <Header />
-      <div className="container mx-auto px-4 py-8">
-        <Navigation />
-        
-        <div className="text-center mb-12">
-          <h1 
-            className="text-6xl md:text-8xl font-bold mb-4 glitch-text text-cracra-pink"
-            data-text="IGNOBLE 3D"
-          >
-            IGNOBLE 3D
-          </h1>
-          <p className="text-xl text-cracra-yellow">
-            🗿 Modélisation cracra et animations underground 🗿
+      <Navigation />
+      
+      <main className="container mx-auto px-6 py-12">
+        <div className="mb-12">
+          <h1 className="text-4xl font-light tracking-tight mb-4">3D</h1>
+          <p className="text-muted-foreground max-w-2xl">
+            Three-dimensional models, sculptures, and digital environments
           </p>
         </div>
 
         {loading ? (
-          <div className="text-center text-cracra-pink text-xl">
-            Chargement des modèles 3D cracra...
+          <div className="text-center py-12">
+            <p className="text-muted-foreground">Loading...</p>
           </div>
-        ) : troisd.length === 0 ? (
-          <div className="text-center text-cracra-pink text-xl">
-            Aucun modèle 3D pour le moment... 🗿
+        ) : models.length === 0 ? (
+          <div className="text-center py-12">
+            <p className="text-muted-foreground">No 3D models available</p>
           </div>
         ) : (
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {troisd.map((model) => (
-              <Card key={model.id} className="cracra-hover border-cracra-pink">
-                <CardHeader>
-                  <CardTitle className="text-cracra-pink">{model.title}</CardTitle>
-                  <CardDescription className="text-cracra-yellow">
-                    {model.description || "Modèle 3D underground"}
-                  </CardDescription>
-                </CardHeader>
-                <CardContent>
-                  <div className="aspect-square bg-muted rounded-lg mb-4 flex items-center justify-center overflow-hidden">
-                    {model.preview_image_url ? (
-                      <img 
-                        src={model.preview_image_url} 
-                        alt={model.title}
-                        className="w-full h-full object-cover"
-                        onError={(e) => {
-                          (e.target as HTMLImageElement).style.display = 'none';
-                          const parent = (e.target as HTMLImageElement).parentElement;
-                          if (parent) {
-                            parent.innerHTML = '<span class="text-6xl">🗿</span>';
-                          }
-                        }}
-                      />
-                    ) : (
-                      <span className="text-6xl">🗿</span>
-                    )}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-px bg-border">
+            {models.map((model) => (
+              <article key={model.id} className="bg-card group">
+                <div className="aspect-video bg-muted flex items-center justify-center overflow-hidden">
+                  {model.preview_url ? (
+                    <img 
+                      src={model.preview_url} 
+                      alt={model.title}
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                    />
+                  ) : (
+                    <div className="text-center">
+                      <div className="w-16 h-16 mx-auto mb-2 border border-border flex items-center justify-center">
+                        <span className="text-muted-foreground text-xs">3D</span>
+                      </div>
+                      <span className="text-muted-foreground text-sm">No Preview</span>
+                    </div>
+                  )}
+                </div>
+                
+                <div className="p-6">
+                  <h3 className="font-medium mb-2">{model.title}</h3>
+                  
+                  {model.artist && (
+                    <p className="text-sm text-muted-foreground mb-2">{model.artist}</p>
+                  )}
+                  
+                  {model.description && (
+                    <p className="text-xs text-muted-foreground mb-4 leading-relaxed">
+                      {model.description}
+                    </p>
+                  )}
+                  
+                  <div className="flex justify-between items-center">
+                    <span className="text-xs text-muted-foreground">
+                      {new Date(model.created_at).toLocaleDateString()}
+                    </span>
+                    <Button variant="ghost" size="sm" className="text-xs">
+                      VIEW MODEL →
+                    </Button>
                   </div>
-                  <ContentViewer
-                    trigger={
-                      <Button className="w-full bg-cracra-pink hover:bg-cracra-yellow text-black">
-                        VOIR CE MODÈLE
-                      </Button>
-                    }
-                    title={model.title}
-                    content={model.description || "Modèle 3D underground"}
-                    type="model"
-                    url={model.model_url}
-                  />
-                </CardContent>
-              </Card>
+                </div>
+              </article>
             ))}
           </div>
         )}
-      </div>
+      </main>
     </div>
   );
 };

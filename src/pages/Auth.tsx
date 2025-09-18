@@ -6,8 +6,6 @@ import { Input } from '@/components/ui/input';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { useToast } from '@/hooks/use-toast';
 import Header from '@/components/Header';
-import ParticleSystem from '@/components/ParticleSystem';
-import SprayTag from '@/components/SprayTag';
 
 const Auth = () => {
   const [email, setEmail] = useState('');
@@ -79,19 +77,17 @@ const Auth = () => {
   };
 
   return (
-    <div className="min-h-screen graffiti-bg cracra-cursor">
-      <ParticleSystem />
-      <SprayTag />
+    <div className="min-h-screen bg-background">
       <Header />
       
       <div className="container mx-auto px-4 py-8 flex items-center justify-center min-h-[80vh]">
-        <Card className="w-full max-w-md border-cracra-green cracra-hover-intense spray-effect">
+        <Card className="w-full max-w-md border border-border">
           <CardHeader className="text-center">
-            <CardTitle className="text-3xl text-cracra-pink graffiti-shadow">
-              {isLogin ? 'CONNEXION' : 'REJOINDRE LE KREW'}
+            <CardTitle className="text-2xl font-light tracking-tight">
+              {isLogin ? 'Sign In' : 'Join'}
             </CardTitle>
-            <CardDescription className="text-cracra-yellow">
-              {isLogin ? 'Connecte-toi pour accéder au crew' : 'Inscris-toi pour devenir membre du CRACRA KREW'}
+            <CardDescription className="text-muted-foreground">
+              {isLogin ? 'Access the collective' : 'Become part of the collective'}
             </CardDescription>
           </CardHeader>
           <CardContent>
@@ -99,37 +95,37 @@ const Auth = () => {
               <div>
                 <Input
                   type="email"
-                  placeholder="Ton email cracra"
+                  placeholder="Email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   required
-                  className="border-cracra-green focus:border-cracra-pink"
+                  className="border-border focus:border-foreground"
                 />
               </div>
               <div>
                 <Input
                   type="password"
-                  placeholder="Mot de passe underground"
+                  placeholder="Password"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   required
-                  className="border-cracra-green focus:border-cracra-pink"
+                  className="border-border focus:border-foreground"
                 />
               </div>
               <Button
                 type="submit"
                 disabled={loading}
-                className="w-full bg-cracra-green hover:bg-cracra-pink cracra-shake"
+                className="w-full"
               >
-                {loading ? '...' : (isLogin ? 'SE CONNECTER 🔥' : 'REJOINDRE LE KREW 💀')}
+                {loading ? '...' : (isLogin ? 'Sign In' : 'Join')}
               </Button>
             </form>
             <div className="mt-4 text-center">
               <button
                 onClick={() => setIsLogin(!isLogin)}
-                className="text-cracra-yellow hover:text-cracra-pink underline"
+                className="text-muted-foreground hover:text-foreground underline text-sm"
               >
-                {isLogin ? 'Pas encore membre ? Inscris-toi !' : 'Déjà membre ? Connecte-toi !'}
+                {isLogin ? 'Need an account?' : 'Already have an account?'}
               </button>
             </div>
           </CardContent>

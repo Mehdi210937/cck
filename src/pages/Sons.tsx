@@ -1,93 +1,99 @@
-import { useState, useEffect } from "react";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import Navigation from "@/components/Navigation";
-import Header from "@/components/Header";
+import { useEffect, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
-import { ContentViewer } from "@/components/ui/dialog-content";
+import Header from "@/components/Header";
+import Navigation from "@/components/Navigation";
+import { Button } from "@/components/ui/button";
+
+interface Track {
+  id: string;
+  title: string;
+  description?: string;
+  audio_url: string;
+  duration?: string;
+  created_at: string;
+}
 
 const Sons = () => {
-  const [sons, setSons] = useState<any[]>([]);
+  const [tracks, setTracks] = useState<Track[]>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const loadSons = async () => {
-      const { data, error } = await supabase
-        .from('sons')
-        .select('*')
-        .order('created_at', { ascending: false });
-
-      if (!error && data) {
-        setSons(data);
-      }
-      setLoading(false);
-    };
-
-    loadSons();
+    fetchTracks();
   }, []);
+
+  const fetchTracks = async () => {
+    try {
+      const { data, error } = await supabase
+        .from("sons")
+        .select("*")
+        .order("created_at", { ascending: false });
+
+      if (error) {
+        console.error("Error fetching tracks:", error);
+      } else {
+        setTracks(data || []);
+      }
+    } catch (error) {
+      console.error("Error:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
-    <div className="min-h-screen graffiti-bg">
+    <div className="min-h-screen bg-background">
       <Header />
-      <div className="container mx-auto px-4 py-8">
-        <Navigation />
-        
-        <div className="text-center mb-12">
-          <h1 
-            className="text-6xl md:text-8xl font-bold mb-4 glitch-text text-cracra-yellow"
-            data-text="IMMONDES SONS"
-          >
-            IMMONDES SONS
-          </h1>
-          <p className="text-xl text-cracra-green">
-            🎵 Beats underground et flows cracra 🎵
+      <Navigation />
+      
+      <main className="container mx-auto px-6 py-12">
+        <div className="mb-12">
+          <h1 className="text-4xl font-light tracking-tight mb-4">Audio</h1>
+          <p className="text-muted-foreground max-w-2xl">
+            Sound productions, mixes, and audio experiments
           </p>
         </div>
 
         {loading ? (
-          <div className="text-center text-cracra-yellow text-xl">
-            Chargement des sons cracra...
+          <div className="text-center py-12">
+            <p className="text-muted-foreground">Loading...</p>
           </div>
-        ) : sons.length === 0 ? (
-          <div className="text-center text-cracra-yellow text-xl">
-            Aucun son pour le moment... 🎵
+        ) : tracks.length === 0 ? (
+          <div className="text-center py-12">
+            <p className="text-muted-foreground">No tracks available</p>
           </div>
         ) : (
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {sons.map((son) => (
-              <Card key={son.id} className="cracra-hover border-cracra-yellow">
-                <CardHeader>
-                  <CardTitle className="text-cracra-yellow">{son.title}</CardTitle>
-                  <CardDescription className="text-cracra-green">
-                    {son.description || "Du son sale qui déchire"}
-                  </CardDescription>
-                </CardHeader>
-                <CardContent>
-                  <div className="aspect-square bg-muted rounded-lg mb-4 flex items-center justify-center">
-                    <audio 
-                      controls 
-                      className="w-full"
-                      src={son.audio_url}
-                    >
-                      Votre navigateur ne supporte pas l'audio.
-                    </audio>
+          <div className="space-y-px bg-border">
+            {tracks.map((track, index) => (
+              <article key={track.id} className="bg-card p-6 hover:bg-muted transition-colors flex items-center justify-between">
+                <div className="flex items-center space-x-4">
+                  <span className="text-xs text-muted-foreground font-mono w-8">
+                    {String(index + 1).padStart(2, '0')}
+                  </span>
+                  <div>
+                    <h3 className="font-medium">{track.title}</h3>
+                    {track.description && (
+                      <p className="text-xs text-muted-foreground mt-1">
+                        {track.description}
+                      </p>
+                    )}
                   </div>
-                  <ContentViewer
-                    trigger={
-                      <Button className="w-full bg-cracra-yellow text-black hover:bg-cracra-green">
-                        ÉCOUTER CE SON
-                      </Button>
-                    }
-                    title={son.title}
-                    content={son.description || "Du son sale qui déchire"}
-                    type="audio"
-                    url={son.audio_url}
-                  />
-                </CardContent>
-              </Card>
+                </div>
+                
+                <div className="flex items-center space-x-4">
+                  {track.duration && (
+                    <span className="text-xs text-muted-foreground font-mono">
+                      {track.duration}
+                    </span>
+                  )}
+                  <Button variant="ghost" size="sm" className="text-xs">
+                    PLAY →
+                  </Button>
+                </div>
+              </article>
             ))}
           </div>
         )}
-      </div>
+      </main>
     </div>
   );
 };
