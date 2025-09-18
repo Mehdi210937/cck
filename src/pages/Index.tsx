@@ -87,7 +87,7 @@ const Index = () => {
                   </h3>
                   
                   <p className="text-sm text-muted-foreground mb-4 leading-relaxed">
-                    Le crew balance un nouveau clip
+                    Un nouveau son immonde ?
                   </p>
                   
                   <Button 
