@@ -62,9 +62,9 @@ const Sons = () => {
             <p className="text-muted-foreground">No tracks available</p>
           </div>
         ) : (
-          <div className="space-y-px bg-border">
+          <div className="space-y-px bg-foreground">
             {tracks.map((track, index) => (
-              <article key={track.id} className="bg-card p-6 hover:bg-muted transition-colors flex items-center justify-between">
+              <article key={track.id} className="bg-background p-6 border border-foreground hover-invert flex items-center justify-between">
                 <div className="flex items-center space-x-4">
                   <span className="text-xs text-muted-foreground font-mono w-8">
                     {String(index + 1).padStart(2, '0')}

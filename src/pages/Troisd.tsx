@@ -63,10 +63,10 @@ const Troisd = () => {
             <p className="text-muted-foreground">No 3D models available</p>
           </div>
         ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-px bg-border">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-px bg-foreground">
             {models.map((model) => (
-              <article key={model.id} className="bg-card group">
-                <div className="aspect-video bg-muted flex items-center justify-center overflow-hidden">
+              <article key={model.id} className="bg-background group hover-invert border border-foreground">
+                <div className="aspect-video bg-muted flex items-center justify-center overflow-hidden border-b border-foreground">
                   {model.preview_url ? (
                     <img 
                       src={model.preview_url} 
@@ -75,7 +75,7 @@ const Troisd = () => {
                     />
                   ) : (
                     <div className="text-center">
-                      <div className="w-16 h-16 mx-auto mb-2 border border-border flex items-center justify-center">
+                      <div className="w-16 h-16 mx-auto mb-2 border border-foreground flex items-center justify-center">
                         <span className="text-muted-foreground text-xs">3D</span>
                       </div>
                       <span className="text-muted-foreground text-sm">No Preview</span>

@@ -62,9 +62,9 @@ const Ecrits = () => {
             <p className="text-muted-foreground">No texts available</p>
           </div>
         ) : (
-          <div className="space-y-px bg-border">
+          <div className="space-y-px bg-foreground">
             {ecrits.map((ecrit) => (
-              <article key={ecrit.id} className="bg-card p-6 hover:bg-muted transition-colors">
+              <article key={ecrit.id} className="bg-background p-6 border border-foreground hover-invert">
                 <div className="flex justify-between items-start mb-4">
                   <div>
                     <h3 className="font-medium mb-2">{ecrit.title}</h3>

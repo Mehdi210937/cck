@@ -13,17 +13,17 @@ const Navigation = () => {
   ];
 
   return (
-    <nav className="minimal-nav bg-background">
+    <nav className="minimal-nav bg-background border-b border-foreground">
       <div className="container mx-auto px-6 py-4">
         <div className="flex space-x-8">
           {navItems.map((item) => (
             <Link
               key={item.path}
               to={item.path}
-              className={`text-sm tracking-wide transition-colors ${
+              className={`text-sm tracking-wide transition-colors border-b-2 pb-2 hover-invert px-3 py-1 ${
                 location.pathname === item.path 
-                  ? 'text-foreground active' 
-                  : 'text-muted-foreground hover:text-foreground'
+                  ? 'text-foreground active border-foreground' 
+                  : 'text-muted-foreground border-transparent hover:text-background'
               }`}
             >
               {item.label}

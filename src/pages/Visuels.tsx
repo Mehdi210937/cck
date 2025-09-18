@@ -62,10 +62,10 @@ const Visuels = () => {
             <p className="text-muted-foreground">No visuals available</p>
           </div>
         ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-px bg-border">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-px bg-foreground">
             {visuals.map((visual) => (
-              <article key={visual.id} className="bg-card group">
-                <div className="aspect-square bg-muted overflow-hidden">
+              <article key={visual.id} className="bg-background group hover-invert border border-foreground">
+                <div className="aspect-square bg-muted overflow-hidden border-b border-foreground">
                   <img 
                     src={visual.image_url} 
                     alt={visual.title}

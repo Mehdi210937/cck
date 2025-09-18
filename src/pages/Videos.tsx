@@ -62,10 +62,10 @@ const Videos = () => {
             <p className="text-muted-foreground">No videos available</p>
           </div>
         ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-px bg-border">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-px bg-foreground">
             {videos.map((video) => (
-              <article key={video.id} className="bg-card p-6 hover:bg-muted transition-colors">
-                <div className="aspect-video bg-muted mb-4 flex items-center justify-center">
+              <article key={video.id} className="bg-background p-6 border border-foreground hover-invert">
+                <div className="aspect-video bg-muted mb-4 flex items-center justify-center border border-foreground">
                   {video.thumbnail_url ? (
                     <img 
                       src={video.thumbnail_url} 

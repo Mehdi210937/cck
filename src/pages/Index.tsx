@@ -70,9 +70,9 @@ const Index = () => {
               <p className="text-muted-foreground">No news available</p>
             </div>
           ) : (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-px bg-border">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-px bg-foreground">
               {news.map((item) => (
-                <article key={item.id} className="bg-card p-6 hover:bg-muted transition-colors">
+                <article key={item.id} className="bg-background p-6 border border-foreground hover-invert">
                   <div className="mb-4">
                     <span className="text-xs text-muted-foreground uppercase tracking-wider">
                       {item.category}
@@ -95,7 +95,7 @@ const Index = () => {
                   <Button 
                     variant="ghost" 
                     size="sm"
-                    className="text-xs h-8 px-0 hover:bg-transparent hover:underline"
+                    className="text-xs h-8 px-0"
                   >
                     READ MORE →
                   </Button>
@@ -106,7 +106,7 @@ const Index = () => {
         </section>
 
         {/* CTA Section */}
-        <section className="text-center py-16 border-t border-border">
+        <section className="text-center py-16 border-t border-foreground">
           <div className="max-w-lg mx-auto">
             <h3 className="text-2xl font-light mb-6">
               JOIN THE COLLECTIVE

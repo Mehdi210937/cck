@@ -100,7 +100,7 @@ body {
 }
 
 .minimal-nav {
-  border-bottom: 1px solid hsl(var(--border));
+  border-bottom: 1px solid hsl(var(--foreground));
 }
 
 .minimal-nav a {
@@ -144,6 +144,21 @@ body {
 
 .card-minimal:hover {
   border-color: hsl(var(--foreground));
+}
+
+/* Color inversion hover effect */
+.hover-invert {
+  transition: all 0.2s ease;
+}
+
+.hover-invert:hover {
+  background: hsl(var(--foreground)) !important;
+  color: hsl(var(--background)) !important;
+  border-color: hsl(var(--foreground)) !important;
+}
+
+.hover-invert:hover * {
+  color: hsl(var(--background)) !important;
 }
 
 .text-mono {
