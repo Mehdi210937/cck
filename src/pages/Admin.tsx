@@ -834,6 +834,7 @@ const Admin = () => {
                       <SelectItem value="texts">Texts</SelectItem>
                       <SelectItem value="visuals">Visuals</SelectItem>
                       <SelectItem value="3D">3D</SelectItem>
+                      <SelectItem value="news">News</SelectItem>
                     </SelectContent>
                   </Select>
                   <Button type="submit" className="bg-cracra-green hover:bg-cracra-pink cracra-shake">

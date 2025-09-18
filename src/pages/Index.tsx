@@ -16,6 +16,7 @@ interface NewsItem {
 const Index = () => {
   const [news, setNews] = useState<NewsItem[]>([]);
   const [loading, setLoading] = useState(true);
+  const [expandedNews, setExpandedNews] = useState<string | null>(null);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -59,9 +60,17 @@ const Index = () => {
     }
   };
 
-  const handleReadMore = (category: string) => {
-    const route = getCategoryRoute(category);
-    navigate(route);
+  const handleReadMore = (item: NewsItem) => {
+    if (item.category.toLowerCase() === 'news') {
+      setExpandedNews(expandedNews === item.id ? null : item.id);
+    } else {
+      const route = getCategoryRoute(item.category);
+      navigate(route);
+    }
+  };
+
+  const isContentLong = (content: string) => {
+    return content.length > 150;
   };
 
   return (
@@ -111,6 +120,8 @@ const Index = () => {
                   
                   {(() => {
                     const title = item.title.toLowerCase();
+                    const isExpanded = expandedNews === item.id;
+                    
                     if (title.includes('site en big marche')) {
                       return null; // No description for "Site en big marche"
                     } else if (title.includes('track underground en préparation')) {
@@ -125,6 +136,18 @@ const Index = () => {
                           un nouveau visuel des plus terrifiants?
                         </p>
                       );
+                    } else if (item.category.toLowerCase() === 'news') {
+                      // For news category, show truncated or full content based on expansion state
+                      const shouldTruncate = !isExpanded && isContentLong(item.content);
+                      const displayContent = shouldTruncate 
+                        ? item.content.substring(0, 150) + '...' 
+                        : item.content;
+                      
+                      return (
+                        <p className="text-sm text-muted-foreground mb-4 leading-relaxed whitespace-pre-wrap">
+                          {displayContent}
+                        </p>
+                      );
                     } else {
                       // Default description for other news items
                       return (
@@ -135,14 +158,34 @@ const Index = () => {
                     }
                   })()}
                   
-                  <Button 
-                    variant="ghost" 
-                    size="sm"
-                    className="text-xs h-8 px-0"
-                    onClick={() => handleReadMore(item.category)}
-                  >
-                    READ MORE →
-                  </Button>
+                  {(() => {
+                    const title = item.title.toLowerCase();
+                    
+                    // Don't show READ MORE for "Site en big marche"
+                    if (title.includes('site en big marche')) {
+                      return null;
+                    }
+                    
+                    // For news category, only show READ MORE if content is long
+                    if (item.category.toLowerCase() === 'news' && !isContentLong(item.content)) {
+                      return null;
+                    }
+                    
+                    const buttonText = item.category.toLowerCase() === 'news' 
+                      ? (expandedNews === item.id ? 'SHOW LESS ↑' : 'READ MORE →')
+                      : 'READ MORE →';
+                    
+                    return (
+                      <Button 
+                        variant="ghost" 
+                        size="sm"
+                        className="text-xs h-8 px-0"
+                        onClick={() => handleReadMore(item)}
+                      >
+                        {buttonText}
+                      </Button>
+                    );
+                  })()}
                 </article>
               ))}
             </div>
