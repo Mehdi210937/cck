@@ -772,15 +772,13 @@ const Admin = () => {
   }
 
   return (
-    <div className="min-h-screen graffiti-bg cracra-cursor">
-      <ParticleSystem />
-      <SprayTag />
+    <div className="min-h-screen bg-background">
       <Header />
       
-      <div className="container mx-auto px-4 py-8">
+      <div className="container mx-auto px-6 py-8">
         <div className="flex justify-between items-center mb-8">
-          <h1 className="text-4xl font-bold text-cracra-pink graffiti-shadow">
-            ADMIN CRACRA KREW 👑
+          <h1 className="text-3xl font-light tracking-tight">
+            Admin Panel
           </h1>
           <Button 
             onClick={handleLogout} 
