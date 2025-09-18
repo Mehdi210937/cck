@@ -43,6 +43,12 @@
   /* Shadows */
   --shadow-minimal: 0 1px 3px 0 rgb(0 0 0 / 0.1);
   --shadow-medium: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+
+  /* CRACRA color system */
+  --cracra-green: 120 100% 25%;
+  --cracra-pink: 330 100% 70%;
+  --cracra-yellow: 60 100% 50%;
+  --cracra-purple: 270 100% 70%;
 }
 
 .dark {
@@ -169,6 +175,87 @@ body {
 .sidebar-minimal {
   background: hsl(var(--muted));
   border-right: 1px solid hsl(var(--border));
+}
+
+/* CRACRA specific classes */
+.text-cracra-green {
+  color: hsl(var(--cracra-green));
+}
+
+.text-cracra-pink {
+  color: hsl(var(--cracra-pink));
+}
+
+.text-cracra-yellow {
+  color: hsl(var(--cracra-yellow));
+}
+
+.text-cracra-purple {
+  color: hsl(var(--cracra-purple));
+}
+
+.bg-cracra-green {
+  background-color: hsl(var(--cracra-green));
+}
+
+.bg-cracra-pink {
+  background-color: hsl(var(--cracra-pink));
+}
+
+.border-cracra-green {
+  border-color: hsl(var(--cracra-green));
+}
+
+.border-cracra-pink {
+  border-color: hsl(var(--cracra-pink));
+}
+
+.hover\:bg-cracra-pink:hover {
+  background-color: hsl(var(--cracra-pink));
+}
+
+.focus\:border-cracra-pink:focus {
+  border-color: hsl(var(--cracra-pink));
+}
+
+.cracra-hover-intense:hover {
+  transform: scale(1.02);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+}
+
+.cracra-shake:hover {
+  animation: shake 0.5s ease-in-out;
+}
+
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-2px); }
+  75% { transform: translateX(2px); }
+}
+
+.spray-effect {
+  position: relative;
+  overflow: hidden;
+}
+
+.spray-effect::before {
+  content: '';
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  right: -2px;
+  bottom: -2px;
+  background: linear-gradient(45deg, transparent, hsl(var(--cracra-green) / 0.1), transparent);
+  z-index: -1;
+  border-radius: inherit;
+}
+
+.graffiti-bg {
+  background: linear-gradient(45deg, hsl(var(--background)), hsl(var(--muted)));
+}
+
+.cracra-cursor {
+  cursor: crosshair;
 }
 
 /* Utility classes */

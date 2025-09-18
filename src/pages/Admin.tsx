@@ -4,6 +4,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { useToast } from '@/hooks/use-toast';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import Header from '@/components/Header';
@@ -823,13 +824,18 @@ const Admin = () => {
                     required
                     className="border-cracra-green focus:border-cracra-pink"
                   />
-                  <Input
-                    placeholder="Catégorie (VIDEO, SON, VISUEL, etc.)"
-                    value={newsCategory}
-                    onChange={(e) => setNewsCategory(e.target.value)}
-                    required
-                    className="border-cracra-green focus:border-cracra-pink"
-                  />
+                  <Select value={newsCategory} onValueChange={setNewsCategory} required>
+                    <SelectTrigger className="border-cracra-green focus:border-cracra-pink">
+                      <SelectValue placeholder="Sélectionner une catégorie" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="videos">Videos</SelectItem>
+                      <SelectItem value="audio">Audio</SelectItem>
+                      <SelectItem value="texts">Texts</SelectItem>
+                      <SelectItem value="visuals">Visuals</SelectItem>
+                      <SelectItem value="3D">3D</SelectItem>
+                    </SelectContent>
+                  </Select>
                   <Button type="submit" className="bg-cracra-green hover:bg-cracra-pink cracra-shake">
                     Publier la News 🚀
                   </Button>

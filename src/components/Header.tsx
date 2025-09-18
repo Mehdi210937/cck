@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { Link } from "react-router-dom";
 import { supabase } from '@/integrations/supabase/client';
 import { Button } from '@/components/ui/button';
+import { Instagram } from 'lucide-react';
 import cracraLogo from '@/assets/cracra-logo.jpg';
 
 const Header = () => {
@@ -46,13 +47,24 @@ const Header = () => {
           />
         </Link>
         
-        {isAdmin && (
-          <Link to="/admin">
-            <Button variant="outline" className="text-xs">
-              ADMIN
-            </Button>
-          </Link>
-        )}
+        <div className="flex items-center gap-4">
+          <a 
+            href="https://instagram.com/cracrakrew" 
+            target="_blank" 
+            rel="noopener noreferrer"
+            className="hover-invert p-2 rounded"
+          >
+            <Instagram size={20} />
+          </a>
+          
+          {isAdmin && (
+            <Link to="/admin">
+              <Button variant="outline" className="text-xs">
+                ADMIN
+              </Button>
+            </Link>
+          )}
+        </div>
       </div>
     </header>
   );

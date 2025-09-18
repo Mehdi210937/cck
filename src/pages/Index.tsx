@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import Header from "@/components/Header";
 import Navigation from "@/components/Navigation";
@@ -16,6 +16,7 @@ interface NewsItem {
 const Index = () => {
   const [news, setNews] = useState<NewsItem[]>([]);
   const [loading, setLoading] = useState(true);
+  const navigate = useNavigate();
 
   useEffect(() => {
     fetchNews();
@@ -39,6 +40,28 @@ const Index = () => {
     } finally {
       setLoading(false);
     }
+  };
+
+  const getCategoryRoute = (category: string) => {
+    switch (category.toLowerCase()) {
+      case 'videos':
+        return '/videos';
+      case 'audio':
+        return '/sons';
+      case 'texts':
+        return '/ecrits';
+      case 'visuals':
+        return '/visuels';
+      case '3d':
+        return '/3d';
+      default:
+        return '/';
+    }
+  };
+
+  const handleReadMore = (category: string) => {
+    const route = getCategoryRoute(category);
+    navigate(route);
   };
 
   return (
@@ -116,6 +139,7 @@ const Index = () => {
                     variant="ghost" 
                     size="sm"
                     className="text-xs h-8 px-0"
+                    onClick={() => handleReadMore(item.category)}
                   >
                     READ MORE →
                   </Button>
