@@ -86,9 +86,31 @@ const Index = () => {
                     {item.title}
                   </h3>
                   
-                  <p className="text-sm text-muted-foreground mb-4 leading-relaxed">
-                    Un nouveau son immonde ?
-                  </p>
+                  {(() => {
+                    const title = item.title.toLowerCase();
+                    if (title.includes('site en big marche')) {
+                      return null; // No description for "Site en big marche"
+                    } else if (title.includes('track underground en préparation')) {
+                      return (
+                        <p className="text-sm text-muted-foreground mb-4 leading-relaxed">
+                          Un nouveau son immonde ?
+                        </p>
+                      );
+                    } else if (title.includes('nouveau clip cracra dispo')) {
+                      return (
+                        <p className="text-sm text-muted-foreground mb-4 leading-relaxed">
+                          un nouveau visuel des plus terrifiants?
+                        </p>
+                      );
+                    } else {
+                      // Default description for other news items
+                      return (
+                        <p className="text-sm text-muted-foreground mb-4 leading-relaxed">
+                          {item.content}
+                        </p>
+                      );
+                    }
+                  })()}
                   
                   <Button 
                     variant="ghost" 
