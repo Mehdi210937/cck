@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { Link } from "react-router-dom";
 import { supabase } from '@/integrations/supabase/client';
 import { Button } from '@/components/ui/button';
+import cracraLogo from '@/assets/cracra-logo.jpg';
 
 const Header = () => {
   const [user, setUser] = useState<any>(null);
@@ -36,18 +37,13 @@ const Header = () => {
       <div className="container mx-auto px-6 py-4 flex justify-between items-center">
         <Link 
           to="/" 
-          className="flex items-center space-x-3 hover:opacity-70 transition-opacity"
+          className="flex items-center hover:opacity-70 transition-opacity"
         >
-          <div className="logo-vinyl">
-          </div>
-          <div>
-            <h1 className="text-xl font-semibold tracking-tight">
-              CRACRAKREW
-            </h1>
-            <p className="text-xs text-muted-foreground tracking-wider">
-              EST. 2024
-            </p>
-          </div>
+          <img 
+            src={cracraLogo} 
+            alt="CRACRA KREW Logo" 
+            className="h-12 w-auto filter contrast-125"
+          />
         </Link>
         
         {isAdmin && (
