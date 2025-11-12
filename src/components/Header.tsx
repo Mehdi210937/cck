@@ -33,9 +33,17 @@ const Header = () => {
     return () => subscription.unsubscribe();
   }, []);
 
+  const navItems = [
+    { path: "/shop", label: "Shop" },
+    { path: "/artists", label: "Artists" },
+    { path: "/releases", label: "Releases" },
+    { path: "/archive", label: "Archive" },
+    { path: "/imprint", label: "Imprint" }
+  ];
+
   return (
-    <header className="sticky top-0 z-50 w-full bg-background border-b border-border">
-      <div className="container mx-auto px-6 py-4 flex justify-between items-center">
+    <header className="sticky top-0 z-50 w-full bg-background py-6">
+      <div className="container mx-auto px-6 flex justify-between items-center">
         <Link 
           to="/" 
           className="flex items-center hover:opacity-70 transition-opacity"
@@ -47,24 +55,25 @@ const Header = () => {
           />
         </Link>
         
-        <div className="flex items-center gap-4">
-          <a 
-            href="https://instagram.com/cracrakrew" 
-            target="_blank" 
-            rel="noopener noreferrer"
-            className="hover-invert p-2 rounded"
-          >
-            <Instagram size={20} />
-          </a>
+        <nav className="flex items-center gap-8">
+          {navItems.map((item) => (
+            <Link
+              key={item.path}
+              to={item.path}
+              className="text-sm font-semibold tracking-wide transition-opacity hover:opacity-60"
+            >
+              {item.label.toUpperCase()}
+            </Link>
+          ))}
           
           {isAdmin && (
             <Link to="/admin">
-              <Button variant="outline" className="text-xs">
+              <Button variant="outline" className="text-xs font-bold">
                 ADMIN
               </Button>
             </Link>
           )}
-        </div>
+        </nav>
       </div>
     </header>
   );

@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import Header from "@/components/Header";
-import Navigation from "@/components/Navigation";
+import Footer from "@/components/Footer";
 import { Card } from "@/components/ui/card";
 
 interface ContentItem {
@@ -54,31 +54,32 @@ const Index = () => {
   return (
     <div className="min-h-screen bg-background">
       <Header />
-      <Navigation />
       
       <main className="container mx-auto px-6 py-12">
         {/* Content Grid - Masonry Style */}
         <section>
           {loading ? (
             <div className="text-center py-12">
-              <p className="text-muted-foreground">Loading...</p>
+              <p className="text-muted-foreground text-bold">Loading...</p>
             </div>
           ) : (
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
               {displayItems.map((item, index) => {
-                const isLarge = index === 0 || index % 5 === 0;
+                // Vary card sizes for masonry effect
+                const spanTwo = index === 0 || index % 7 === 0;
+                const tallCard = index % 4 === 2;
                 const isSpotify = item.media_type === 'spotify';
                 
                 return (
                   <Card
                     key={item.id}
-                    className={`overflow-hidden border-foreground ${
-                      isLarge ? 'md:col-span-2' : ''
-                    } ${isSpotify ? 'bg-muted/50' : 'bg-background'}`}
+                    className={`overflow-hidden border-0 shadow-lg hover:shadow-2xl transition-shadow ${
+                      spanTwo ? 'md:col-span-2' : ''
+                    } ${isSpotify ? 'bg-muted/30' : 'bg-card'}`}
                   >
-                    {/* Video Embed Placeholder */}
+                    {/* Video Embed */}
                     {item.media_type === 'video' && (
-                      <div className={`bg-muted ${isLarge ? 'aspect-video' : 'aspect-video'}`}>
+                      <div className={`bg-muted ${spanTwo ? 'aspect-video' : 'aspect-video'}`}>
                         {item.media_url ? (
                           <iframe
                             width="100%"
@@ -97,9 +98,9 @@ const Index = () => {
                       </div>
                     )}
                     
-                    {/* Image Placeholder */}
+                    {/* Image */}
                     {item.media_type === 'image' && (
-                      <div className={`bg-muted ${isLarge ? 'aspect-square' : 'aspect-square'}`}>
+                      <div className={`bg-muted ${tallCard ? 'aspect-[3/4]' : 'aspect-square'}`}>
                         {item.media_url ? (
                           <img
                             src={item.media_url}
@@ -136,10 +137,10 @@ const Index = () => {
                     
                     {/* Content Info */}
                     {item.title && (
-                      <div className="p-4">
-                        <h3 className="font-medium text-lg">{item.title}</h3>
+                      <div className="p-6">
+                        <h3 className="text-bold text-xl mb-2">{item.title}</h3>
                         {item.content && (
-                          <p className="text-sm text-muted-foreground mt-2">
+                          <p className="text-base text-muted-foreground leading-relaxed">
                             {item.content}
                           </p>
                         )}
@@ -152,6 +153,8 @@ const Index = () => {
           )}
         </section>
       </main>
+      
+      <Footer />
     </div>
   );
 };
