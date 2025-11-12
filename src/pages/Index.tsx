@@ -1,40 +1,37 @@
 import { useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import Header from "@/components/Header";
 import Navigation from "@/components/Navigation";
-import { Button } from "@/components/ui/button";
+import { Card } from "@/components/ui/card";
 
-interface NewsItem {
+interface ContentItem {
   id: string;
   title: string;
   content: string;
-  category: string;
+  media_url?: string;
+  media_type?: 'video' | 'image' | 'spotify';
   created_at: string;
 }
 
 const Index = () => {
-  const [news, setNews] = useState<NewsItem[]>([]);
+  const [contentItems, setContentItems] = useState<ContentItem[]>([]);
   const [loading, setLoading] = useState(true);
-  const [expandedNews, setExpandedNews] = useState<string | null>(null);
-  const navigate = useNavigate();
 
   useEffect(() => {
-    fetchNews();
+    fetchContent();
   }, []);
 
-  const fetchNews = async () => {
+  const fetchContent = async () => {
     try {
       const { data, error } = await supabase
         .from("news")
         .select("*")
-        .order("created_at", { ascending: false })
-        .limit(6);
+        .order("created_at", { ascending: false });
 
       if (error) {
-        console.error("Error fetching news:", error);
+        console.error("Error fetching content:", error);
       } else {
-        setNews(data || []);
+        setContentItems(data || []);
       }
     } catch (error) {
       console.error("Error:", error);
@@ -43,35 +40,16 @@ const Index = () => {
     }
   };
 
-  const getCategoryRoute = (category: string) => {
-    switch (category.toLowerCase()) {
-      case 'videos':
-        return '/videos';
-      case 'audio':
-        return '/sons';
-      case 'texts':
-        return '/ecrits';
-      case 'visuals':
-        return '/visuels';
-      case '3d':
-        return '/3d';
-      default:
-        return '/';
-    }
-  };
+  // Placeholder cards for empty state
+  const placeholderCards = Array.from({ length: 6 }, (_, i) => ({
+    id: `placeholder-${i}`,
+    title: '',
+    content: '',
+    media_type: i % 3 === 0 ? 'video' : i % 3 === 1 ? 'image' : 'spotify',
+    created_at: new Date().toISOString()
+  }));
 
-  const handleReadMore = (item: NewsItem) => {
-    if (item.category.toLowerCase() === 'news') {
-      setExpandedNews(expandedNews === item.id ? null : item.id);
-    } else {
-      const route = getCategoryRoute(item.category);
-      navigate(route);
-    }
-  };
-
-  const isContentLong = (content: string) => {
-    return content.length > 150;
-  };
+  const displayItems = contentItems.length > 0 ? contentItems : placeholderCards;
 
   return (
     <div className="min-h-screen bg-background">
@@ -79,135 +57,99 @@ const Index = () => {
       <Navigation />
       
       <main className="container mx-auto px-6 py-12">
-        {/* Hero Section */}
-        <section className="mb-16">
-          <div className="text-center mb-8">
-            <h2 className="text-4xl md:text-6xl font-light tracking-tight mb-4">
-              NEWS
-            </h2>
-            <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
-              Latest updates and releases from the collective
-            </p>
-          </div>
-        </section>
-
-        {/* News Grid */}
-        <section className="mb-16">
+        {/* Content Grid - Masonry Style */}
+        <section>
           {loading ? (
             <div className="text-center py-12">
               <p className="text-muted-foreground">Loading...</p>
             </div>
-          ) : news.length === 0 ? (
-            <div className="text-center py-12">
-              <p className="text-muted-foreground">No news available</p>
-            </div>
           ) : (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-px bg-foreground">
-              {news.map((item) => (
-                <article key={item.id} className="bg-background p-6 border border-foreground hover-invert">
-                  <div className="mb-4">
-                    <span className="text-xs text-muted-foreground uppercase tracking-wider">
-                      {item.category}
-                    </span>
-                    <p className="text-xs text-muted-foreground mt-1">
-                      {new Date(item.created_at).toLocaleDateString()}
-                    </p>
-                  </div>
-                  
-                  <h3 className="font-medium mb-3 leading-tight">
-                    {item.title}
-                  </h3>
-                  
-                  {(() => {
-                    const title = item.title.toLowerCase();
-                    const isExpanded = expandedNews === item.id;
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              {displayItems.map((item, index) => {
+                const isLarge = index === 0 || index % 5 === 0;
+                const isSpotify = item.media_type === 'spotify';
+                
+                return (
+                  <Card
+                    key={item.id}
+                    className={`overflow-hidden border-foreground ${
+                      isLarge ? 'md:col-span-2' : ''
+                    } ${isSpotify ? 'bg-muted/50' : 'bg-background'}`}
+                  >
+                    {/* Video Embed Placeholder */}
+                    {item.media_type === 'video' && (
+                      <div className={`bg-muted ${isLarge ? 'aspect-video' : 'aspect-video'}`}>
+                        {item.media_url ? (
+                          <iframe
+                            width="100%"
+                            height="100%"
+                            src={item.media_url}
+                            title={item.title}
+                            frameBorder="0"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                            allowFullScreen
+                          />
+                        ) : (
+                          <div className="w-full h-full flex items-center justify-center text-muted-foreground">
+                            Video Embed
+                          </div>
+                        )}
+                      </div>
+                    )}
                     
-                    if (title.includes('site en big marche')) {
-                      return null; // No description for "Site en big marche"
-                    } else if (title.includes('track underground en préparation')) {
-                      return (
-                        <p className="text-sm text-muted-foreground mb-4 leading-relaxed">
-                          Un nouveau son immonde ?
-                        </p>
-                      );
-                    } else if (title.includes('nouveau clip cracra dispo')) {
-                      return (
-                        <p className="text-sm text-muted-foreground mb-4 leading-relaxed">
-                          un nouveau visuel des plus terrifiants?
-                        </p>
-                      );
-                    } else if (item.category.toLowerCase() === 'news') {
-                      // For news category, show truncated or full content based on expansion state
-                      const shouldTruncate = !isExpanded && isContentLong(item.content);
-                      const displayContent = shouldTruncate 
-                        ? item.content.substring(0, 150) + '...' 
-                        : item.content;
-                      
-                      return (
-                        <p className="text-sm text-muted-foreground mb-4 leading-relaxed whitespace-pre-wrap">
-                          {displayContent}
-                        </p>
-                      );
-                    } else {
-                      // Default description for other news items
-                      return (
-                        <p className="text-sm text-muted-foreground mb-4 leading-relaxed">
-                          {item.content}
-                        </p>
-                      );
-                    }
-                  })()}
-                  
-                  {(() => {
-                    const title = item.title.toLowerCase();
+                    {/* Image Placeholder */}
+                    {item.media_type === 'image' && (
+                      <div className={`bg-muted ${isLarge ? 'aspect-square' : 'aspect-square'}`}>
+                        {item.media_url ? (
+                          <img
+                            src={item.media_url}
+                            alt={item.title}
+                            className="w-full h-full object-cover"
+                          />
+                        ) : (
+                          <div className="w-full h-full flex items-center justify-center text-muted-foreground">
+                            Image
+                          </div>
+                        )}
+                      </div>
+                    )}
                     
-                    // Don't show READ MORE for "Site en big marche"
-                    if (title.includes('site en big marche')) {
-                      return null;
-                    }
+                    {/* Spotify Embed Placeholder */}
+                    {item.media_type === 'spotify' && (
+                      <div className="aspect-square">
+                        {item.media_url ? (
+                          <iframe
+                            src={item.media_url}
+                            width="100%"
+                            height="100%"
+                            frameBorder="0"
+                            allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+                            loading="lazy"
+                          />
+                        ) : (
+                          <div className="w-full h-full flex items-center justify-center text-muted-foreground bg-muted">
+                            Spotify Embed
+                          </div>
+                        )}
+                      </div>
+                    )}
                     
-                    // For news category, only show READ MORE if content is long
-                    if (item.category.toLowerCase() === 'news' && !isContentLong(item.content)) {
-                      return null;
-                    }
-                    
-                    const buttonText = item.category.toLowerCase() === 'news' 
-                      ? (expandedNews === item.id ? 'SHOW LESS ↑' : 'READ MORE →')
-                      : 'READ MORE →';
-                    
-                    return (
-                      <Button 
-                        variant="ghost" 
-                        size="sm"
-                        className="text-xs h-8 px-0"
-                        onClick={() => handleReadMore(item)}
-                      >
-                        {buttonText}
-                      </Button>
-                    );
-                  })()}
-                </article>
-              ))}
+                    {/* Content Info */}
+                    {item.title && (
+                      <div className="p-4">
+                        <h3 className="font-medium text-lg">{item.title}</h3>
+                        {item.content && (
+                          <p className="text-sm text-muted-foreground mt-2">
+                            {item.content}
+                          </p>
+                        )}
+                      </div>
+                    )}
+                  </Card>
+                );
+              })}
             </div>
           )}
-        </section>
-
-        {/* CTA Section */}
-        <section className="text-center py-16 border-t border-foreground">
-          <div className="max-w-lg mx-auto">
-            <h3 className="text-2xl font-light mb-6">
-              JOIN THE COLLECTIVE
-            </h3>
-            <p className="text-muted-foreground mb-8 leading-relaxed">
-              Become part of our creative community and access exclusive content, 
-              events, and collaborations.
-            </p>
-            <Link to="/auth">
-              <Button variant="outline" className="px-8">
-                SIGN UP
-              </Button>
-            </Link>
-          </div>
         </section>
       </main>
     </div>

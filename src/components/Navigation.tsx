@@ -5,11 +5,11 @@ const Navigation = () => {
   const location = useLocation();
 
   const navItems = [
-    { path: "/videos", label: "Videos" },
-    { path: "/sons", label: "Audio" },
-    { path: "/ecrits", label: "Texts" },
-    { path: "/visuels", label: "Visuals" },
-    { path: "/3d", label: "3D" }
+    { path: "/shop", label: "Shop" },
+    { path: "/artists", label: "Artists" },
+    { path: "/releases", label: "Releases" },
+    { path: "/archive", label: "Archive" },
+    { path: "/imprint", label: "Imprint" }
   ];
 
   return (
