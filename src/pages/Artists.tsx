@@ -1,11 +1,10 @@
 import Header from "@/components/Header";
-import Navigation from "@/components/Navigation";
+import Footer from "@/components/Footer";
 
 const Artists = () => {
   return (
     <div className="min-h-screen bg-background">
       <Header />
-      <Navigation />
       
       <main className="container mx-auto px-6 py-12">
         <div className="text-center">
@@ -17,6 +16,8 @@ const Artists = () => {
           </p>
         </div>
       </main>
+      
+      <Footer />
     </div>
   );
 };
