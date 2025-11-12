@@ -42,8 +42,8 @@ const Header = () => {
   ];
 
   return (
-    <header className="sticky top-0 z-50 w-full bg-background py-6">
-      <div className="container mx-auto px-6 flex justify-between items-center">
+    <header className="sticky top-0 z-50 w-full bg-background py-3">
+      <div className="container mx-auto px-4 flex justify-between items-center">
         <Link 
           to="/" 
           className="flex items-center hover:opacity-70 transition-opacity"
@@ -55,7 +55,7 @@ const Header = () => {
           />
         </Link>
         
-        <nav className="flex items-center gap-8">
+        <nav className="flex items-center gap-6">
           {navItems.map((item) => (
             <Link
               key={item.path}

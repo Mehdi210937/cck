@@ -3,17 +3,34 @@ import Footer from "@/components/Footer";
 
 const Artists = () => {
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-background pb-16">
       <Header />
       
-      <main className="container mx-auto px-6 py-12">
-        <div className="text-center">
-          <h1 className="text-4xl md:text-6xl font-light tracking-tight mb-4">
+      <main className="container mx-auto px-4 py-6 mb-24">
+        <div className="mb-12">
+          <h1 className="text-5xl md:text-7xl font-heavy tracking-tight mb-8">
             ARTISTS
           </h1>
-          <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
-            Coming soon
-          </p>
+        </div>
+        
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2">
+          {[
+            "PABLO HASSAN",
+            "RESIDENCE DE LA GARE",
+            "JOZ",
+            "YACINE BENNACEF",
+            "DON BAADER",
+            "JAYSEE",
+            "RA3D.ANI",
+            "DJ BRAD'FER"
+          ].map((artist) => (
+            <div
+              key={artist}
+              className="border border-border p-6 hover-invert transition-all cursor-pointer"
+            >
+              <h2 className="text-2xl font-bold">{artist}</h2>
+            </div>
+          ))}
         </div>
       </main>
       

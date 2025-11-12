@@ -1,33 +1,79 @@
 import { useEffect, useState } from 'react';
 
 const NegativeSphere = () => {
-  const [position, setPosition] = useState({ x: 0, y: 0 });
+  const [mouse, setMouse] = useState({ x: 0, y: 0 });
+  const [trail, setTrail] = useState<Array<{ x: number; y: number; id: number }>>([]);
 
   useEffect(() => {
-    const animate = () => {
-      const time = Date.now() / 1000;
-      const x = Math.sin(time * 0.5) * (window.innerWidth * 0.4) + (window.innerWidth * 0.5);
-      const y = Math.cos(time * 0.3) * (window.innerHeight * 0.4) + (window.innerHeight * 0.5);
-      setPosition({ x, y });
+    let mouseX = window.innerWidth / 2;
+    let mouseY = window.innerHeight / 2;
+    let currentX = mouseX;
+    let currentY = mouseY;
+
+    const handleMouseMove = (e: MouseEvent) => {
+      mouseX = e.clientX;
+      mouseY = e.clientY;
     };
 
-    const interval = setInterval(animate, 50);
-    return () => clearInterval(interval);
+    window.addEventListener('mousemove', handleMouseMove);
+
+    const animate = () => {
+      // Smooth follow effect
+      currentX += (mouseX - currentX) * 0.1;
+      currentY += (mouseY - currentY) * 0.1;
+      
+      setMouse({ x: currentX, y: currentY });
+      
+      // Add trail point
+      setTrail(prev => {
+        const newTrail = [...prev, { x: currentX, y: currentY, id: Date.now() }];
+        return newTrail.slice(-8); // Keep last 8 points
+      });
+
+      requestAnimationFrame(animate);
+    };
+
+    animate();
+
+    return () => window.removeEventListener('mousemove', handleMouseMove);
   }, []);
 
   return (
-    <div
-      className="fixed pointer-events-none z-50 rounded-full"
-      style={{
-        width: '250px',
-        height: '250px',
-        left: `${position.x - 125}px`,
-        top: `${position.y - 125}px`,
-        background: 'white',
-        mixBlendMode: 'difference',
-        transition: 'left 0.05s linear, top 0.05s linear',
-      }}
-    />
+    <>
+      {/* Trail effect */}
+      {trail.map((point, index) => (
+        <div
+          key={point.id}
+          className="fixed pointer-events-none rounded-full"
+          style={{
+            width: `${80 - index * 10}px`,
+            height: `${80 - index * 10}px`,
+            left: `${point.x}px`,
+            top: `${point.y}px`,
+            transform: 'translate(-50%, -50%)',
+            background: 'hsl(var(--foreground))',
+            mixBlendMode: 'difference',
+            opacity: 0.3 - (index * 0.03),
+            zIndex: 40,
+          }}
+        />
+      ))}
+      
+      {/* Main sphere */}
+      <div
+        className="fixed pointer-events-none rounded-full"
+        style={{
+          width: '100px',
+          height: '100px',
+          left: `${mouse.x}px`,
+          top: `${mouse.y}px`,
+          transform: 'translate(-50%, -50%)',
+          background: 'hsl(var(--foreground))',
+          mixBlendMode: 'difference',
+          zIndex: 50,
+        }}
+      />
+    </>
   );
 };
 

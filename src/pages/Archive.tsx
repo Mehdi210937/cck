@@ -3,10 +3,10 @@ import Footer from "@/components/Footer";
 
 const Archive = () => {
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-background pb-16">
       <Header />
       
-      <main className="container mx-auto px-6 py-12">
+      <main className="container mx-auto px-4 py-6">
         <div className="text-center">
           <h1 className="text-4xl md:text-6xl font-light tracking-tight mb-4">
             ARCHIVE

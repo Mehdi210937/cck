@@ -52,10 +52,10 @@ const Index = () => {
   const displayItems = contentItems.length > 0 ? contentItems : placeholderCards;
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-background pb-16">
       <Header />
       
-      <main className="container mx-auto px-6 py-12">
+      <main className="container mx-auto px-4 py-6">
         {/* Content Grid - Masonry Style */}
         <section>
           {loading ? (
@@ -63,7 +63,7 @@ const Index = () => {
               <p className="text-muted-foreground text-bold">Loading...</p>
             </div>
           ) : (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2">
               {displayItems.map((item, index) => {
                 // Vary card sizes for masonry effect
                 const spanTwo = index === 0 || index % 7 === 0;
@@ -73,7 +73,7 @@ const Index = () => {
                 return (
                   <Card
                     key={item.id}
-                    className={`overflow-hidden border-0 shadow-lg hover:shadow-2xl transition-shadow ${
+                    className={`overflow-hidden border ${
                       spanTwo ? 'md:col-span-2' : ''
                     } ${isSpotify ? 'bg-muted/30' : 'bg-card'}`}
                   >
@@ -137,10 +137,10 @@ const Index = () => {
                     
                     {/* Content Info */}
                     {item.title && (
-                      <div className="p-6">
-                        <h3 className="text-bold text-xl mb-2">{item.title}</h3>
+                      <div className="p-4">
+                        <h3 className="text-bold text-xl mb-1">{item.title}</h3>
                         {item.content && (
-                          <p className="text-base text-muted-foreground leading-relaxed">
+                          <p className="text-base text-muted-foreground leading-snug">
                             {item.content}
                           </p>
                         )}
