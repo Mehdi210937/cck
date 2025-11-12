@@ -4,11 +4,11 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Index from "./pages/Index";
-import Videos from "./pages/Videos";
-import Sons from "./pages/Sons";
-import Ecrits from "./pages/Ecrits";
-import Visuels from "./pages/Visuels";
-import Troisd from "./pages/Troisd";
+import Shop from "./pages/Shop";
+import Artists from "./pages/Artists";
+import Releases from "./pages/Releases";
+import Archive from "./pages/Archive";
+import Imprint from "./pages/Imprint";
 import Auth from "./pages/Auth";
 import Admin from "./pages/Admin";
 import NotFound from "./pages/NotFound";
@@ -23,11 +23,11 @@ const App = () => (
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Index />} />
-          <Route path="/videos" element={<Videos />} />
-          <Route path="/sons" element={<Sons />} />
-          <Route path="/ecrits" element={<Ecrits />} />
-          <Route path="/visuels" element={<Visuels />} />
-          <Route path="/3d" element={<Troisd />} />
+          <Route path="/shop" element={<Shop />} />
+          <Route path="/artists" element={<Artists />} />
+          <Route path="/releases" element={<Releases />} />
+          <Route path="/archive" element={<Archive />} />
+          <Route path="/imprint" element={<Imprint />} />
           <Route path="/auth" element={<Auth />} />
           <Route path="/admin" element={<Admin />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
