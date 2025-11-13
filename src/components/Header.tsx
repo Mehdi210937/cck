@@ -60,7 +60,7 @@ const Header = () => {
             <Link
               key={item.path}
               to={item.path}
-              className="text-sm font-semibold tracking-wide transition-opacity hover:opacity-60"
+              className="text-base font-black tracking-wide transition-opacity hover:opacity-60"
             >
               {item.label.toUpperCase()}
             </Link>
