@@ -46,13 +46,14 @@ const Header = () => {
       <div className="container mx-auto px-4 flex justify-between items-center">
         <Link 
           to="/" 
-          className="flex items-center hover:opacity-70 transition-opacity"
+          className="flex items-center gap-3 hover:opacity-70 transition-opacity"
         >
           <img 
             src={cracraLogo} 
             alt="CRACRA KREW Logo" 
             className="h-12 w-auto filter contrast-125"
           />
+          <span className="text-2xl font-black tracking-tight">CRACRAKREW</span>
         </Link>
         
         <nav className="flex items-center gap-6">

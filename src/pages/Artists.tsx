@@ -7,12 +7,6 @@ const Artists = () => {
       <Header />
       
       <main className="container mx-auto px-4 py-6 mb-24">
-        <div className="mb-12">
-          <h1 className="text-5xl md:text-7xl font-heavy tracking-tight mb-8">
-            ARTISTS
-          </h1>
-        </div>
-        
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2">
           {[
             "PABLO HASSAN",
