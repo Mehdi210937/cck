@@ -30,11 +30,13 @@ const Visuels = () => {
 
       if (error) {
         console.error("Error fetching visuals:", error);
+        setVisuals([]);
       } else {
         setVisuals(data || []);
       }
     } catch (error) {
       console.error("Error:", error);
+      setVisuals([]);
     } finally {
       setLoading(false);
     }

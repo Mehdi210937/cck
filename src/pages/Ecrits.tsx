@@ -30,11 +30,13 @@ const Ecrits = () => {
 
       if (error) {
         console.error("Error fetching ecrits:", error);
+        setEcrits([]);
       } else {
         setEcrits(data || []);
       }
     } catch (error) {
       console.error("Error:", error);
+      setEcrits([]);
     } finally {
       setLoading(false);
     }
