@@ -31,11 +31,13 @@ const Troisd = () => {
 
       if (error) {
         console.error("Error fetching 3D models:", error);
+        setModels([]);
       } else {
         setModels(data || []);
       }
     } catch (error) {
       console.error("Error:", error);
+      setModels([]);
     } finally {
       setLoading(false);
     }

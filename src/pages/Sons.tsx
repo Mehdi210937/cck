@@ -30,11 +30,13 @@ const Sons = () => {
 
       if (error) {
         console.error("Error fetching tracks:", error);
+        setTracks([]);
       } else {
         setTracks(data || []);
       }
     } catch (error) {
       console.error("Error:", error);
+      setTracks([]);
     } finally {
       setLoading(false);
     }

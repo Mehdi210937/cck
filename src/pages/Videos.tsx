@@ -30,11 +30,13 @@ const Videos = () => {
 
       if (error) {
         console.error("Error fetching videos:", error);
+        setVideos([]);
       } else {
         setVideos(data || []);
       }
     } catch (error) {
       console.error("Error:", error);
+      setVideos([]);
     } finally {
       setLoading(false);
     }
