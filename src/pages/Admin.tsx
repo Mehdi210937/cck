@@ -169,7 +169,7 @@ const Admin = () => {
   };
 
   const loadExistingArtists = async () => {
-    const { data, error } = await supabase
+    const { data, error } = await (supabase as any)
       .from('artists')
       .select('*')
       .order('name');
@@ -771,7 +771,7 @@ const Admin = () => {
         photoUrl = await uploadFile(artistPhoto, 'images');
       }
 
-      const { error } = await supabase
+      const { error } = await (supabase as any)
         .from('artists')
         .insert({
           name: artistName,
@@ -805,7 +805,7 @@ const Admin = () => {
 
   const deleteArtist = async (id: string) => {
     try {
-      const { error } = await supabase
+      const { error } = await (supabase as any)
         .from('artists')
         .delete()
         .eq('id', id);
@@ -834,7 +834,7 @@ const Admin = () => {
         photoUrl = await uploadFile(data.photo_file, 'images');
       }
 
-      const { error } = await supabase
+      const { error } = await (supabase as any)
         .from('artists')
         .update({
           name: data.name,
