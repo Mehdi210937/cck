@@ -25,7 +25,7 @@ const Artists = () => {
 
   const loadArtists = async () => {
     try {
-      const { data, error } = await supabase
+      const { data, error } = await (supabase as any)
         .from('artists')
         .select('*')
         .order('name');
