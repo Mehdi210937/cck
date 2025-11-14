@@ -61,6 +61,15 @@ const Admin = () => {
   const [existingTroisD, setExistingTroisD] = useState<any[]>([]);
   const [editingTroisD, setEditingTroisD] = useState<any>(null);
 
+  // Artists form
+  const [artistName, setArtistName] = useState('');
+  const [artistPhoto, setArtistPhoto] = useState<File | null>(null);
+  const [soundcloudUrl, setSoundcloudUrl] = useState('');
+  const [spotifyUrl, setSpotifyUrl] = useState('');
+  const [otherUrl, setOtherUrl] = useState('');
+  const [existingArtists, setExistingArtists] = useState<any[]>([]);
+  const [editingArtist, setEditingArtist] = useState<any>(null);
+
   useEffect(() => {
     const checkAdmin = async () => {
       const { data: { session } } = await supabase.auth.getSession();
@@ -81,6 +90,7 @@ const Admin = () => {
         await loadExistingVisuels();
         await loadExistingEcrits();
         await loadExistingTroisD();
+        await loadExistingArtists();
       } else {
         navigate('/');
         return;
@@ -155,6 +165,17 @@ const Admin = () => {
 
     if (!error && data) {
       setExistingTroisD(data);
+    }
+  };
+
+  const loadExistingArtists = async () => {
+    const { data, error } = await supabase
+      .from('artists')
+      .select('*')
+      .order('name');
+
+    if (!error && data) {
+      setExistingArtists(data);
     }
   };
 
@@ -740,6 +761,106 @@ const Admin = () => {
     }
   };
 
+  // Artists functions
+  const handleArtistSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    
+    try {
+      let photoUrl = null;
+      if (artistPhoto) {
+        photoUrl = await uploadFile(artistPhoto, 'images');
+      }
+
+      const { error } = await supabase
+        .from('artists')
+        .insert({
+          name: artistName,
+          photo_url: photoUrl,
+          soundcloud_url: soundcloudUrl || null,
+          spotify_url: spotifyUrl || null,
+          other_url: otherUrl || null
+        });
+
+      if (error) throw error;
+
+      toast({
+        title: "Artiste ajouté ! 🎤",
+        description: "Le nouvel artiste a été ajouté avec succès",
+      });
+
+      setArtistName('');
+      setArtistPhoto(null);
+      setSoundcloudUrl('');
+      setSpotifyUrl('');
+      setOtherUrl('');
+      await loadExistingArtists();
+    } catch (error: any) {
+      toast({
+        title: "Erreur",
+        description: error.message,
+        variant: "destructive",
+      });
+    }
+  };
+
+  const deleteArtist = async (id: string) => {
+    try {
+      const { error } = await supabase
+        .from('artists')
+        .delete()
+        .eq('id', id);
+
+      if (error) throw error;
+
+      toast({
+        title: "Artiste supprimé ! 🗑️",
+        description: "L'artiste a été supprimé",
+      });
+      await loadExistingArtists();
+    } catch (error: any) {
+      toast({
+        title: "Erreur",
+        description: error.message,
+        variant: "destructive",
+      });
+    }
+  };
+
+  const editArtist = async (data: any) => {
+    try {
+      let photoUrl = editingArtist.photo_url;
+      
+      if (data.photo_file) {
+        photoUrl = await uploadFile(data.photo_file, 'images');
+      }
+
+      const { error } = await supabase
+        .from('artists')
+        .update({
+          name: data.name,
+          photo_url: photoUrl,
+          soundcloud_url: data.soundcloud_url || null,
+          spotify_url: data.spotify_url || null,
+          other_url: data.other_url || null
+        })
+        .eq('id', editingArtist.id);
+
+      if (error) throw error;
+
+      toast({
+        title: "Artiste modifié ! ✏️",
+        description: "Les informations de l'artiste ont été mises à jour",
+      });
+      await loadExistingArtists();
+    } catch (error: any) {
+      toast({
+        title: "Erreur",
+        description: error.message,
+        variant: "destructive",
+      });
+    }
+  };
+
   const handleLogout = async () => {
     console.log('Logout button clicked');
     try {
@@ -792,13 +913,14 @@ const Admin = () => {
         </div>
 
         <Tabs defaultValue="news" className="w-full">
-          <TabsList className="grid w-full grid-cols-6 mb-8">
+          <TabsList className="grid w-full grid-cols-7 mb-8">
             <TabsTrigger value="news" className="text-cracra-green relative z-50 pointer-events-auto">📰 News</TabsTrigger>
             <TabsTrigger value="sons" className="text-cracra-green relative z-50 pointer-events-auto">🎵 Sons</TabsTrigger>
             <TabsTrigger value="videos" className="text-cracra-green relative z-50 pointer-events-auto">🎬 Vidéos</TabsTrigger>
             <TabsTrigger value="visuels" className="text-cracra-green relative z-50 pointer-events-auto">🎨 Visuels</TabsTrigger>
             <TabsTrigger value="ecrits" className="text-cracra-green relative z-50 pointer-events-auto">✍️ Écrits</TabsTrigger>
             <TabsTrigger value="troisd" className="text-cracra-green relative z-50 pointer-events-auto">🧊 3D</TabsTrigger>
+            <TabsTrigger value="artists" className="text-cracra-green relative z-50 pointer-events-auto">🎤 Artists</TabsTrigger>
           </TabsList>
 
           {/* NEWS TAB */}
@@ -1315,6 +1437,105 @@ const Admin = () => {
                          />
                          <Button 
                            onClick={() => deleteTroisD(model.id)}
+                           variant="destructive"
+                           size="sm"
+                         >
+                           Supprimer 🗑️
+                         </Button>
+                       </div>
+                    </div>
+                  ))}
+                </div>
+              </CardContent>
+            </Card>
+          </TabsContent>
+
+          {/* ARTISTS TAB */}
+          <TabsContent value="artists" className="space-y-6">
+            <Card className="border-cracra-green cracra-hover-intense spray-effect">
+              <CardHeader>
+                <CardTitle className="text-cracra-pink">Ajouter un Artiste 🎤</CardTitle>
+                <CardDescription>Ajouter un nouvel artiste au roster</CardDescription>
+              </CardHeader>
+              <CardContent>
+                <form onSubmit={handleArtistSubmit} className="space-y-4">
+                  <Input
+                    placeholder="Nom de l'artiste"
+                    value={artistName}
+                    onChange={(e) => setArtistName(e.target.value)}
+                    required
+                    className="border-cracra-green focus:border-cracra-pink"
+                  />
+                  <Input
+                    type="file"
+                    accept="image/*"
+                    onChange={(e) => setArtistPhoto(e.target.files?.[0] || null)}
+                    className="border-cracra-green focus:border-cracra-pink"
+                  />
+                  <Input
+                    placeholder="URL SoundCloud (optionnel)"
+                    value={soundcloudUrl}
+                    onChange={(e) => setSoundcloudUrl(e.target.value)}
+                    className="border-cracra-green focus:border-cracra-pink"
+                  />
+                  <Input
+                    placeholder="URL Spotify (optionnel)"
+                    value={spotifyUrl}
+                    onChange={(e) => setSpotifyUrl(e.target.value)}
+                    className="border-cracra-green focus:border-cracra-pink"
+                  />
+                  <Input
+                    placeholder="Autre URL (optionnel)"
+                    value={otherUrl}
+                    onChange={(e) => setOtherUrl(e.target.value)}
+                    className="border-cracra-green focus:border-cracra-pink"
+                  />
+                  <Button type="submit" className="bg-cracra-green hover:bg-cracra-pink cracra-shake relative z-50 pointer-events-auto">
+                    Ajouter l'Artiste 🎤
+                  </Button>
+                </form>
+              </CardContent>
+            </Card>
+
+            {/* Existing Artists */}
+            <Card className="border-cracra-pink cracra-hover-intense spray-effect">
+              <CardHeader>
+                <CardTitle className="text-cracra-yellow">Artistes existants 🗂️</CardTitle>
+                <CardDescription>Gérer les artistes du roster</CardDescription>
+              </CardHeader>
+              <CardContent>
+                <div className="space-y-4">
+                  {existingArtists.map((artist) => (
+                    <div key={artist.id} className="flex justify-between items-center p-4 border border-cracra-green rounded-lg">
+                      <div>
+                        <h3 className="font-bold text-cracra-pink">{artist.name}</h3>
+                        {artist.soundcloud_url && <p className="text-xs text-cracra-green">SoundCloud ✓</p>}
+                        {artist.spotify_url && <p className="text-xs text-cracra-green">Spotify ✓</p>}
+                        <p className="text-xs text-gray-500">{new Date(artist.created_at).toLocaleDateString('fr-FR')}</p>
+                      </div>
+                       <div className="flex gap-2">
+                         <EditForm
+                           trigger={
+                             <Button size="sm" variant="outline" className="border-cracra-yellow text-cracra-yellow">
+                               Modifier ✏️
+                             </Button>
+                           }
+                           title="Modifier l'Artiste"
+                           initialData={artist}
+                           onSave={(data) => {
+                             setEditingArtist(artist);
+                             editArtist(data);
+                           }}
+                           fields={[
+                             { name: 'name', label: 'Nom', type: 'text', required: true },
+                             { name: 'photo_file', label: 'Nouvelle photo (optionnel)', type: 'file', accept: 'image/*' },
+                             { name: 'soundcloud_url', label: 'URL SoundCloud', type: 'text' },
+                             { name: 'spotify_url', label: 'URL Spotify', type: 'text' },
+                             { name: 'other_url', label: 'Autre URL', type: 'text' }
+                           ]}
+                         />
+                         <Button 
+                           onClick={() => deleteArtist(artist.id)}
                            variant="destructive"
                            size="sm"
                          >
