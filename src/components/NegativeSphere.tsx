@@ -11,8 +11,9 @@ const NegativeSphere = () => {
     let currentY = mouseY;
 
     const handleMouseMove = (e: MouseEvent) => {
-      mouseX = e.clientX;
-      mouseY = e.clientY;
+      // Inverse x and y axes
+      mouseX = window.innerWidth - e.clientX;
+      mouseY = window.innerHeight - e.clientY;
     };
 
     window.addEventListener('mousemove', handleMouseMove);
