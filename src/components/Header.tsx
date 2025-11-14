@@ -42,7 +42,7 @@ const Header = () => {
   ];
 
   return (
-    <header className="sticky top-0 z-50 w-full bg-background py-3">
+    <header className="sticky top-0 z-50 w-full backdrop-blur-sm py-3">
       <div className="container mx-auto px-4 flex justify-between items-center">
         <Link 
           to="/" 
