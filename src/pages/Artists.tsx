@@ -87,7 +87,7 @@ const Artists = () => {
                         <img 
                           src={artist.photo_url} 
                           alt={artist.name}
-                          className="w-[416px] h-[416px] object-cover rounded-lg border border-border"
+                          className="w-[416px] h-auto object-contain rounded-lg border border-border"
                         />
                       </div>
                     </div>
@@ -130,7 +130,7 @@ const Artists = () => {
                       <img 
                         src={artist.photo_url} 
                         alt={artist.name}
-                        className="w-full aspect-square object-cover rounded-lg border border-border"
+                        className="w-full h-auto object-contain rounded-lg border border-border"
                       />
                     </div>
 
