@@ -6,6 +6,7 @@ export interface Artist {
   resident_advisor_url?: string;
   spotify_url?: string;
   soundcloud_embed_url?: string;
+  other_url?: string;
 }
 
 export const artists: Artist[] = [
@@ -25,10 +26,8 @@ export const artists: Artist[] = [
   },
   {
     id: "3",
-    name: "Artist Name 3",
-    photo_url: "https://images.unsplash.com/photo-1470225620780-dba8ba36b745?w=800&h=800&fit=crop",
-    instagram_url: "https://instagram.com/artist3",
-    spotify_url: "https://open.spotify.com/artist/artist3",
-    soundcloud_embed_url: "https://w.soundcloud.com/player/?url=https://soundcloud.com/artist3"
+    name: "Don Badder",
+    photo_url: "/images/don-badder.png",
+    other_url: "https://quopée.lovable.app"
   }
 ];

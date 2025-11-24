@@ -35,6 +35,17 @@ const Artists = () => {
                               <ExternalLink className="w-4 h-4" />
                             </a>
                           )}
+                          {artist.other_url && (
+                            <a 
+                              href={artist.other_url} 
+                              target="_blank" 
+                              rel="noopener noreferrer"
+                              className="flex items-center gap-2 text-foreground hover:text-muted-foreground transition-colors"
+                            >
+                              <span>Site Web</span>
+                              <ExternalLink className="w-4 h-4" />
+                            </a>
+                          )}
                           {artist.instagram_url && (
                             <a 
                               href={artist.instagram_url} 
@@ -134,6 +145,17 @@ const Artists = () => {
                             className="flex items-center gap-2 text-foreground hover:text-muted-foreground transition-colors"
                           >
                             <span>SoundCloud</span>
+                            <ExternalLink className="w-4 h-4" />
+                          </a>
+                        )}
+                        {artist.other_url && (
+                          <a 
+                            href={artist.other_url} 
+                            target="_blank" 
+                            rel="noopener noreferrer"
+                            className="flex items-center gap-2 text-foreground hover:text-muted-foreground transition-colors"
+                          >
+                            <span>Site Web</span>
                             <ExternalLink className="w-4 h-4" />
                           </a>
                         )}
