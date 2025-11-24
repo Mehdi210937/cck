@@ -11,12 +11,11 @@ export interface Artist {
 export const artists: Artist[] = [
   {
     id: "1",
-    name: "Artist Name 1",
+    name: "Pablo Hassan",
     photo_url: "https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=800&h=800&fit=crop",
-    instagram_url: "https://instagram.com/artist1",
-    resident_advisor_url: "https://ra.co/dj/artist1",
-    spotify_url: "https://open.spotify.com/artist/artist1",
-    soundcloud_embed_url: "https://w.soundcloud.com/player/?url=https://soundcloud.com/artist1"
+    instagram_url: "https://www.instagram.com/elpablohassan",
+    spotify_url: "https://open.spotify.com/artist/592AK4l03lpoUE9bosrEAB",
+    soundcloud_embed_url: "https://w.soundcloud.com/player/?url=https://soundcloud.com/lololadmt"
   },
   {
     id: "2",
