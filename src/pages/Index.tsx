@@ -2,6 +2,7 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { Card } from "@/components/ui/card";
 import insightImage from "@/assets/insight-cracra.jpg";
+import louPics from "@/assets/lou-pics.jpg";
 
 interface ContentItem {
   id: string;
@@ -45,6 +46,12 @@ const Index = () => {
                       alt="CRACRAKREW Insight" 
                       className="w-full h-full object-cover"
                     />
+                  ) : index === 1 ? (
+                    <img 
+                      src={louPics} 
+                      alt="Lou Pics" 
+                      className="w-full h-full object-cover"
+                    />
                   ) : item.media_type === 'video' ? (
                     <div className="w-full h-full bg-muted flex items-center justify-center text-muted-foreground">
                       Video Placeholder
@@ -85,6 +92,12 @@ const Index = () => {
                     <img 
                       src={insightImage} 
                       alt="CRACRAKREW Insight" 
+                      className="w-full h-full object-cover"
+                    />
+                  ) : index === 1 ? (
+                    <img 
+                      src={louPics} 
+                      alt="Lou Pics" 
                       className="w-full h-full object-cover"
                     />
                   ) : item.media_type === 'video' ? (
