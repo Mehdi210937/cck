@@ -17,62 +17,64 @@ const Artists = () => {
                 {artist.name}
               </AccordionTrigger>
               <AccordionContent>
-                <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 py-6">
-                  {/* Colonne gauche : Nom + Liens */}
-                  <div className="space-y-4">
-                    <h3 className="text-xl font-bold mb-4">{artist.name}</h3>
-                    <div className="space-y-2">
-                      {artist.instagram_url && (
-                        <a 
-                          href={artist.instagram_url} 
-                          target="_blank" 
-                          rel="noopener noreferrer"
-                          className="flex items-center gap-2 text-foreground hover:text-muted-foreground transition-colors"
-                        >
-                          <span>Instagram</span>
-                          <ExternalLink className="w-4 h-4" />
-                        </a>
-                      )}
-                      {artist.resident_advisor_url && (
-                        <a 
-                          href={artist.resident_advisor_url} 
-                          target="_blank" 
-                          rel="noopener noreferrer"
-                          className="flex items-center gap-2 text-foreground hover:text-muted-foreground transition-colors"
-                        >
-                          <span>Resident Advisor</span>
-                          <ExternalLink className="w-4 h-4" />
-                        </a>
-                      )}
-                      {artist.spotify_url && (
-                        <a 
-                          href={artist.spotify_url} 
-                          target="_blank" 
-                          rel="noopener noreferrer"
-                          className="flex items-center gap-2 text-foreground hover:text-muted-foreground transition-colors"
-                        >
-                          <span>Spotify</span>
-                          <ExternalLink className="w-4 h-4" />
-                        </a>
-                      )}
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 py-6">
+                  {/* Colonne gauche : Nom + Photo + Liens */}
+                  <div className="flex gap-6">
+                    <div className="space-y-4 flex-shrink-0">
+                      <h3 className="text-xl font-bold mb-4">{artist.name}</h3>
+                      <div className="space-y-2">
+                        {artist.instagram_url && (
+                          <a 
+                            href={artist.instagram_url} 
+                            target="_blank" 
+                            rel="noopener noreferrer"
+                            className="flex items-center gap-2 text-foreground hover:text-muted-foreground transition-colors"
+                          >
+                            <span>Instagram</span>
+                            <ExternalLink className="w-4 h-4" />
+                          </a>
+                        )}
+                        {artist.resident_advisor_url && (
+                          <a 
+                            href={artist.resident_advisor_url} 
+                            target="_blank" 
+                            rel="noopener noreferrer"
+                            className="flex items-center gap-2 text-foreground hover:text-muted-foreground transition-colors"
+                          >
+                            <span>Resident Advisor</span>
+                            <ExternalLink className="w-4 h-4" />
+                          </a>
+                        )}
+                        {artist.spotify_url && (
+                          <a 
+                            href={artist.spotify_url} 
+                            target="_blank" 
+                            rel="noopener noreferrer"
+                            className="flex items-center gap-2 text-foreground hover:text-muted-foreground transition-colors"
+                          >
+                            <span>Spotify</span>
+                            <ExternalLink className="w-4 h-4" />
+                          </a>
+                        )}
+                      </div>
+                    </div>
+
+                    {/* Photo */}
+                    <div className="flex items-start">
+                      <img 
+                        src={artist.photo_url} 
+                        alt={artist.name}
+                        className="w-64 aspect-square object-cover rounded-lg border border-border"
+                      />
                     </div>
                   </div>
 
-                  {/* Colonne centrale : Photo */}
-                  <div className="flex items-center justify-center">
-                    <img 
-                      src={artist.photo_url} 
-                      alt={artist.name}
-                      className="w-full max-w-md aspect-square object-cover rounded-lg border border-border"
-                    />
-                  </div>
-
-                  {/* Colonne droite : SoundCloud */}
-                  <div className="flex items-center justify-center">
+                  {/* Colonne droite : SoundCloud + Spotify */}
+                  <div className="space-y-4">
                     {artist.soundcloud_embed_url ? (
                       <iframe 
                         width="100%" 
-                        height="300" 
+                        height="200" 
                         scrolling="no" 
                         frameBorder="no" 
                         allow="autoplay"
@@ -81,6 +83,19 @@ const Artists = () => {
                       />
                     ) : (
                       <p className="text-muted-foreground">Aucun SoundCloud disponible</p>
+                    )}
+                    
+                    {artist.spotify_url && (
+                      <iframe 
+                        style={{ borderRadius: '12px' }}
+                        src={`https://open.spotify.com/embed/artist/${artist.spotify_url.split('/artist/')[1]?.split('?')[0]}`}
+                        width="100%" 
+                        height="200" 
+                        frameBorder="0" 
+                        allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" 
+                        loading="lazy"
+                        className="rounded-lg"
+                      />
                     )}
                   </div>
                 </div>
