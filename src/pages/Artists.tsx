@@ -20,11 +20,21 @@ const Artists = () => {
                 <div className="py-6">
                   {/* Layout Desktop - 2 colonnes */}
                   <div className="hidden lg:grid lg:grid-cols-2 gap-6">
-                    {/* Colonne gauche : Nom + Photo + Liens */}
+                    {/* Colonne gauche : Photo + Liens */}
                     <div className="flex gap-6">
                       <div className="space-y-4 flex-shrink-0">
-                        <h3 className="text-xl font-bold mb-4">{artist.name}</h3>
                         <div className="space-y-2">
+                          {artist.soundcloud_embed_url && (
+                            <a 
+                              href={artist.soundcloud_embed_url.replace('https://w.soundcloud.com/player/?url=', '')} 
+                              target="_blank" 
+                              rel="noopener noreferrer"
+                              className="flex items-center gap-2 text-foreground hover:text-muted-foreground transition-colors"
+                            >
+                              <span>SoundCloud</span>
+                              <ExternalLink className="w-4 h-4" />
+                            </a>
+                          )}
                           {artist.instagram_url && (
                             <a 
                               href={artist.instagram_url} 
@@ -113,10 +123,20 @@ const Artists = () => {
                       />
                     </div>
 
-                    {/* Nom + Liens Mobile */}
+                    {/* Liens Mobile */}
                     <div className="space-y-4">
-                      <h3 className="text-2xl font-bold">{artist.name}</h3>
                       <div className="flex flex-wrap gap-4">
+                        {artist.soundcloud_embed_url && (
+                          <a 
+                            href={artist.soundcloud_embed_url.replace('https://w.soundcloud.com/player/?url=', '')} 
+                            target="_blank" 
+                            rel="noopener noreferrer"
+                            className="flex items-center gap-2 text-foreground hover:text-muted-foreground transition-colors"
+                          >
+                            <span>SoundCloud</span>
+                            <ExternalLink className="w-4 h-4" />
+                          </a>
+                        )}
                         {artist.instagram_url && (
                           <a 
                             href={artist.instagram_url} 
