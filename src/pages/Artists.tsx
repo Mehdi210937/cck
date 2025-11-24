@@ -42,7 +42,7 @@ const Artists = () => {
                               rel="noopener noreferrer"
                               className="flex items-center gap-2 text-foreground hover:text-muted-foreground transition-colors"
                             >
-                              <span>Site Web</span>
+                              <span>Quopée</span>
                               <ExternalLink className="w-4 h-4" />
                             </a>
                           )}
@@ -105,7 +105,7 @@ const Artists = () => {
                           className="rounded-lg"
                         />
                       ) : (
-                        <p className="text-muted-foreground">Aucun SoundCloud disponible</p>
+                        <p className="text-muted-foreground">Quopée en parution</p>
                       )}
                       
                       {artist.spotify_url && (
@@ -155,7 +155,7 @@ const Artists = () => {
                             rel="noopener noreferrer"
                             className="flex items-center gap-2 text-foreground hover:text-muted-foreground transition-colors"
                           >
-                            <span>Site Web</span>
+                            <span>Quopée</span>
                             <ExternalLink className="w-4 h-4" />
                           </a>
                         )}
@@ -197,7 +197,7 @@ const Artists = () => {
 
                     {/* Players Mobile */}
                     <div className="space-y-4">
-                      {artist.soundcloud_embed_url && (
+                      {artist.soundcloud_embed_url ? (
                         <iframe 
                           width="100%" 
                           height="200" 
@@ -207,6 +207,8 @@ const Artists = () => {
                           src={artist.soundcloud_embed_url}
                           className="rounded-lg"
                         />
+                      ) : (
+                        <p className="text-muted-foreground">Quopée en parution</p>
                       )}
                       
                       {artist.spotify_url && (
