@@ -11,7 +11,6 @@ import Releases from "./pages/Releases";
 import Archive from "./pages/Archive";
 import Imprint from "./pages/Imprint";
 import Auth from "./pages/Auth";
-import Admin from "./pages/Admin";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -31,7 +30,6 @@ const App = () => (
           <Route path="/archive" element={<Archive />} />
           <Route path="/imprint" element={<Imprint />} />
           <Route path="/auth" element={<Auth />} />
-          <Route path="/admin" element={<Admin />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
