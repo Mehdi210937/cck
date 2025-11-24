@@ -28,6 +28,6 @@ export const artists: Artist[] = [
     id: "3",
     name: "Don Badder",
     photo_url: "/images/don-badder.png",
-    other_url: "https://quopée.lovable.app"
+    other_url: "https://quopee.lovable.app"
   }
 ];
