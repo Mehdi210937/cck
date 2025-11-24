@@ -20,7 +20,7 @@ export const artists: Artist[] = [
   {
     id: "2",
     name: "Résidence De La Gare",
-    photo_url: "/src/assets/residence-de-la-gare.jpg",
+    photo_url: "/images/residence-de-la-gare.jpg",
     soundcloud_embed_url: "https://w.soundcloud.com/player/?url=https://soundcloud.com/residence-de-la-gare"
   },
   {
