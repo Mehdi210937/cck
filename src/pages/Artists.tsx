@@ -64,7 +64,7 @@ const Artists = () => {
                       <img 
                         src={artist.photo_url} 
                         alt={artist.name}
-                        className="w-64 aspect-square object-cover rounded-lg border border-border"
+                        className="w-[416px] h-[416px] object-cover rounded-lg border border-border"
                       />
                     </div>
                   </div>
