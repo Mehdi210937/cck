@@ -2,8 +2,8 @@ import { useState, useEffect } from 'react';
 import { Link } from "react-router-dom";
 import { supabase } from '@/integrations/supabase/client';
 import { Button } from '@/components/ui/button';
-import { Instagram } from 'lucide-react';
 import cracraLogo from '@/assets/cracra-logo.jpg';
+import MobileMenu from './MobileMenu';
 
 const Header = () => {
   const [user, setUser] = useState<any>(null);
@@ -42,21 +42,22 @@ const Header = () => {
   ];
 
   return (
-    <header className="sticky top-0 z-50 w-full backdrop-blur-sm py-3">
+    <header className="sticky top-0 z-50 w-full backdrop-blur-sm py-3 bg-background/80">
       <div className="container mx-auto px-4 flex justify-between items-center">
         <Link 
           to="/" 
-          className="flex items-center gap-3 hover:opacity-70 transition-opacity"
+          className="flex items-center gap-2 md:gap-3 hover:opacity-70 transition-opacity"
         >
           <img 
             src={cracraLogo} 
             alt="CRACRA KREW Logo" 
-            className="h-12 w-auto filter contrast-125"
+            className="h-10 md:h-12 w-auto filter contrast-125"
           />
-          <span className="text-2xl font-black tracking-tight">CRACRAKREW</span>
+          <span className="text-lg md:text-2xl font-black tracking-tight">CRACRAKREW</span>
         </Link>
         
-        <nav className="flex items-center gap-6">
+        {/* Desktop Navigation */}
+        <nav className="hidden md:flex items-center gap-6">
           {navItems.map((item) => (
             <Link
               key={item.path}
@@ -75,6 +76,9 @@ const Header = () => {
             </Link>
           )}
         </nav>
+
+        {/* Mobile Navigation */}
+        <MobileMenu isAdmin={isAdmin} navItems={navItems} />
       </div>
     </header>
   );
