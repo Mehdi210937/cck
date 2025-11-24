@@ -19,12 +19,9 @@ export const artists: Artist[] = [
   },
   {
     id: "2",
-    name: "Artist Name 2",
-    photo_url: "https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?w=800&h=800&fit=crop",
-    instagram_url: "https://instagram.com/artist2",
-    resident_advisor_url: "https://ra.co/dj/artist2",
-    spotify_url: "https://open.spotify.com/artist/artist2",
-    soundcloud_embed_url: "https://w.soundcloud.com/player/?url=https://soundcloud.com/artist2"
+    name: "Résidence De La Gare",
+    photo_url: "/src/assets/residence-de-la-gare.jpg",
+    soundcloud_embed_url: "https://w.soundcloud.com/player/?url=https://soundcloud.com/residence-de-la-gare"
   },
   {
     id: "3",

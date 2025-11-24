@@ -1,6 +1,7 @@
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { Card } from "@/components/ui/card";
+import insightImage from "@/assets/insight-cracra.jpg";
 
 interface ContentItem {
   id: string;
@@ -34,11 +35,17 @@ const Index = () => {
                   ${spanTwo ? 'md:col-span-2' : 'col-span-1'}
                   ${tallCard ? 'row-span-2' : 'row-span-1'}
                   ${isSpotify ? 'row-span-1' : ''}
-                  border-2 border-foreground overflow-hidden hover-invert transition-all duration-300
+                  overflow-hidden hover-invert transition-all duration-300
                 `}
               >
                 <div className="h-full flex items-center justify-center p-0">
-                  {item.media_type === 'video' ? (
+                  {index === 0 ? (
+                    <img 
+                      src={insightImage} 
+                      alt="CRACRAKREW Insight" 
+                      className="w-full h-full object-cover"
+                    />
+                  ) : item.media_type === 'video' ? (
                     <div className="w-full h-full bg-muted flex items-center justify-center text-muted-foreground">
                       Video Placeholder
                     </div>
@@ -70,11 +77,17 @@ const Index = () => {
                 className={`
                   ${isFullWidth ? 'col-span-2' : 'col-span-1'}
                   ${isSpotify ? 'row-span-1' : 'aspect-square'}
-                  border-2 border-foreground overflow-hidden hover-invert transition-all duration-300
+                  overflow-hidden hover-invert transition-all duration-300
                 `}
               >
                 <div className="h-full flex items-center justify-center p-0">
-                  {item.media_type === 'video' ? (
+                  {index === 0 ? (
+                    <img 
+                      src={insightImage} 
+                      alt="CRACRAKREW Insight" 
+                      className="w-full h-full object-cover"
+                    />
+                  ) : item.media_type === 'video' ? (
                     <div className="w-full h-full bg-muted flex items-center justify-center text-muted-foreground text-xs">
                       Video
                     </div>
