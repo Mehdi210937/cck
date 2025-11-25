@@ -24,7 +24,7 @@ const MobileMenu = ({ isAdmin, navItems }: MobileMenuProps) => {
               <Link
                 key={item.path}
                 to={item.path}
-                className="px-4 py-3 text-sm font-medium text-gray-900 hover:bg-gray-100 transition-colors duration-200"
+                className="px-4 py-3 text-base font-bold text-gray-900 hover:bg-gray-100 transition-colors duration-200"
                 onClick={() => setIsOpen(false)}
               >
                 {item.label}
