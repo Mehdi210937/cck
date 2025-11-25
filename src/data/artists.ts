@@ -24,7 +24,7 @@ export const artists: Artist[] = [
     id: "2",
     name: "Résidence De La Gare",
     photo_url: "/images/residence-de-la-gare.jpg",
-    bio: "Projet expérimental né dans les sous-sols de la capitale, Résidence De La Gare repousse les limites de la musique électronique. Entre field recordings, synthèses modulaires et textures industrielles, le collectif crée des paysages sonores évolutifs et immersifs.",
+    bio: "Artiste multidisciplinaire basé à Berlin, residence de la gare repousse les limites de la création, autant comme musicien que comme graphiste. Entre folktronica, ambient et dub techno, une constante demeure : l'immersion dans les textures sonores et visuelles de son environnement.",
     soundcloud_embed_url: "https://w.soundcloud.com/player/?url=https://soundcloud.com/residence-de-la-gare"
   },
   {
