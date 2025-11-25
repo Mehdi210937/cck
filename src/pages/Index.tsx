@@ -36,17 +36,16 @@ const Index = () => {
       <Header />
       
       <main className="container mx-auto px-4 md:px-6 pb-20">
-        {/* Desktop Masonry - CSS Columns */}
-        <div className="hidden md:block columns-3 lg:columns-4 gap-2 space-y-2">
+        {/* Desktop Masonry - CSS Grid */}
+        <div className="hidden md:grid md:grid-cols-3 lg:grid-cols-4 gap-2 auto-rows-min">
           {contentItems.map((item, index) => {
-            const takeFullWidth = index % 6 === 0 || index % 11 === 0;
+            const spanTwo = index % 5 === 0 || index % 8 === 0;
             
             if (item.type === 'image') {
               return (
                 <div
                   key={`image-${index}`}
-                  className="break-inside-avoid mb-2 overflow-hidden hover-invert transition-all duration-300"
-                  style={takeFullWidth ? { columnSpan: 'all' } : undefined}
+                  className={`${spanTwo ? 'md:col-span-2' : 'col-span-1'} break-inside-avoid overflow-hidden hover-invert transition-all duration-300`}
                 >
                   <img 
                     src={item.src} 
@@ -62,8 +61,7 @@ const Index = () => {
               return (
                 <div
                   key={`release-${release.id}`}
-                  className="break-inside-avoid mb-2 overflow-hidden hover-invert transition-all duration-300 relative"
-                  style={takeFullWidth ? { columnSpan: 'all' } : undefined}
+                  className={`${spanTwo ? 'md:col-span-2' : 'col-span-1'} break-inside-avoid overflow-hidden hover-invert transition-all duration-300 relative`}
                 >
                   {release.coming_soon && (
                     <Link to={`/releases?release=${release.id}`}>
@@ -121,17 +119,16 @@ const Index = () => {
           })}
         </div>
 
-        {/* Mobile Masonry - CSS Columns */}
-        <div className="md:hidden columns-2 gap-1.5 space-y-1.5">
+        {/* Mobile Grid */}
+        <div className="md:hidden grid grid-cols-2 gap-1.5 auto-rows-min">
           {contentItems.map((item, index) => {
-            const takeFullWidth = index % 5 === 0 || index % 9 === 0;
+            const spanTwo = index % 6 === 0;
             
             if (item.type === 'image') {
               return (
                 <div
                   key={`mobile-image-${index}`}
-                  className="break-inside-avoid mb-1.5 overflow-hidden hover-invert transition-all duration-300"
-                  style={takeFullWidth ? { columnSpan: 'all' } : undefined}
+                  className={`${spanTwo ? 'col-span-2' : 'col-span-1'} overflow-hidden hover-invert transition-all duration-300`}
                 >
                   <img 
                     src={item.src} 
@@ -147,8 +144,7 @@ const Index = () => {
               return (
                 <div
                   key={`mobile-release-${release.id}`}
-                  className="break-inside-avoid mb-1.5 overflow-hidden hover-invert transition-all duration-300 relative"
-                  style={takeFullWidth ? { columnSpan: 'all' } : undefined}
+                  className={`${spanTwo ? 'col-span-2' : 'col-span-1'} overflow-hidden hover-invert transition-all duration-300 relative`}
                 >
                   {release.coming_soon && (
                     <Link to={`/releases?release=${release.id}`}>
