@@ -6,7 +6,7 @@ const Infos = () => {
     <div className="min-h-screen bg-background text-foreground flex flex-col">
       <Header />
       <main className="flex-1 container mx-auto px-4 py-8 md:py-12 pb-24">
-        <div className="max-w-4xl mx-auto space-y-12">
+        <div className="max-w-4xl mx-auto space-y-6">
           {/* French Version */}
           <section className="space-y-4">
             <h1 className="text-4xl md:text-5xl font-black tracking-tight">INFOS</h1>
@@ -24,7 +24,7 @@ const Infos = () => {
           </section>
 
           {/* English Version */}
-          <section className="space-y-4 border-t border-border pt-12">
+          <section className="space-y-4 border-t border-border pt-6">
             <div className="prose prose-invert max-w-none">
               <p className="text-base md:text-lg leading-relaxed">
                 CraCraKrew (CCK) is a cross-border artistic collective and emerging production house bridging the gap between Paris and Berlin. Founded on principles of raw authenticity and communal respect, the crew navigates a fluid creative spectrum ranging from music production and creative writing to cinematography and photography.
