@@ -1,7 +1,7 @@
-import { useState } from 'react';
+import { useState } from "react";
 import { Link } from "react-router-dom";
-import { Menu, X } from 'lucide-react';
-import { Button } from './ui/button';
+import { Menu, X } from "lucide-react";
+import { Button } from "./ui/button";
 
 interface MobileMenuProps {
   isAdmin: boolean;
@@ -13,12 +13,7 @@ const MobileMenu = ({ isAdmin, navItems }: MobileMenuProps) => {
 
   return (
     <div className="md:hidden relative">
-      <Button
-        variant="ghost"
-        size="icon"
-        onClick={() => setIsOpen(!isOpen)}
-        aria-label="Toggle menu"
-      >
+      <Button variant="ghost" size="icon" onClick={() => setIsOpen(!isOpen)} aria-label="Toggle menu">
         {isOpen ? <X size={24} /> : <Menu size={24} />}
       </Button>
 
@@ -35,13 +30,9 @@ const MobileMenu = ({ isAdmin, navItems }: MobileMenuProps) => {
                 {item.label}
               </Link>
             ))}
-            
+
             {isAdmin && (
-              <Link 
-                to="/admin" 
-                onClick={() => setIsOpen(false)}
-                className="px-4 py-3 mt-2 border-t border-gray-200"
-              >
+              <Link to="/admin" onClick={() => setIsOpen(false)} className="px-4 py-3 mt-2 border-t border-gray-200">
                 <Button variant="outline" className="w-full text-sm font-bold">
                   ADMIN
                 </Button>
@@ -53,3 +44,5 @@ const MobileMenu = ({ isAdmin, navItems }: MobileMenuProps) => {
     </div>
   );
 };
+
+export default MobileMenu;
