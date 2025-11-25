@@ -10,7 +10,7 @@ const Artists = () => {
       <main className="container mx-auto px-4 py-6 mb-24">
         <Accordion type="single" collapsible className="w-full">
           {artists.map(artist => <AccordionItem key={artist.id} value={artist.id} className="border-b border-border">
-              <AccordionTrigger className="text-2xl font-bold py-6 hover:no-underline">
+              <AccordionTrigger className="text-2xl font-bold font-helvetica py-6 hover:no-underline">
                 {artist.name}
               </AccordionTrigger>
               <AccordionContent>
