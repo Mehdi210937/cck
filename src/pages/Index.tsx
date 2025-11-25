@@ -37,7 +37,7 @@ const Index = () => {
       
       <main className="container mx-auto px-4 md:px-6 pb-20">
         {/* Desktop Grid - Masonry Style */}
-        <div className="hidden md:grid md:grid-cols-3 lg:grid-cols-4 gap-3 auto-rows-[200px]">
+        <div className="hidden md:grid md:grid-cols-3 lg:grid-cols-4 gap-3 auto-rows-auto">
           {contentItems.map((item, index) => {
             const spanTwo = index % 5 === 0 || index % 7 === 0;
             const tallCard = index % 3 === 0;
@@ -56,7 +56,7 @@ const Index = () => {
                     <img 
                       src={item.src} 
                       alt={item.alt} 
-                      className="w-full h-full object-cover"
+                      className="w-full h-auto object-contain"
                     />
                   </div>
                 </Card>
@@ -85,7 +85,7 @@ const Index = () => {
                     <img 
                       src={release.image_url} 
                       alt={release.title}
-                      className="w-full h-full object-cover"
+                      className="w-full h-auto object-contain"
                     />
                   </div>
                 </Card>
@@ -122,7 +122,7 @@ const Index = () => {
         </div>
 
         {/* Mobile Grid - Intelligent Masonry Pattern */}
-        <div className="md:hidden grid grid-cols-2 gap-2 auto-rows-[40vw]">
+        <div className="md:hidden grid grid-cols-2 gap-2 auto-rows-auto">
           {contentItems.map((item, index) => {
             const isFullWidth = (index + 2) % 5 === 0;
             
