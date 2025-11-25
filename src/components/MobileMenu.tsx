@@ -24,13 +24,13 @@ const MobileMenu = ({ isAdmin, navItems }: MobileMenuProps) => {
       </Button>
 
       {isOpen && (
-        <div className="fixed inset-0 top-[72px] bg-white z-[9999] md:hidden">
-          <nav className="flex flex-col items-center justify-start gap-12 pt-16 px-6 h-full overflow-y-auto text-black">
+        <div className="fixed inset-0 top-[72px] bg-white z-[100] md:hidden animate-fade-in opacity-100">
+          <nav className="flex flex-col items-center gap-6 pt-8 px-4 text-black">
             {navItems.map((item) => (
               <Link
                 key={item.path}
                 to={item.path}
-                className="text-3xl font-black tracking-wide hover:opacity-60 transition-opacity"
+                className="text-lg font-black tracking-wide transition-opacity hover:opacity-60 text-black"
                 onClick={() => setIsOpen(false)}
               >
                 {item.label.toUpperCase()}
@@ -39,7 +39,7 @@ const MobileMenu = ({ isAdmin, navItems }: MobileMenuProps) => {
             
             {isAdmin && (
               <Link to="/admin" onClick={() => setIsOpen(false)}>
-                <Button variant="outline" className="text-lg font-bold px-8 py-6">
+                <Button variant="outline" className="text-sm font-bold">
                   ADMIN
                 </Button>
               </Link>
