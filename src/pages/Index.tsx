@@ -5,6 +5,9 @@ import { releases, Release } from "@/data/releases";
 import insightImage from "@/assets/insight-cracra.jpg";
 import louPics from "@/assets/lou-pics.jpg";
 import { Badge } from "@/components/ui/badge";
+import { Link } from "react-router-dom";
+import cracraLogo from "@/assets/cracra-logo.jpg";
+import residenceGare from "@/assets/residence-de-la-gare.jpg";
 
 type ContentItem = 
   | { type: 'image'; src: string; alt: string; }
@@ -13,9 +16,18 @@ type ContentItem =
 
 const Index = () => {
   // Mix releases with other content
+  const illustrations = [
+    "/images/releases/mykindofbird.jpg",
+    "/images/releases/mil.jpg",
+    "/images/releases/mill.jpg"
+  ];
+
   const contentItems: ContentItem[] = [
+    { type: 'image', src: cracraLogo, alt: 'CRACRAKREW Logo' },
     { type: 'image', src: insightImage, alt: 'CRACRAKREW Insight' },
     { type: 'image', src: louPics, alt: 'Lou Pics' },
+    { type: 'image', src: residenceGare, alt: 'Résidence De La Gare' },
+    ...illustrations.map(src => ({ type: 'image' as const, src, alt: 'CRACRAKREW Illustration' })),
     ...releases.map(release => ({ type: 'release' as const, data: release })),
     { type: 'placeholder' as const, media_type: 'video' as const },
     { type: 'placeholder' as const, media_type: 'spotify' as const },
@@ -67,9 +79,11 @@ const Index = () => {
                   `}
                 >
                   {release.coming_soon && (
-                    <Badge className="absolute top-2 left-2 z-10 bg-primary text-xs">
-                      À venir
-                    </Badge>
+                    <Link to={`/releases?release=${release.id}`}>
+                      <Badge className="absolute top-2 left-2 z-10 bg-primary text-xs hover:bg-primary/90 cursor-pointer transition-colors">
+                        À venir
+                      </Badge>
+                    </Link>
                   )}
                   <div className="h-full p-0">
                     <img 
@@ -122,14 +136,14 @@ const Index = () => {
                   key={`mobile-image-${index}`}
                   className={`
                     ${isFullWidth ? 'col-span-2' : 'col-span-1'}
-                    aspect-square overflow-hidden hover-invert transition-all duration-300
+                    overflow-hidden hover-invert transition-all duration-300
                   `}
                 >
-                  <div className="h-full p-0">
+                  <div className="w-full p-0">
                     <img 
                       src={item.src} 
                       alt={item.alt} 
-                      className="w-full h-full object-cover"
+                      className="w-full h-auto object-contain"
                     />
                   </div>
                 </Card>
@@ -143,19 +157,21 @@ const Index = () => {
                   key={`mobile-release-${release.id}`}
                   className={`
                     ${isFullWidth ? 'col-span-2' : 'col-span-1'}
-                    aspect-square overflow-hidden hover-invert transition-all duration-300 relative
+                    overflow-hidden hover-invert transition-all duration-300 relative
                   `}
                 >
                   {release.coming_soon && (
-                    <Badge className="absolute top-1 left-1 z-10 bg-primary text-xs px-2 py-0.5">
-                      À venir
-                    </Badge>
+                    <Link to={`/releases?release=${release.id}`}>
+                      <Badge className="absolute top-1 left-1 z-10 bg-primary text-xs px-2 py-0.5 hover:bg-primary/90 cursor-pointer transition-colors">
+                        À venir
+                      </Badge>
+                    </Link>
                   )}
-                  <div className="h-full p-0">
+                  <div className="w-full p-0">
                     <img 
                       src={release.image_url} 
                       alt={release.title}
-                      className="w-full h-full object-cover"
+                      className="w-full h-auto object-contain"
                     />
                   </div>
                 </Card>

@@ -1,3 +1,5 @@
+import { useEffect, useState } from "react";
+import { useSearchParams } from "react-router-dom";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { releases } from "@/data/releases";
@@ -7,6 +9,16 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 
 const Releases = () => {
+  const [searchParams] = useSearchParams();
+  const [openDialogId, setOpenDialogId] = useState<string | null>(null);
+
+  useEffect(() => {
+    const releaseId = searchParams.get('release');
+    if (releaseId) {
+      setOpenDialogId(releaseId);
+    }
+  }, [searchParams]);
+
   return (
     <div className="min-h-screen bg-background pb-16">
       <Header />
@@ -14,7 +26,11 @@ const Releases = () => {
       <main className="container mx-auto px-4 py-6 mb-24">
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
           {releases.map((release) => (
-            <Dialog key={release.id}>
+            <Dialog 
+              key={release.id}
+              open={openDialogId === release.id}
+              onOpenChange={(open) => setOpenDialogId(open ? release.id : null)}
+            >
               <Card className="overflow-hidden hover:shadow-lg transition-all relative">
                 {release.coming_soon && (
                   <Badge className="absolute top-2 left-2 z-10 bg-primary">
