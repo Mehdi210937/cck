@@ -34,7 +34,7 @@ const Releases = () => {
               <Card className="overflow-hidden hover:shadow-lg transition-all relative">
                 {release.coming_soon && (
                   <Badge className="absolute top-2 left-2 z-10 bg-primary">
-                    À venir
+                    DISPO
                   </Badge>
                 )}
                 <div className="aspect-square relative">
@@ -76,6 +76,13 @@ const Releases = () => {
                     <p className="text-foreground leading-relaxed">
                       {release.description}
                     </p>
+                    {release.soundcloud_url && (
+                      <Button variant="outline" className="w-full" asChild>
+                        <a href={release.soundcloud_url} target="_blank" rel="noopener noreferrer">
+                          Écouter sur SoundCloud
+                        </a>
+                      </Button>
+                    )}
                     {release.spotify_url && (
                       <Button variant="outline" className="w-full" asChild>
                         <a href={release.spotify_url} target="_blank" rel="noopener noreferrer">
