@@ -44,7 +44,7 @@ const Index = () => {
             
             if (item.type === 'image') {
               return (
-                <Card
+                <div
                   key={`image-${index}`}
                   className={`
                     ${spanTwo ? 'md:col-span-2' : 'col-span-1'}
@@ -52,21 +52,19 @@ const Index = () => {
                     overflow-hidden hover-invert transition-all duration-300
                   `}
                 >
-                  <div className="h-full p-0">
-                    <img 
-                      src={item.src} 
-                      alt={item.alt} 
-                      className="w-full h-auto object-contain"
-                    />
-                  </div>
-                </Card>
+                  <img 
+                    src={item.src} 
+                    alt={item.alt} 
+                    className="w-full h-auto"
+                  />
+                </div>
               );
             }
 
             if (item.type === 'release') {
               const release = item.data;
               return (
-                <Card
+                <div
                   key={`release-${release.id}`}
                   className={`
                     ${spanTwo ? 'md:col-span-2' : 'col-span-1'}
@@ -81,14 +79,26 @@ const Index = () => {
                       </Badge>
                     </Link>
                   )}
-                  <div className="h-full p-0">
+                  {release.soundcloud_url ? (
+                    <a 
+                      href={release.soundcloud_url} 
+                      target="_blank" 
+                      rel="noopener noreferrer"
+                    >
+                      <img 
+                        src={release.image_url} 
+                        alt={release.title}
+                        className="w-full h-auto"
+                      />
+                    </a>
+                  ) : (
                     <img 
                       src={release.image_url} 
                       alt={release.title}
-                      className="w-full h-auto object-contain"
+                      className="w-full h-auto"
                     />
-                  </div>
-                </Card>
+                  )}
+                </div>
               );
             }
             
@@ -128,28 +138,26 @@ const Index = () => {
             
             if (item.type === 'image') {
               return (
-                <Card
+                <div
                   key={`mobile-image-${index}`}
                   className={`
                     ${isFullWidth ? 'col-span-2' : 'col-span-1'}
                     overflow-hidden hover-invert transition-all duration-300
                   `}
                 >
-                  <div className="w-full p-0">
-                    <img 
-                      src={item.src} 
-                      alt={item.alt} 
-                      className="w-full h-auto object-contain"
-                    />
-                  </div>
-                </Card>
+                  <img 
+                    src={item.src} 
+                    alt={item.alt} 
+                    className="w-full h-auto"
+                  />
+                </div>
               );
             }
 
             if (item.type === 'release') {
               const release = item.data;
               return (
-                <Card
+                <div
                   key={`mobile-release-${release.id}`}
                   className={`
                     ${isFullWidth ? 'col-span-2' : 'col-span-1'}
@@ -163,14 +171,26 @@ const Index = () => {
                       </Badge>
                     </Link>
                   )}
-                  <div className="w-full p-0">
+                  {release.soundcloud_url ? (
+                    <a 
+                      href={release.soundcloud_url} 
+                      target="_blank" 
+                      rel="noopener noreferrer"
+                    >
+                      <img 
+                        src={release.image_url} 
+                        alt={release.title}
+                        className="w-full h-auto"
+                      />
+                    </a>
+                  ) : (
                     <img 
                       src={release.image_url} 
                       alt={release.title}
-                      className="w-full h-auto object-contain"
+                      className="w-full h-auto"
                     />
-                  </div>
-                </Card>
+                  )}
+                </div>
               );
             }
             
