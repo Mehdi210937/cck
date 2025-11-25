@@ -5,7 +5,7 @@ const Infos = () => {
   return (
     <div className="min-h-screen bg-background text-foreground flex flex-col">
       <Header />
-      <main className="flex-1 container mx-auto px-4 py-8 md:py-12">
+      <main className="flex-1 container mx-auto px-4 py-8 md:py-12 pb-24">
         <div className="max-w-4xl mx-auto space-y-12">
           {/* French Version */}
           <section className="space-y-4">
