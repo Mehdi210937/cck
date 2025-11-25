@@ -9,7 +9,6 @@ import Shop from "./pages/Shop";
 import Artists from "./pages/Artists";
 import Releases from "./pages/Releases";
 import Archive from "./pages/Archive";
-import Imprint from "./pages/Imprint";
 import Auth from "./pages/Auth";
 import NotFound from "./pages/NotFound";
 
@@ -28,7 +27,6 @@ const App = () => (
           <Route path="/artists" element={<Artists />} />
           <Route path="/releases" element={<Releases />} />
           <Route path="/archive" element={<Archive />} />
-          <Route path="/imprint" element={<Imprint />} />
           <Route path="/auth" element={<Auth />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />

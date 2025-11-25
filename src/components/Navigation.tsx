@@ -8,8 +8,7 @@ const Navigation = () => {
     { path: "/shop", label: "Shop" },
     { path: "/artists", label: "Artists" },
     { path: "/releases", label: "Releases" },
-    { path: "/archive", label: "Archive" },
-    { path: "/imprint", label: "Imprint" }
+    { path: "/archive", label: "Archive" }
   ];
 
   return (
