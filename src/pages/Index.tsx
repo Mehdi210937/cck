@@ -36,21 +36,21 @@ const Index = () => {
       <Header />
       
       <main className="container mx-auto px-4 md:px-6 pb-20">
-        {/* Desktop Masonry - CSS Grid */}
-        <div className="hidden md:grid md:grid-cols-3 lg:grid-cols-4 gap-2 auto-rows-min">
+        {/* Desktop Masonry - CSS Columns */}
+        <div className="hidden md:block columns-3 lg:columns-4 gap-2">
           {contentItems.map((item, index) => {
-            const spanTwo = index % 5 === 0 || index % 8 === 0;
+            const isLarge = index % 5 === 0 || index % 8 === 0;
             
             if (item.type === 'image') {
               return (
                 <div
                   key={`image-${index}`}
-                  className={`${spanTwo ? 'md:col-span-2' : 'col-span-1'} break-inside-avoid overflow-hidden hover-invert transition-all duration-300`}
+                  className="break-inside-avoid mb-2 overflow-hidden hover-invert transition-all duration-300"
                 >
                   <img 
                     src={item.src} 
                     alt={item.alt} 
-                    className="w-full h-auto block"
+                    className={`w-full h-auto block ${isLarge ? 'scale-125 origin-top' : ''}`}
                   />
                 </div>
               );
@@ -61,7 +61,7 @@ const Index = () => {
               return (
                 <div
                   key={`release-${release.id}`}
-                  className={`${spanTwo ? 'md:col-span-2' : 'col-span-1'} break-inside-avoid overflow-hidden hover-invert transition-all duration-300 relative`}
+                  className="break-inside-avoid mb-2 overflow-hidden hover-invert transition-all duration-300 relative"
                 >
                   {release.coming_soon && (
                     <Link to={`/releases?release=${release.id}`}>
@@ -80,14 +80,14 @@ const Index = () => {
                       <img 
                         src={release.image_url} 
                         alt={release.title}
-                        className="w-full h-auto block"
+                        className={`w-full h-auto block ${isLarge ? 'scale-125 origin-top' : ''}`}
                       />
                     </a>
                   ) : (
                     <img 
                       src={release.image_url} 
                       alt={release.title}
-                      className="w-full h-auto block"
+                      className={`w-full h-auto block ${isLarge ? 'scale-125 origin-top' : ''}`}
                     />
                   )}
                 </div>
@@ -119,21 +119,21 @@ const Index = () => {
           })}
         </div>
 
-        {/* Mobile Grid */}
-        <div className="md:hidden grid grid-cols-2 gap-1.5 auto-rows-min">
+        {/* Mobile Masonry - CSS Columns */}
+        <div className="md:hidden columns-2 gap-1.5">
           {contentItems.map((item, index) => {
-            const spanTwo = index % 6 === 0;
+            const isLarge = index % 6 === 0;
             
             if (item.type === 'image') {
               return (
                 <div
                   key={`mobile-image-${index}`}
-                  className={`${spanTwo ? 'col-span-2' : 'col-span-1'} overflow-hidden hover-invert transition-all duration-300`}
+                  className="break-inside-avoid mb-1.5 overflow-hidden hover-invert transition-all duration-300"
                 >
                   <img 
                     src={item.src} 
                     alt={item.alt} 
-                    className="w-full h-auto block"
+                    className={`w-full h-auto block ${isLarge ? 'scale-110 origin-top' : ''}`}
                   />
                 </div>
               );
@@ -144,7 +144,7 @@ const Index = () => {
               return (
                 <div
                   key={`mobile-release-${release.id}`}
-                  className={`${spanTwo ? 'col-span-2' : 'col-span-1'} overflow-hidden hover-invert transition-all duration-300 relative`}
+                  className="break-inside-avoid mb-1.5 overflow-hidden hover-invert transition-all duration-300 relative"
                 >
                   {release.coming_soon && (
                     <Link to={`/releases?release=${release.id}`}>
@@ -163,14 +163,14 @@ const Index = () => {
                       <img 
                         src={release.image_url} 
                         alt={release.title}
-                        className="w-full h-auto block"
+                        className={`w-full h-auto block ${isLarge ? 'scale-110 origin-top' : ''}`}
                       />
                     </a>
                   ) : (
                     <img 
                       src={release.image_url} 
                       alt={release.title}
-                      className="w-full h-auto block"
+                      className={`w-full h-auto block ${isLarge ? 'scale-110 origin-top' : ''}`}
                     />
                   )}
                 </div>
