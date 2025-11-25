@@ -70,7 +70,7 @@ const Index = () => {
                   {release.coming_soon && (
                     <Link to={`/releases?release=${release.id}`}>
                       <Badge className="absolute top-2 left-2 z-10 bg-primary text-xs hover:bg-primary/90 cursor-pointer transition-colors">
-                        À venir
+                        DISPO
                       </Badge>
                     </Link>
                   )}
@@ -157,7 +157,7 @@ const Index = () => {
                   {release.coming_soon && (
                     <Link to={`/releases?release=${release.id}`}>
                       <Badge className="absolute top-1 left-1 z-10 bg-primary text-xs px-2 py-0.5 hover:bg-primary/90 cursor-pointer transition-colors">
-                        À venir
+                        DISPO
                       </Badge>
                     </Link>
                   )}
