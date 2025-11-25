@@ -27,8 +27,6 @@ const Index = () => {
     { type: 'image', src: louPics, alt: 'Lou Pics' },
     ...illustrations.map(src => ({ type: 'image' as const, src, alt: 'CRACRAKREW Illustration' })),
     ...releases.map(release => ({ type: 'release' as const, data: release })),
-    { type: 'placeholder' as const, media_type: 'spotify' as const },
-    { type: 'placeholder' as const, media_type: 'image' as const },
   ];
 
   return (
@@ -37,19 +35,20 @@ const Index = () => {
       
       <main className="container mx-auto px-4 md:px-6 pb-20">
         {/* Desktop Masonry - CSS Columns */}
-        <div className="hidden md:block columns-3 lg:columns-4 gap-2">
+        <div className="hidden md:block columns-3 gap-1">
           {contentItems.map((item, index) => {
-            // Variation naturelle des tailles: petite (90%), normale (100%), grande (140%)
+            // Variation naturelle des tailles: très grande (160%), grande (130%), petite (85%)
             const sizePattern = index % 11;
-            const isLarge = sizePattern === 0 || sizePattern === 7;
-            const isSmall = sizePattern === 3 || sizePattern === 9;
-            const scaleClass = isLarge ? 'scale-[1.4]' : isSmall ? 'scale-90' : '';
+            const isVeryLarge = sizePattern === 1 || sizePattern === 7;
+            const isLarge = sizePattern === 3 || sizePattern === 9;
+            const isSmall = sizePattern === 5;
+            const scaleClass = isVeryLarge ? 'scale-[1.6]' : isLarge ? 'scale-[1.3]' : isSmall ? 'scale-[0.85]' : '';
             
             if (item.type === 'image') {
               return (
                 <div
                   key={`image-${index}`}
-                  className="break-inside-avoid mb-2 overflow-hidden hover-invert transition-all duration-300"
+                  className="break-inside-avoid mb-1 overflow-hidden hover-invert transition-all duration-300"
                 >
                   <img 
                     src={item.src} 
@@ -64,7 +63,7 @@ const Index = () => {
               return (
                 <div
                   key={`video-${index}`}
-                  className="break-inside-avoid mb-2 overflow-hidden hover-invert transition-all duration-300"
+                  className="break-inside-avoid mb-1 overflow-hidden hover-invert transition-all duration-300"
                 >
                   <video 
                     src={item.src}
@@ -72,7 +71,13 @@ const Index = () => {
                     muted
                     loop
                     playsInline
-                    className={`w-full h-auto block origin-center ${scaleClass}`}
+                    className={`w-full h-auto block origin-center cursor-pointer ${scaleClass}`}
+                    onMouseEnter={(e) => {
+                      e.currentTarget.muted = false;
+                    }}
+                    onMouseLeave={(e) => {
+                      e.currentTarget.muted = true;
+                    }}
                   />
                 </div>
               );
@@ -83,7 +88,7 @@ const Index = () => {
               return (
                 <div
                   key={`release-${release.id}`}
-                  className="break-inside-avoid mb-2 overflow-hidden hover-invert transition-all duration-300 relative"
+                  className="break-inside-avoid mb-1 overflow-hidden hover-invert transition-all duration-300 relative"
                 >
                   {release.coming_soon && (
                     <Link to={`/releases?release=${release.id}`}>
@@ -115,46 +120,24 @@ const Index = () => {
                 </div>
               );
             }
-            
-            return (
-              <Card
-                key={`placeholder-${index}`}
-                className="break-inside-avoid mb-2 overflow-hidden hover-invert transition-all duration-300 min-h-[300px]"
-              >
-                <div className="h-full flex items-center justify-center p-0">
-                  {item.media_type === 'video' ? (
-                    <div className="w-full h-full bg-muted flex items-center justify-center text-muted-foreground">
-                      Video Placeholder
-                    </div>
-                  ) : item.media_type === 'spotify' ? (
-                    <div className="w-full h-full bg-muted flex items-center justify-center text-muted-foreground">
-                      Spotify Embed
-                    </div>
-                  ) : (
-                    <div className="w-full h-full bg-muted flex items-center justify-center text-muted-foreground">
-                      Image Placeholder
-                    </div>
-                  )}
-                </div>
-              </Card>
-            );
           })}
         </div>
 
         {/* Mobile Masonry - CSS Columns */}
-        <div className="md:hidden columns-2 gap-1.5">
+        <div className="md:hidden columns-2 gap-0.5">
           {contentItems.map((item, index) => {
-            // Variation mobile: petite (95%), normale (100%), grande (120%)
+            // Variation mobile: très grande (140%), grande (120%), petite (90%)
             const sizePattern = index % 9;
-            const isLarge = sizePattern === 0 || sizePattern === 6;
+            const isVeryLarge = sizePattern === 1 || sizePattern === 6;
+            const isLarge = sizePattern === 3;
             const isSmall = sizePattern === 4;
-            const scaleClass = isLarge ? 'scale-[1.2]' : isSmall ? 'scale-95' : '';
+            const scaleClass = isVeryLarge ? 'scale-[1.4]' : isLarge ? 'scale-[1.2]' : isSmall ? 'scale-90' : '';
             
             if (item.type === 'image') {
               return (
                 <div
                   key={`mobile-image-${index}`}
-                  className="break-inside-avoid mb-1.5 overflow-hidden hover-invert transition-all duration-300"
+                  className="break-inside-avoid mb-0.5 overflow-hidden hover-invert transition-all duration-300"
                 >
                   <img 
                     src={item.src} 
@@ -169,7 +152,7 @@ const Index = () => {
               return (
                 <div
                   key={`mobile-video-${index}`}
-                  className="break-inside-avoid mb-1.5 overflow-hidden hover-invert transition-all duration-300"
+                  className="break-inside-avoid mb-0.5 overflow-hidden hover-invert transition-all duration-300"
                 >
                   <video 
                     src={item.src}
@@ -178,6 +161,12 @@ const Index = () => {
                     loop
                     playsInline
                     className={`w-full h-auto block origin-center ${scaleClass}`}
+                    onTouchStart={(e) => {
+                      e.currentTarget.muted = false;
+                    }}
+                    onTouchEnd={(e) => {
+                      e.currentTarget.muted = true;
+                    }}
                   />
                 </div>
               );
@@ -188,7 +177,7 @@ const Index = () => {
               return (
                 <div
                   key={`mobile-release-${release.id}`}
-                  className="break-inside-avoid mb-1.5 overflow-hidden hover-invert transition-all duration-300 relative"
+                  className="break-inside-avoid mb-0.5 overflow-hidden hover-invert transition-all duration-300 relative"
                 >
                   {release.coming_soon && (
                     <Link to={`/releases?release=${release.id}`}>
@@ -220,29 +209,6 @@ const Index = () => {
                 </div>
               );
             }
-            
-            return (
-              <Card
-                key={`mobile-placeholder-${index}`}
-                className="break-inside-avoid mb-1.5 overflow-hidden hover-invert transition-all duration-300 min-h-[200px]"
-              >
-                <div className="h-full flex items-center justify-center p-0">
-                  {item.media_type === 'video' ? (
-                    <div className="w-full h-full bg-muted flex items-center justify-center text-muted-foreground text-xs">
-                      Video
-                    </div>
-                  ) : item.media_type === 'spotify' ? (
-                    <div className="w-full h-full bg-muted flex items-center justify-center text-muted-foreground text-xs">
-                      Spotify
-                    </div>
-                  ) : (
-                    <div className="w-full h-full bg-muted flex items-center justify-center text-muted-foreground text-xs">
-                      Image
-                    </div>
-                  )}
-                </div>
-              </Card>
-            );
           })}
         </div>
       </main>
