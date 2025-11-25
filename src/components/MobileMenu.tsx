@@ -12,11 +12,10 @@ const MobileMenu = ({ isAdmin, navItems }: MobileMenuProps) => {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <>
+    <div className="md:hidden relative">
       <Button
         variant="ghost"
         size="icon"
-        className="md:hidden"
         onClick={() => setIsOpen(!isOpen)}
         aria-label="Toggle menu"
       >
@@ -24,21 +23,16 @@ const MobileMenu = ({ isAdmin, navItems }: MobileMenuProps) => {
       </Button>
 
       {isOpen && (
-        <div className="fixed inset-0 bg-background z-[100] md:hidden animate-fade-in flex items-center justify-center" style={{ paddingTop: '4cm' }}>
-          <nav className="flex flex-col items-center justify-center gap-1">
-            {navItems.map((item, index) => (
+        <div className="absolute top-full right-0 mt-2 w-56 bg-white rounded-lg shadow-lg border border-gray-200 py-2 z-50 animate-fade-in">
+          <nav className="flex flex-col">
+            {navItems.map((item) => (
               <Link
                 key={item.path}
                 to={item.path}
-                className="text-5xl font-black tracking-tight transition-all duration-300 hover:translate-x-4 hover:opacity-60 relative group"
-                style={{ 
-                  animationDelay: `${index * 50}ms`,
-                  animation: 'fade-in 0.4s ease-out forwards'
-                }}
+                className="px-4 py-3 text-sm font-medium text-gray-900 hover:bg-gray-100 transition-colors duration-200"
                 onClick={() => setIsOpen(false)}
               >
-                {item.label.toUpperCase()}
-                <span className="absolute -bottom-1 left-0 w-0 h-1 bg-foreground transition-all duration-300 group-hover:w-full" />
+                {item.label}
               </Link>
             ))}
             
@@ -46,13 +40,9 @@ const MobileMenu = ({ isAdmin, navItems }: MobileMenuProps) => {
               <Link 
                 to="/admin" 
                 onClick={() => setIsOpen(false)}
-                className="mt-8"
-                style={{ 
-                  animationDelay: `${navItems.length * 50}ms`,
-                  animation: 'fade-in 0.4s ease-out forwards'
-                }}
+                className="px-4 py-3 mt-2 border-t border-gray-200"
               >
-                <Button variant="outline" className="text-sm font-bold px-6">
+                <Button variant="outline" className="w-full text-sm font-bold">
                   ADMIN
                 </Button>
               </Link>
@@ -60,8 +50,6 @@ const MobileMenu = ({ isAdmin, navItems }: MobileMenuProps) => {
           </nav>
         </div>
       )}
-    </>
+    </div>
   );
 };
-
-export default MobileMenu;
