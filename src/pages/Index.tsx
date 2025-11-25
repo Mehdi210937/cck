@@ -37,7 +37,7 @@ const Index = () => {
       
       <main className="container mx-auto px-4 md:px-6 pb-20">
         {/* Desktop Grid - Masonry Style */}
-        <div className="hidden md:grid md:grid-cols-3 lg:grid-cols-4 gap-3 auto-rows-auto">
+        <div className="hidden md:grid md:grid-cols-3 lg:grid-cols-4 gap-2 auto-rows-min">
           {contentItems.map((item, index) => {
             const spanTwo = index % 5 === 0 || index % 7 === 0;
             const tallCard = index % 3 === 0;
@@ -48,14 +48,13 @@ const Index = () => {
                   key={`image-${index}`}
                   className={`
                     ${spanTwo ? 'md:col-span-2' : 'col-span-1'}
-                    ${tallCard ? 'row-span-2' : 'row-span-1'}
-                    overflow-hidden hover-invert transition-all duration-300
+                    overflow-hidden hover-invert transition-all duration-300 block
                   `}
                 >
                   <img 
                     src={item.src} 
                     alt={item.alt} 
-                    className="w-full h-auto"
+                    className="w-full h-auto block"
                   />
                 </div>
               );
@@ -68,8 +67,7 @@ const Index = () => {
                   key={`release-${release.id}`}
                   className={`
                     ${spanTwo ? 'md:col-span-2' : 'col-span-1'}
-                    ${tallCard ? 'row-span-2' : 'row-span-1'}
-                    overflow-hidden hover-invert transition-all duration-300 relative
+                    overflow-hidden hover-invert transition-all duration-300 relative block
                   `}
                 >
                   {release.coming_soon && (
@@ -84,18 +82,19 @@ const Index = () => {
                       href={release.soundcloud_url} 
                       target="_blank" 
                       rel="noopener noreferrer"
+                      className="block"
                     >
                       <img 
                         src={release.image_url} 
                         alt={release.title}
-                        className="w-full h-auto"
+                        className="w-full h-auto block"
                       />
                     </a>
                   ) : (
                     <img 
                       src={release.image_url} 
                       alt={release.title}
-                      className="w-full h-auto"
+                      className="w-full h-auto block"
                     />
                   )}
                 </div>
@@ -132,7 +131,7 @@ const Index = () => {
         </div>
 
         {/* Mobile Grid - Intelligent Masonry Pattern */}
-        <div className="md:hidden grid grid-cols-2 gap-2 auto-rows-auto">
+        <div className="md:hidden grid grid-cols-2 gap-1.5 auto-rows-min">
           {contentItems.map((item, index) => {
             const isFullWidth = (index + 2) % 5 === 0;
             
@@ -142,13 +141,13 @@ const Index = () => {
                   key={`mobile-image-${index}`}
                   className={`
                     ${isFullWidth ? 'col-span-2' : 'col-span-1'}
-                    overflow-hidden hover-invert transition-all duration-300
+                    overflow-hidden hover-invert transition-all duration-300 block
                   `}
                 >
                   <img 
                     src={item.src} 
                     alt={item.alt} 
-                    className="w-full h-auto"
+                    className="w-full h-auto block"
                   />
                 </div>
               );
@@ -161,7 +160,7 @@ const Index = () => {
                   key={`mobile-release-${release.id}`}
                   className={`
                     ${isFullWidth ? 'col-span-2' : 'col-span-1'}
-                    overflow-hidden hover-invert transition-all duration-300 relative
+                    overflow-hidden hover-invert transition-all duration-300 relative block
                   `}
                 >
                   {release.coming_soon && (
@@ -176,18 +175,19 @@ const Index = () => {
                       href={release.soundcloud_url} 
                       target="_blank" 
                       rel="noopener noreferrer"
+                      className="block"
                     >
                       <img 
                         src={release.image_url} 
                         alt={release.title}
-                        className="w-full h-auto"
+                        className="w-full h-auto block"
                       />
                     </a>
                   ) : (
                     <img 
                       src={release.image_url} 
                       alt={release.title}
-                      className="w-full h-auto"
+                      className="w-full h-auto block"
                     />
                   )}
                 </div>
