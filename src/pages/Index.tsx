@@ -6,8 +6,6 @@ import insightImage from "@/assets/insight-cracra.jpg";
 import louPics from "@/assets/lou-pics.jpg";
 import { Badge } from "@/components/ui/badge";
 import { Link } from "react-router-dom";
-import cracraLogo from "@/assets/cracra-logo.jpg";
-import residenceGare from "@/assets/residence-de-la-gare.jpg";
 
 type ContentItem = 
   | { type: 'image'; src: string; alt: string; }
@@ -23,10 +21,8 @@ const Index = () => {
   ];
 
   const contentItems: ContentItem[] = [
-    { type: 'image', src: cracraLogo, alt: 'CRACRAKREW Logo' },
     { type: 'image', src: insightImage, alt: 'CRACRAKREW Insight' },
     { type: 'image', src: louPics, alt: 'Lou Pics' },
-    { type: 'image', src: residenceGare, alt: 'Résidence De La Gare' },
     ...illustrations.map(src => ({ type: 'image' as const, src, alt: 'CRACRAKREW Illustration' })),
     ...releases.map(release => ({ type: 'release' as const, data: release })),
     { type: 'placeholder' as const, media_type: 'video' as const },
