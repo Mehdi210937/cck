@@ -39,7 +39,11 @@ const Index = () => {
         {/* Desktop Masonry - CSS Columns */}
         <div className="hidden md:block columns-3 lg:columns-4 gap-2">
           {contentItems.map((item, index) => {
-            const isLarge = index % 5 === 0 || index % 8 === 0;
+            // Variation naturelle des tailles: petite (90%), normale (100%), grande (140%)
+            const sizePattern = index % 11;
+            const isLarge = sizePattern === 0 || sizePattern === 7;
+            const isSmall = sizePattern === 3 || sizePattern === 9;
+            const scaleClass = isLarge ? 'scale-[1.4]' : isSmall ? 'scale-90' : '';
             
             if (item.type === 'image') {
               return (
@@ -50,7 +54,7 @@ const Index = () => {
                   <img 
                     src={item.src} 
                     alt={item.alt} 
-                    className={`w-full h-auto block ${isLarge ? 'scale-125 origin-top' : ''}`}
+                    className={`w-full h-auto block origin-center ${scaleClass}`}
                   />
                 </div>
               );
@@ -80,14 +84,14 @@ const Index = () => {
                       <img 
                         src={release.image_url} 
                         alt={release.title}
-                        className={`w-full h-auto block ${isLarge ? 'scale-125 origin-top' : ''}`}
+                        className={`w-full h-auto block origin-center ${scaleClass}`}
                       />
                     </a>
                   ) : (
                     <img 
                       src={release.image_url} 
                       alt={release.title}
-                      className={`w-full h-auto block ${isLarge ? 'scale-125 origin-top' : ''}`}
+                      className={`w-full h-auto block origin-center ${scaleClass}`}
                     />
                   )}
                 </div>
@@ -122,7 +126,11 @@ const Index = () => {
         {/* Mobile Masonry - CSS Columns */}
         <div className="md:hidden columns-2 gap-1.5">
           {contentItems.map((item, index) => {
-            const isLarge = index % 6 === 0;
+            // Variation mobile: petite (95%), normale (100%), grande (120%)
+            const sizePattern = index % 9;
+            const isLarge = sizePattern === 0 || sizePattern === 6;
+            const isSmall = sizePattern === 4;
+            const scaleClass = isLarge ? 'scale-[1.2]' : isSmall ? 'scale-95' : '';
             
             if (item.type === 'image') {
               return (
@@ -133,7 +141,7 @@ const Index = () => {
                   <img 
                     src={item.src} 
                     alt={item.alt} 
-                    className={`w-full h-auto block ${isLarge ? 'scale-110 origin-top' : ''}`}
+                    className={`w-full h-auto block origin-center ${scaleClass}`}
                   />
                 </div>
               );
@@ -163,14 +171,14 @@ const Index = () => {
                       <img 
                         src={release.image_url} 
                         alt={release.title}
-                        className={`w-full h-auto block ${isLarge ? 'scale-110 origin-top' : ''}`}
+                        className={`w-full h-auto block origin-center ${scaleClass}`}
                       />
                     </a>
                   ) : (
                     <img 
                       src={release.image_url} 
                       alt={release.title}
-                      className={`w-full h-auto block ${isLarge ? 'scale-110 origin-top' : ''}`}
+                      className={`w-full h-auto block origin-center ${scaleClass}`}
                     />
                   )}
                 </div>
