@@ -58,10 +58,11 @@ export default {
 				md: 'var(--radius)',
 				sm: 'var(--radius)'
 			},
-			fontFamily: {
-				mono: ['Courier New', 'Courier', 'monospace'],
-				sans: ['-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'Helvetica Neue', 'Arial', 'sans-serif']
-			},
+		fontFamily: {
+			mono: ['IBM Plex Mono', 'Courier New', 'monospace'],
+			sans: ['IBM Plex Mono', '-apple-system', 'BlinkMacSystemFont', 'sans-serif'],
+			helvetica: ['Helvetica Neue', 'Helvetica', 'Arial', 'sans-serif']
+		},
 			keyframes: {
 				'accordion-down': {
 					from: {

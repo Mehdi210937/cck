@@ -10,6 +10,7 @@ import { Link } from "react-router-dom";
 type ContentItem = 
   | { type: 'image'; src: string; alt: string; }
   | { type: 'release'; data: Release; }
+  | { type: 'video'; src: string; alt: string; }
   | { type: 'placeholder'; media_type: 'video' | 'image' | 'spotify'; };
 
 const Index = () => {
@@ -22,13 +23,12 @@ const Index = () => {
 
   const contentItems: ContentItem[] = [
     { type: 'image', src: insightImage, alt: 'CRACRAKREW Insight' },
+    { type: 'video', src: '/videos/vidcasa.mp4', alt: 'CRACRAKREW Video' },
     { type: 'image', src: louPics, alt: 'Lou Pics' },
     ...illustrations.map(src => ({ type: 'image' as const, src, alt: 'CRACRAKREW Illustration' })),
     ...releases.map(release => ({ type: 'release' as const, data: release })),
-    { type: 'placeholder' as const, media_type: 'video' as const },
     { type: 'placeholder' as const, media_type: 'spotify' as const },
     { type: 'placeholder' as const, media_type: 'image' as const },
-    { type: 'placeholder' as const, media_type: 'video' as const },
   ];
 
   return (
@@ -54,6 +54,24 @@ const Index = () => {
                   <img 
                     src={item.src} 
                     alt={item.alt} 
+                    className={`w-full h-auto block origin-center ${scaleClass}`}
+                  />
+                </div>
+              );
+            }
+
+            if (item.type === 'video') {
+              return (
+                <div
+                  key={`video-${index}`}
+                  className="break-inside-avoid mb-2 overflow-hidden hover-invert transition-all duration-300"
+                >
+                  <video 
+                    src={item.src}
+                    autoPlay
+                    muted
+                    loop
+                    playsInline
                     className={`w-full h-auto block origin-center ${scaleClass}`}
                   />
                 </div>
@@ -141,6 +159,24 @@ const Index = () => {
                   <img 
                     src={item.src} 
                     alt={item.alt} 
+                    className={`w-full h-auto block origin-center ${scaleClass}`}
+                  />
+                </div>
+              );
+            }
+
+            if (item.type === 'video') {
+              return (
+                <div
+                  key={`mobile-video-${index}`}
+                  className="break-inside-avoid mb-1.5 overflow-hidden hover-invert transition-all duration-300"
+                >
+                  <video 
+                    src={item.src}
+                    autoPlay
+                    muted
+                    loop
+                    playsInline
                     className={`w-full h-auto block origin-center ${scaleClass}`}
                   />
                 </div>

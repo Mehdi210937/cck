@@ -45,7 +45,7 @@ const Releases = () => {
                   />
                 </div>
                 <div className="p-3">
-                  <h3 className="font-bold text-sm mb-1 truncate">{release.title}</h3>
+                  <h3 className="font-bold font-helvetica text-sm mb-1 truncate">{release.title}</h3>
                   <p className="text-xs text-muted-foreground mb-2">{release.artist_name}</p>
                   <DialogTrigger asChild>
                     <Button variant="outline" size="sm" className="w-full text-xs">
@@ -57,7 +57,7 @@ const Releases = () => {
 
               <DialogContent className="max-w-2xl">
                 <DialogHeader>
-                  <DialogTitle className="text-2xl">{release.title}</DialogTitle>
+                  <DialogTitle className="text-2xl font-helvetica">{release.title}</DialogTitle>
                   <DialogDescription className="text-base">
                     {release.artist_name}
                     {release.release_date && ` • ${release.release_date}`}
