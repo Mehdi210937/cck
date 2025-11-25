@@ -25,7 +25,7 @@ const MobileMenu = ({ isAdmin, navItems }: MobileMenuProps) => {
 
       {isOpen && (
         <div className="fixed inset-0 top-[72px] bg-background z-[100] md:hidden animate-fade-in">
-          <nav className="flex flex-col items-start justify-center h-full px-8 gap-1">
+          <nav className="flex flex-col items-center justify-center h-full px-8 gap-1">
             {navItems.map((item, index) => (
               <Link
                 key={item.path}
