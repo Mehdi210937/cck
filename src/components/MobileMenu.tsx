@@ -24,27 +24,21 @@ const MobileMenu = ({ isAdmin, navItems }: MobileMenuProps) => {
       </Button>
 
       {isOpen && (
-        <div 
-          className="fixed inset-0 top-[72px] bg-background z-[100] md:hidden animate-slide-in-right"
-          style={{
-            animation: isOpen ? 'slide-in-right 0.3s ease-out forwards' : 'slide-out-right 0.3s ease-out forwards'
-          }}
-        >
-          <nav className="flex flex-col items-center justify-center h-full px-8 gap-2">
+        <div className="fixed inset-0 top-[72px] bg-background z-[100] md:hidden animate-fade-in">
+          <nav className="flex flex-col items-start justify-center h-full px-8 gap-1">
             {navItems.map((item, index) => (
               <Link
                 key={item.path}
                 to={item.path}
-                className="text-5xl font-black tracking-tight transition-all duration-300 hover:scale-105 hover:opacity-60 relative group text-center"
+                className="text-5xl font-black tracking-tight transition-all duration-300 hover:translate-x-4 hover:opacity-60 relative group"
                 style={{ 
                   animationDelay: `${index * 50}ms`,
-                  animation: 'fade-in 0.4s ease-out forwards',
-                  opacity: 0
+                  animation: 'fade-in 0.4s ease-out forwards'
                 }}
                 onClick={() => setIsOpen(false)}
               >
                 {item.label.toUpperCase()}
-                <span className="absolute -bottom-1 left-1/2 -translate-x-1/2 w-0 h-1 bg-foreground transition-all duration-300 group-hover:w-full" />
+                <span className="absolute -bottom-1 left-0 w-0 h-1 bg-foreground transition-all duration-300 group-hover:w-full" />
               </Link>
             ))}
             
@@ -55,8 +49,7 @@ const MobileMenu = ({ isAdmin, navItems }: MobileMenuProps) => {
                 className="mt-8"
                 style={{ 
                   animationDelay: `${navItems.length * 50}ms`,
-                  animation: 'fade-in 0.4s ease-out forwards',
-                  opacity: 0
+                  animation: 'fade-in 0.4s ease-out forwards'
                 }}
               >
                 <Button variant="outline" className="text-sm font-bold px-6">
