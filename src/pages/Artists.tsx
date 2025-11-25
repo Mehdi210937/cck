@@ -20,6 +20,11 @@ const Artists = () => {
                     {/* Colonne gauche : Photo + Liens */}
                     <div className="flex gap-6">
                       <div className="space-y-4 flex-shrink-0">
+                        {artist.bio && (
+                          <p className="text-sm text-muted-foreground leading-relaxed max-w-xs mb-4">
+                            {artist.bio}
+                          </p>
+                        )}
                         <div className="space-y-2">
                           {artist.soundcloud_embed_url && <a href={artist.soundcloud_embed_url.replace('https://w.soundcloud.com/player/?url=', '')} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-foreground hover:text-muted-foreground transition-colors">
                               <span>SoundCloud</span>
@@ -66,6 +71,13 @@ const Artists = () => {
                     <div className="w-full">
                       <img src={artist.photo_url} alt={artist.name} className="w-full aspect-square object-cover rounded-lg border border-border" />
                     </div>
+
+                    {/* Bio Mobile */}
+                    {artist.bio && (
+                      <p className="text-sm text-muted-foreground leading-relaxed">
+                        {artist.bio}
+                      </p>
+                    )}
 
                     {/* Liens Mobile */}
                     <div className="space-y-4">
