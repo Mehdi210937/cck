@@ -39,11 +39,14 @@ const Index = () => {
         {/* Desktop Masonry - CSS Columns */}
         <div className="hidden md:block columns-3 lg:columns-4 gap-2 space-y-2">
           {contentItems.map((item, index) => {
+            const takeFullWidth = index % 6 === 0 || index % 11 === 0;
+            
             if (item.type === 'image') {
               return (
                 <div
                   key={`image-${index}`}
                   className="break-inside-avoid mb-2 overflow-hidden hover-invert transition-all duration-300"
+                  style={takeFullWidth ? { columnSpan: 'all' } : undefined}
                 >
                   <img 
                     src={item.src} 
@@ -60,6 +63,7 @@ const Index = () => {
                 <div
                   key={`release-${release.id}`}
                   className="break-inside-avoid mb-2 overflow-hidden hover-invert transition-all duration-300 relative"
+                  style={takeFullWidth ? { columnSpan: 'all' } : undefined}
                 >
                   {release.coming_soon && (
                     <Link to={`/releases?release=${release.id}`}>
@@ -120,11 +124,14 @@ const Index = () => {
         {/* Mobile Masonry - CSS Columns */}
         <div className="md:hidden columns-2 gap-1.5 space-y-1.5">
           {contentItems.map((item, index) => {
+            const takeFullWidth = index % 5 === 0 || index % 9 === 0;
+            
             if (item.type === 'image') {
               return (
                 <div
                   key={`mobile-image-${index}`}
                   className="break-inside-avoid mb-1.5 overflow-hidden hover-invert transition-all duration-300"
+                  style={takeFullWidth ? { columnSpan: 'all' } : undefined}
                 >
                   <img 
                     src={item.src} 
@@ -141,6 +148,7 @@ const Index = () => {
                 <div
                   key={`mobile-release-${release.id}`}
                   className="break-inside-avoid mb-1.5 overflow-hidden hover-invert transition-all duration-300 relative"
+                  style={takeFullWidth ? { columnSpan: 'all' } : undefined}
                 >
                   {release.coming_soon && (
                     <Link to={`/releases?release=${release.id}`}>
