@@ -4,6 +4,7 @@ import { supabase } from '@/integrations/supabase/client';
 import { Button } from '@/components/ui/button';
 import cracraLogo from '@/assets/cracra-logo.jpg';
 import MobileMenu from './MobileMenu';
+import CracraLogo from './CracraLogo';
 
 const Header = () => {
   const [user, setUser] = useState<any>(null);
@@ -53,7 +54,7 @@ const Header = () => {
             alt="CRACRA KREW Logo" 
             className="h-10 md:h-12 w-auto filter contrast-125"
           />
-          <span className="text-lg md:text-2xl font-black tracking-tight">CRACRAKREW</span>
+          <CracraLogo />
         </Link>
         
         {/* Desktop Navigation */}
