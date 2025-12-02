@@ -1,4 +1,4 @@
-import { Instagram, Facebook } from 'lucide-react';
+import { Instagram, Youtube } from 'lucide-react';
 
 const Footer = () => {
   return (
@@ -16,13 +16,13 @@ const Footer = () => {
               <Instagram size={20} className="md:w-[18px] md:h-[18px]" />
             </a>
             <a 
-              href="https://facebook.com/cracrakrew" 
+              href="https://youtube.com/@cracrakrewrecordings" 
               target="_blank" 
               rel="noopener noreferrer"
               className="hover-invert p-2 rounded transition-all touch-target"
-              aria-label="Facebook"
+              aria-label="YouTube"
             >
-              <Facebook size={20} className="md:w-[18px] md:h-[18px]" />
+              <Youtube size={20} className="md:w-[18px] md:h-[18px]" />
             </a>
           </div>
           
