@@ -61,7 +61,7 @@ const Index = () => {
           </div>
 
           {/* Rest of content - Masonry columns */}
-          <div className="columns-2 gap-0.5">
+          <div className="columns-3 gap-0.5">
             {contentItems.filter(item => item.type !== 'image' || (item.type === 'image' && item.src !== insightImage)).map((item, index) => {
               const sizePattern = index % 11;
               const isVeryLarge = sizePattern === 1 || sizePattern === 7;
@@ -79,6 +79,7 @@ const Index = () => {
                       src={item.src} 
                       alt={item.alt} 
                       className={`w-full h-auto block origin-center ${scaleClass}`}
+                      style={{ objectFit: 'contain' }}
                     />
                   </div>
                 );
@@ -109,6 +110,7 @@ const Index = () => {
                           src={release.image_url} 
                           alt={release.title}
                           className={`w-full h-auto block origin-center ${scaleClass}`}
+                          style={{ objectFit: 'contain' }}
                         />
                       </a>
                     ) : (
@@ -116,6 +118,7 @@ const Index = () => {
                         src={release.image_url} 
                         alt={release.title}
                         className={`w-full h-auto block origin-center ${scaleClass}`}
+                        style={{ objectFit: 'contain' }}
                       />
                     )}
                   </div>
@@ -166,6 +169,7 @@ const Index = () => {
                     src={item.src} 
                     alt={item.alt} 
                     className={`w-full h-auto block origin-center ${scaleClass}`}
+                    style={{ objectFit: 'contain' }}
                   />
                 </div>
               );
@@ -196,6 +200,7 @@ const Index = () => {
                         src={release.image_url} 
                         alt={release.title}
                         className={`w-full h-auto block origin-center ${scaleClass}`}
+                        style={{ objectFit: 'contain' }}
                       />
                     </a>
                   ) : (
@@ -203,6 +208,7 @@ const Index = () => {
                       src={release.image_url} 
                       alt={release.title}
                       className={`w-full h-auto block origin-center ${scaleClass}`}
+                      style={{ objectFit: 'contain' }}
                     />
                   )}
                 </div>
