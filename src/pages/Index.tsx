@@ -61,7 +61,7 @@ const Index = () => {
           </div>
 
           {/* Rest of content - Masonry columns */}
-          <div className="columns-3 gap-1">
+          <div className="columns-2 gap-0.5">
             {contentItems.filter(item => item.type !== 'image' || (item.type === 'image' && item.src !== insightImage)).map((item, index) => {
               const sizePattern = index % 11;
               const isVeryLarge = sizePattern === 1 || sizePattern === 7;
@@ -73,7 +73,7 @@ const Index = () => {
                 return (
                   <div
                     key={`image-${index}`}
-                    className="break-inside-avoid mb-1 overflow-hidden hover-invert transition-all duration-300"
+                    className="break-inside-avoid mb-0.5 overflow-hidden hover-invert transition-all duration-300"
                   >
                     <img 
                       src={item.src} 
@@ -89,7 +89,7 @@ const Index = () => {
                 return (
                   <div
                     key={`release-${release.id}`}
-                    className="break-inside-avoid mb-1 overflow-hidden hover-invert transition-all duration-300 relative"
+                    className="break-inside-avoid mb-0.5 overflow-hidden hover-invert transition-all duration-300 relative"
                   >
                     {release.coming_soon && (
                       <Link to={`/releases?release=${release.id}`}>
