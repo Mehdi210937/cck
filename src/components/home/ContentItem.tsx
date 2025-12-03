@@ -27,7 +27,7 @@ interface ReleaseItemProps {
 }
 
 export const ReleaseItem = ({ release, scaleClass }: ReleaseItemProps) => (
-  <div className="break-inside-avoid mb-0.5 overflow-hidden hover-invert transition-all duration-300 relative">
+  <div className="w-full h-full overflow-hidden hover-invert transition-all duration-300 relative">
     {release.coming_soon && (
       <Link to={`/releases?release=${release.id}`}>
         <Badge className="absolute top-2 left-2 z-10 bg-primary text-xs hover:bg-primary/90 cursor-pointer transition-colors">
@@ -36,21 +36,11 @@ export const ReleaseItem = ({ release, scaleClass }: ReleaseItemProps) => (
       </Link>
     )}
     {release.soundcloud_url ? (
-      <a href={release.soundcloud_url} target="_blank" rel="noopener noreferrer" className="block">
-        <img
-          src={release.image_url}
-          alt={release.title}
-          className={`w-full h-auto block origin-center ${scaleClass}`}
-          style={{ objectFit: "contain" }}
-        />
+      <a href={release.soundcloud_url} target="_blank" rel="noopener noreferrer" className="block w-full h-full">
+        <img src={release.image_url} alt={release.title} className={`w-full h-full object-cover ${scaleClass}`} />
       </a>
     ) : (
-      <img
-        src={release.image_url}
-        alt={release.title}
-        className={`w-full h-auto block origin-center ${scaleClass}`}
-        style={{ objectFit: "contain" }}
-      />
+      <img src={release.image_url} alt={release.title} className={`w-full h-full object-cover ${scaleClass}`} />
     )}
   </div>
 );
@@ -72,17 +62,15 @@ export const YouTubeItem = ({ videoId }: YouTubeItemProps) => {
   };
 
   return (
-    <div className="break-inside-avoid mb-0.5 overflow-hidden transition-all duration-300 relative group">
-      <div className="aspect-video w-full">
-        <iframe
-          ref={iframeRef}
-          src={`https://www.youtube.com/embed/${videoId}?autoplay=1&mute=1&loop=1&playlist=${videoId}&controls=0&modestbranding=1&rel=0&enablejsapi=1`}
-          title="CRACRAKREW Video"
-          className="w-full h-full"
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-          allowFullScreen
-        />
-      </div>
+    <div className="w-full h-full overflow-hidden transition-all duration-300 relative group">
+      <iframe
+        ref={iframeRef}
+        src={`https://www.youtube.com/embed/${videoId}?autoplay=1&mute=1&loop=1&playlist=${videoId}&controls=0&modestbranding=1&rel=0&enablejsapi=1`}
+        title="CRACRAKREW Video"
+        className="w-full h-full"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+        allowFullScreen
+      />
 
       {/* Bouton son */}
       <button
