@@ -49,7 +49,7 @@ export const DesktopGrid = () => {
       </div>
       <div className="col-span-2 overflow-hidden">
         <img
-          src="/images/releases/INSIGHT-cracra.jpg"
+          src="/images/releases/INSIGHT cracra.jpg"
           alt="INSIGHT cracra"
           className="w-full h-full object-cover hover-invert transition-all duration-300"
         />
@@ -58,7 +58,7 @@ export const DesktopGrid = () => {
       {/* Ligne 4 : LOU_PICS (1 col) + vidmil.mp4 (2 cols) */}
       <div className="col-span-1 overflow-hidden">
         <img
-          src="/images/LOU PICS.jpg"
+          src="/images/releases/LOU PICS.jpg"
           alt="LOU PICS"
           className="w-full h-full object-cover hover-invert transition-all duration-300"
         />
