@@ -2,6 +2,7 @@ import { ReleaseItem, YouTubeItem } from "./ContentItem";
 import { releases } from "@/data/releases";
 import insightImage from "@/assets/insight-cracra.jpg";
 import louPics from "@/assets/lou-pics.jpg";
+import vidmil from "@/assets/vidmil.mp4";
 
 export const DesktopGrid = () => {
   const mainRelease = releases[0];
@@ -71,7 +72,7 @@ export const DesktopGrid = () => {
           />
         </div>
         <div className="col-span-2 h-full overflow-hidden">
-          <video src="/videos/vidmil.mp4" autoPlay muted loop playsInline className="w-full h-full object-cover" />
+          <video src={vidmil} autoPlay muted loop playsInline className="w-full h-full object-cover" />
         </div>
       </div>
     </div>
@@ -121,7 +122,7 @@ export const MobileGrid = () => {
           <img src={louPics} alt="LOU PICS" className="w-full h-full object-cover hover-invert" />
         </div>
         <div className="col-span-1 h-full overflow-hidden">
-          <video src="/videos/vidmil.mp4" autoPlay muted loop playsInline className="w-full h-full object-cover" />
+          <video src={vidmil} autoPlay muted loop playsInline className="w-full h-full object-cover" />
         </div>
       </div>
     </div>
