@@ -10,7 +10,7 @@ export const DesktopGrid = () => {
   return (
     <div className="flex flex-col gap-1">
       {/* Ligne 1 : YouTube (2 cols) + Release (1 col) */}
-      <div className="grid grid-cols-3 gap-1 h-[600px]">
+      <div className="grid grid-cols-3 gap-1 h-[300px]">
         <div className="col-span-2 h-full overflow-hidden">
           <YouTubeItem videoId="tOcCIcOuul8" />
         </div>
@@ -85,45 +85,42 @@ export const MobileGrid = () => {
   return (
     <div className="flex flex-col gap-1">
       {/* YouTube pleine largeur */}
-      <div className="h-[200px]">
+      <div className="h-[250px] overflow-hidden">
         <YouTubeItem videoId="tOcCIcOuul8" />
       </div>
 
       {/* Release */}
-      <div className="h-[200px]">
+      <div className="h-[350px] overflow-hidden">
         <ReleaseItem release={mainRelease} scaleClass="" />
       </div>
 
-      {/* Images 2 par ligne */}
-      <div className="grid grid-cols-2 gap-1 h-[200px]">
-        <div className="col-span-1 h-full overflow-hidden">
-          <img
-            src="/images/releases/mykindofbird.jpg"
-            alt="My Kind of Bird"
-            className="w-full h-full object-cover hover-invert"
-          />
-        </div>
-        <div className="col-span-1 h-full overflow-hidden">
-          <img src="/images/releases/mil.jpg" alt="MIL" className="w-full h-full object-cover hover-invert" />
-        </div>
+      {/* Images une par ligne */}
+      <div className="h-[400px] overflow-hidden">
+        <img
+          src="/images/releases/mykindofbird.jpg"
+          alt="My Kind of Bird"
+          className="w-full h-full object-cover hover-invert"
+        />
       </div>
 
-      <div className="grid grid-cols-2 gap-1 h-[200px]">
-        <div className="col-span-1 h-full overflow-hidden">
-          <img src="/images/releases/mill.jpg" alt="MILL" className="w-full h-full object-cover hover-invert" />
-        </div>
-        <div className="col-span-1 h-full overflow-hidden">
-          <img src={insightImage} alt="INSIGHT CRACRA" className="w-full h-full object-cover hover-invert" />
-        </div>
+      <div className="h-[400px] overflow-hidden">
+        <img src="/images/releases/mil.jpg" alt="MIL" className="w-full h-full object-cover hover-invert" />
       </div>
 
-      <div className="grid grid-cols-2 gap-1 h-[200px]">
-        <div className="col-span-1 h-full overflow-hidden">
-          <img src={louPics} alt="LOU PICS" className="w-full h-full object-cover hover-invert" />
-        </div>
-        <div className="col-span-1 h-full overflow-hidden">
-          <video src={vidmil} autoPlay muted loop playsInline className="w-full h-full object-cover" />
-        </div>
+      <div className="h-[400px] overflow-hidden">
+        <img src="/images/releases/mill.jpg" alt="MILL" className="w-full h-full object-cover hover-invert" />
+      </div>
+
+      <div className="h-[350px] overflow-hidden">
+        <img src={insightImage} alt="INSIGHT CRACRA" className="w-full h-full object-cover hover-invert" />
+      </div>
+
+      <div className="h-[350px] overflow-hidden">
+        <img src={louPics} alt="LOU PICS" className="w-full h-full object-cover hover-invert" />
+      </div>
+
+      <div className="h-[300px] overflow-hidden">
+        <video src={vidmil} autoPlay muted loop playsInline className="w-full h-full object-cover" />
       </div>
     </div>
   );
