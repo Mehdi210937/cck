@@ -57,12 +57,13 @@ export const recommendations: WeeklyReco[] = [
       spotify_url: "https://open.spotify.com/album/5bfpRtBW7RNRdsm3tRyl3R",
     },
     club: {
-      name: "Concrete",
+      name: "Station - Gare des mines",
       city: "Paris",
       image_url: "/images/reco/concrete.jpg",
       description:
-        "Institution parisienne au bord de la Seine. Techno pointue et line-ups internationaux dans un cadre brut et industriel.",
-      link: "https://www.concrete.paris/",
+        "Spectrum Waves Annniversary (Nord + Sud);"
+        "L'endroit partage nos valeurs et il nous le montre ce samedi : Léa Occhi B2B Raeza",
+      link: "https://lastation.paris/stationgdm/rendez-vous/2025-12-06-spectrum-waves",
     },
     expo: {
       title: "Concordances",
