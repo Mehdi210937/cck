@@ -1,106 +1,140 @@
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { recommendations } from "@/data/recommendations";
-import { Card } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { Film, Music } from "lucide-react";
+import { Film, Music, MapPin, Palette } from "lucide-react";
 
 const Reco = () => {
-  const latestReco = recommendations[0];
+  const currentReco = recommendations[0];
 
   return (
     <div className="min-h-screen bg-background pb-16">
       <Header />
-      
-      <main className="container mx-auto px-4 py-8 mb-24">
-        <div className="max-w-6xl mx-auto space-y-8">
-          {/* Date de publication */}
-          <div className="text-center">
-            <h1 className="text-3xl md:text-4xl font-bold font-helvetica mb-2">
-              RECO DE LA SEMAINE
-            </h1>
-            <p className="text-muted-foreground text-sm md:text-base">
-              {latestReco.date}
-            </p>
+
+      <main className="container mx-auto px-4 py-12 mb-24">
+        <div className="max-w-5xl mx-auto">
+          {/* Header */}
+          <div className="text-center mb-16">
+            <p className="text-sm tracking-widest text-muted-foreground mb-2">SEMAINE DU</p>
+            <h1 className="text-4xl md:text-5xl font-bold font-helvetica">{currentReco.week_start}</h1>
           </div>
 
-          {/* Grid Film + Album */}
-          <div className="grid md:grid-cols-2 gap-8">
-            {/* Film Section */}
-            <Card className="overflow-hidden hover:shadow-xl transition-shadow">
-              <div className="aspect-[2/3] relative">
-                <img 
-                  src={latestReco.movie.image_url} 
-                  alt={latestReco.movie.title}
-                  className="w-full h-full object-cover"
-                />
-              </div>
-              <div className="p-6 space-y-4">
-                <div className="flex items-center gap-2 text-muted-foreground">
-                  <Film size={18} />
-                  <span className="text-xs uppercase tracking-wider">Film</span>
+          {/* Grid 2x2 */}
+          <div className="grid md:grid-cols-2 gap-1">
+            {/* Film */}
+            <a
+              href={currentReco.film.link}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group relative aspect-square overflow-hidden bg-black"
+            >
+              <img
+                src={currentReco.film.image_url}
+                alt={currentReco.film.title}
+                className="w-full h-full object-cover opacity-80 group-hover:opacity-40 group-hover:scale-105 transition-all duration-500"
+              />
+              <div className="absolute inset-0 flex flex-col justify-end p-6">
+                <div className="flex items-center gap-2 text-white/60 mb-2">
+                  <Film size={16} />
+                  <span className="text-xs tracking-widest uppercase">Film</span>
                 </div>
-                <div>
-                  <h2 className="text-2xl font-bold font-helvetica mb-1">
-                    {latestReco.movie.title}
-                  </h2>
-                  <p className="text-sm text-muted-foreground">
-                    {latestReco.movie.director && `Réalisé par ${latestReco.movie.director}`}
-                    {latestReco.movie.year && ` • ${latestReco.movie.year}`}
-                  </p>
-                </div>
-                <p className="text-foreground leading-relaxed">
-                  {latestReco.movie.description}
+                <h2 className="text-2xl md:text-3xl font-bold text-white mb-1">{currentReco.film.title}</h2>
+                <p className="text-sm text-white/60">
+                  {currentReco.film.director} • {currentReco.film.year}
                 </p>
-                {latestReco.movie.link && (
-                  <Button variant="outline" className="w-full" asChild>
-                    <a href={latestReco.movie.link} target="_blank" rel="noopener noreferrer">
-                      Plus d'infos
-                    </a>
-                  </Button>
-                )}
+                <p className="text-sm text-white/80 mt-3 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                  {currentReco.film.description}
+                </p>
               </div>
-            </Card>
+            </a>
 
-            {/* Album Section */}
-            <Card className="overflow-hidden hover:shadow-xl transition-shadow">
-              <div className="aspect-square relative">
-                <img 
-                  src={latestReco.album.image_url} 
-                  alt={latestReco.album.title}
-                  className="w-full h-full object-cover"
-                />
-              </div>
-              <div className="p-6 space-y-4">
-                <div className="flex items-center gap-2 text-muted-foreground">
-                  <Music size={18} />
-                  <span className="text-xs uppercase tracking-wider">Album</span>
+            {/* Album */}
+            <a
+              href={currentReco.album.spotify_url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group relative aspect-square overflow-hidden bg-black"
+            >
+              <img
+                src={currentReco.album.image_url}
+                alt={currentReco.album.title}
+                className="w-full h-full object-cover opacity-80 group-hover:opacity-40 group-hover:scale-105 transition-all duration-500"
+              />
+              <div className="absolute inset-0 flex flex-col justify-end p-6">
+                <div className="flex items-center gap-2 text-white/60 mb-2">
+                  <Music size={16} />
+                  <span className="text-xs tracking-widest uppercase">Album</span>
                 </div>
-                <div>
-                  <h2 className="text-2xl font-bold font-helvetica mb-1">
-                    {latestReco.album.title}
-                  </h2>
-                  <p className="text-sm text-muted-foreground">
-                    {latestReco.album.artist}
-                    {latestReco.album.year && ` • ${latestReco.album.year}`}
-                  </p>
-                </div>
-                <p className="text-foreground leading-relaxed">
-                  {latestReco.album.description}
+                <h2 className="text-2xl md:text-3xl font-bold text-white mb-1">{currentReco.album.title}</h2>
+                <p className="text-sm text-white/60">
+                  {currentReco.album.artist} • {currentReco.album.year}
                 </p>
-                {latestReco.album.spotify_url && (
-                  <Button variant="outline" className="w-full" asChild>
-                    <a href={latestReco.album.spotify_url} target="_blank" rel="noopener noreferrer">
-                      Écouter sur Spotify
-                    </a>
-                  </Button>
-                )}
+                <p className="text-sm text-white/80 mt-3 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                  {currentReco.album.description}
+                </p>
               </div>
-            </Card>
+            </a>
+
+            {/* Club */}
+            <a
+              href={currentReco.club.link}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group relative aspect-square overflow-hidden bg-black"
+            >
+              <img
+                src={currentReco.club.image_url}
+                alt={currentReco.club.name}
+                className="w-full h-full object-cover opacity-80 group-hover:opacity-40 group-hover:scale-105 transition-all duration-500"
+              />
+              <div className="absolute inset-0 flex flex-col justify-end p-6">
+                <div className="flex items-center gap-2 text-white/60 mb-2">
+                  <MapPin size={16} />
+                  <span className="text-xs tracking-widest uppercase">Club</span>
+                </div>
+                <h2 className="text-2xl md:text-3xl font-bold text-white mb-1">{currentReco.club.name}</h2>
+                <p className="text-sm text-white/60">{currentReco.club.city}</p>
+                <p className="text-sm text-white/80 mt-3 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                  {currentReco.club.description}
+                </p>
+              </div>
+            </a>
+
+            {/* Expo */}
+            <a
+              href={currentReco.expo.link}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group relative aspect-square overflow-hidden bg-black"
+            >
+              <img
+                src={currentReco.expo.image_url}
+                alt={currentReco.expo.title}
+                className="w-full h-full object-cover opacity-80 group-hover:opacity-40 group-hover:scale-105 transition-all duration-500"
+              />
+              <div className="absolute inset-0 flex flex-col justify-end p-6">
+                <div className="flex items-center gap-2 text-white/60 mb-2">
+                  <Palette size={16} />
+                  <span className="text-xs tracking-widest uppercase">Expo</span>
+                </div>
+                <h2 className="text-2xl md:text-3xl font-bold text-white mb-1">{currentReco.expo.title}</h2>
+                <p className="text-sm text-white/60">{currentReco.expo.location}</p>
+                {currentReco.expo.dates && <p className="text-xs text-white/40 mt-1">{currentReco.expo.dates}</p>}
+                <p className="text-sm text-white/80 mt-3 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                  {currentReco.expo.description}
+                </p>
+              </div>
+            </a>
           </div>
+
+          {/* Navigation vers archives (optionnel) */}
+          {recommendations.length > 1 && (
+            <div className="mt-12 text-center">
+              <p className="text-sm text-muted-foreground tracking-widest">ARCHIVES DISPONIBLES</p>
+            </div>
+          )}
         </div>
       </main>
-      
+
       <Footer />
     </div>
   );
