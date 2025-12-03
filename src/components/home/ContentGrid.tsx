@@ -20,7 +20,7 @@ export const DesktopGrid = () => {
       </div>
 
       {/* Ligne 2 : 3 images verticales égales */}
-      <div className="grid grid-cols-3 gap-1 h-[400px] mt-50">
+      <div className="grid grid-cols-3 gap-1 h-[400px] mt-52">
         <div className="col-span-1 h-full overflow-hidden">
           <img
             src="/images/releases/mykindofbird.jpg"
