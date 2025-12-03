@@ -71,7 +71,7 @@ export const DesktopGrid = () => {
           />
         </div>
         <div className="col-span-2 h-full overflow-hidden">
-          <video src="/CRACRAKREW/vidmil.mp4" autoPlay muted loop playsInline className="w-full h-full object-cover" />
+          <video src="/videos/vidmil.mp4" autoPlay muted loop playsInline className="w-full h-full object-cover" />
         </div>
       </div>
     </div>
@@ -121,7 +121,7 @@ export const MobileGrid = () => {
           <img src={louPics} alt="LOU PICS" className="w-full h-full object-cover hover-invert" />
         </div>
         <div className="col-span-1 h-full overflow-hidden">
-          <video src="/CRACRAKREW/vidmil.mp4" autoPlay muted loop playsInline className="w-full h-full object-cover" />
+          <video src="/videos/vidmil.mp4" autoPlay muted loop playsInline className="w-full h-full object-cover" />
         </div>
       </div>
     </div>
