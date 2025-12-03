@@ -45,7 +45,7 @@ export const DesktopGrid = () => {
       </div>
 
       {/* Ligne 3 : mill (1 col) + INSIGHT (2 cols) */}
-      <div className="grid grid-cols-3 gap-1 h-[350px]">
+      <div className="grid grid-cols-3 gap-1 h-[500px]">
         <div className="col-span-1 h-full overflow-hidden">
           <img
             src="/images/releases/mill.jpg"
@@ -63,7 +63,7 @@ export const DesktopGrid = () => {
       </div>
 
       {/* Ligne 4 : LOU_PICS (1 col) + vidmil.mp4 (2 cols) */}
-      <div className="grid grid-cols-3 gap-1 h-[350px]">
+      <div className="grid grid-cols-3 gap-1 h-[500px]">
         <div className="col-span-1 h-full overflow-hidden">
           <img
             src={louPics}
