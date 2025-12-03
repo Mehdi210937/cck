@@ -18,13 +18,13 @@ const MobileMenu = ({ isAdmin, navItems }: MobileMenuProps) => {
       </Button>
 
       {isOpen && (
-        <div className="absolute top-full right-0 mt-2 w-56 bg-white rounded-lg shadow-lg border border-gray-200 py-2 z-50 animate-fade-in">
+        <div className="absolute top-full right-0 mt-2 w-56 bg-background rounded-lg shadow-lg border border-border py-2 z-50 animate-fade-in">
           <nav className="flex flex-col">
             {navItems.map((item) => (
               <Link
                 key={item.path}
                 to={item.path}
-                className="px-4 py-3 text-base font-bold text-gray-900 hover:bg-gray-100 transition-colors duration-200"
+                className="px-4 py-3 text-base font-bold text-foreground hover:bg-muted transition-colors duration-200"
                 onClick={() => setIsOpen(false)}
               >
                 {item.label}
@@ -32,7 +32,7 @@ const MobileMenu = ({ isAdmin, navItems }: MobileMenuProps) => {
             ))}
 
             {isAdmin && (
-              <Link to="/admin" onClick={() => setIsOpen(false)} className="px-4 py-3 mt-2 border-t border-gray-200">
+              <Link to="/admin" onClick={() => setIsOpen(false)} className="px-4 py-3 mt-2 border-t border-border">
                 <Button variant="outline" className="w-full text-sm font-bold">
                   ADMIN
                 </Button>
