@@ -1,8 +1,10 @@
 import { ReleaseItem, YouTubeItem } from "./ContentItem";
 import { releases } from "@/data/releases";
+import insightImage from "@/assets/insight-cracra.jpg";
+import louPics from "@/assets/lou-pics.jpg";
 
 export const DesktopGrid = () => {
-  const mainRelease = releases[0]; // La release avec les liens
+  const mainRelease = releases[0];
 
   return (
     <div className="grid grid-cols-3 gap-1">
@@ -19,7 +21,7 @@ export const DesktopGrid = () => {
         <img
           src="/images/releases/mykindofbird.jpg"
           alt="My Kind of Bird"
-          className="w-full h-full object-cover hover-invert transition-all duration-300"
+          className="w-full h-full object-contain hover-invert transition-all duration-300"
         />
       </div>
       <div className="col-span-1 overflow-hidden">
@@ -27,7 +29,7 @@ export const DesktopGrid = () => {
           <img
             src="/images/releases/mil.jpg"
             alt="MIL"
-            className="h-full w-auto object-cover rotate-90 hover-invert transition-all duration-300"
+            className="h-full w-auto object-contain rotate-90 hover-invert transition-all duration-300"
           />
         </div>
       </div>
@@ -35,7 +37,7 @@ export const DesktopGrid = () => {
         <img
           src="/images/releases/mykindofbird.jpg"
           alt="My Kind of Bird (placeholder)"
-          className="w-full h-full object-cover hover-invert transition-all duration-300"
+          className="w-full h-full object-contain hover-invert transition-all duration-300"
         />
       </div>
 
@@ -44,27 +46,27 @@ export const DesktopGrid = () => {
         <img
           src="/images/releases/mill.jpg"
           alt="MILL"
-          className="w-full h-full object-cover hover-invert transition-all duration-300"
+          className="w-full h-full object-contain hover-invert transition-all duration-300"
         />
       </div>
       <div className="col-span-2 overflow-hidden">
         <img 
-          src={INSIGHT cracra} 
+          src={insightImage} 
           alt="INSIGHT CRACRA" 
-          className="w-full h-full object-cover hover-invert transition-all duration-300"
+          className="w-full h-full object-contain hover-invert transition-all duration-300"
         />
       </div>
 
       {/* Ligne 4 : LOU_PICS (1 col) + vidmil.mp4 (2 cols) */}
-       <div className="col-span-1 overflow-hidden">
+      <div className="col-span-1 overflow-hidden">
         <img 
-          src={LOU PICS} 
+          src={louPics} 
           alt="LOU PICS" 
-          className="w-full h-full object-cover hover-invert transition-all duration-300"
+          className="w-full h-full object-contain hover-invert transition-all duration-300"
         />
       </div>
       <div className="col-span-2 overflow-hidden">
-        <video src="/videos/vidmil.mp4" autoPlay muted loop playsInline className="w-full h-full object-cover" />
+        <video src="/videos/vidmil.mp4" autoPlay muted loop playsInline className="w-full h-full object-contain" />
       </div>
     </div>
   );
@@ -90,25 +92,25 @@ export const MobileGrid = () => {
         <img
           src="/images/releases/mykindofbird.jpg"
           alt="My Kind of Bird"
-          className="w-full object-cover hover-invert"
+          className="w-full object-contain hover-invert"
         />
       </div>
       <div className="col-span-1 overflow-hidden">
-        <img src="/images/releases/mil.jpg" alt="MIL" className="w-full object-cover hover-invert" />
+        <img src="/images/releases/mil.jpg" alt="MIL" className="w-full object-contain hover-invert" />
       </div>
 
       <div className="col-span-1 overflow-hidden">
-        <img src="/images/releases/mill.jpg" alt="MILL" className="w-full object-cover hover-invert" />
+        <img src="/images/releases/mill.jpg" alt="MILL" className="w-full object-contain hover-invert" />
       </div>
       <div className="col-span-1 overflow-hidden">
-        <img src="/images/insight-cracra.jpg" alt="INSIGHT CRACRA" className="w-full object-cover hover-invert" />
+        <img src={insightImage} alt="INSIGHT CRACRA" className="w-full object-contain hover-invert" />
       </div>
 
       <div className="col-span-1 overflow-hidden">
-        <img src="/images/lou-pics.jpg" alt="LOU PICS" className="w-full object-cover hover-invert" />
+        <img src={louPics} alt="LOU PICS" className="w-full object-contain hover-invert" />
       </div>
       <div className="col-span-1 overflow-hidden">
-        <video src="/videos/vidmil.mp4" autoPlay muted loop playsInline className="w-full object-cover" />
+        <video src="/videos/vidmil.mp4" autoPlay muted loop playsInline className="w-full object-contain" />
       </div>
     </div>
   );
