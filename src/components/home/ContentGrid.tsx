@@ -37,7 +37,7 @@ export const DesktopGrid = () => {
         </div>
         <div className="col-span-1 h-full overflow-hidden">
           <img
-            src="/images/releases/mykindofbird.jpg"
+            src="/images/releases/fuckmil.jpg"
             alt="My Kind of Bird (placeholder)"
             className="w-full h-full object-cover hover-invert transition-all duration-300"
           />
