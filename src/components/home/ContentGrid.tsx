@@ -3,6 +3,7 @@ import { releases } from "@/data/releases";
 import insightImage from "@/assets/insight-cracra.jpg";
 import louPics from "@/assets/lou-pics.jpg";
 import vidmil from "@/assets/vidmil.mp4";
+import fuckmil from "@/assets/fuckmil.jpg";
 
 export const DesktopGrid = () => {
   const mainRelease = releases[0];
@@ -38,7 +39,7 @@ export const DesktopGrid = () => {
         <div className="col-span-1 h-full overflow-hidden">
           <img
             src="/images/releases/fuckmil.jpg"
-            alt="My Kind of Bird (placeholder)"
+            alt="fuckmil"
             className="w-full h-full object-cover hover-invert transition-all duration-300"
           />
         </div>
