@@ -61,8 +61,7 @@ export const recommendations: WeeklyReco[] = [
       city: "Paris",
       image_url: "/images/reco/concrete.jpg",
       description:
-        "Spectrum Waves Annniversary (Nord + Sud);"
-        "L'endroit partage nos valeurs et il nous le montre ce samedi : Léa Occhi B2B Raeza",
+        "Spectrum Waves Annniversary (Nord + Sud). L'endroit partage nos valeurs et il nous le montre ce samedi : Léa Occhi B2B Raeza",
       link: "https://lastation.paris/stationgdm/rendez-vous/2025-12-06-spectrum-waves",
     },
     expo: {
