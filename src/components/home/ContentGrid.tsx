@@ -10,7 +10,7 @@ export const DesktopGrid = () => {
   return (
     <div className="flex flex-col gap-1">
       {/* Ligne 1 : YouTube (2 cols) + Release (1 col) */}
-      <div className="grid grid-cols-3 gap-1 h-[300px]">
+      <div className="grid grid-cols-3 gap-1 h-[500px]">
         <div className="col-span-2 h-full overflow-hidden">
           <YouTubeItem videoId="tOcCIcOuul8" />
         </div>
