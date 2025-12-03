@@ -107,11 +107,11 @@ export const MobileGrid = () => {
         <img src="/images/releases/mil.jpg" alt="MIL" className="w-full h-full object-cover hover-invert" />
       </div>
 
-      <div className="h-[400px] overflow-hidden">
+      <div className="h-[350px] overflow-hidden">
         <img src="/images/releases/mill.jpg" alt="MILL" className="w-full h-full object-cover hover-invert" />
       </div>
 
-      <div className="h-[350px] overflow-hidden">
+      <div className="h-[310px] overflow-hidden">
         <img src={insightImage} alt="INSIGHT CRACRA" className="w-full h-full object-cover hover-invert" />
       </div>
 
@@ -119,7 +119,7 @@ export const MobileGrid = () => {
         <img src={louPics} alt="LOU PICS" className="w-full h-full object-cover hover-invert" />
       </div>
 
-      <div className="h-[300px] overflow-hidden">
+      <div className="h-[200px] overflow-hidden">
         <video src={vidmil} autoPlay muted loop playsInline className="w-full h-full object-cover" />
       </div>
     </div>
