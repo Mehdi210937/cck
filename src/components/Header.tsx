@@ -11,11 +11,21 @@ const Header = () => {
   const [isAdmin, setIsAdmin] = useState(false);
 
   useEffect(() => {
+    const checkAdminRole = async (userId: string) => {
+      const { data } = await supabase
+        .from('user_roles')
+        .select('role')
+        .eq('user_id', userId)
+        .eq('role', 'admin')
+        .maybeSingle();
+      setIsAdmin(!!data);
+    };
+
     const checkUser = async () => {
       const { data: { session } } = await supabase.auth.getSession();
       if (session) {
         setUser(session.user);
-        setIsAdmin(session.user.email === 'cracrakrew@gmail.com');
+        checkAdminRole(session.user.id);
       }
     };
 
@@ -24,7 +34,7 @@ const Header = () => {
     const { data: { subscription } } = supabase.auth.onAuthStateChange((event, session) => {
       if (session) {
         setUser(session.user);
-        setIsAdmin(session.user.email === 'cracrakrew@gmail.com');
+        checkAdminRole(session.user.id);
       } else {
         setUser(null);
         setIsAdmin(false);
