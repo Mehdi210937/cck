@@ -111,7 +111,9 @@ export const MobileGrid = () => {
       <div className="h-[350px] overflow-hidden">
         <img src="/images/releases/mill.jpg" alt="MILL" className="w-full h-full object-cover hover-invert" />
       </div>
-
+      <div className="h-[350px] overflow-hidden">
+        <img src="/images/releases/fuckmil.jpg" alt="fuckmil" className="w-full h-full object-cover hover-invert" />
+      </div>
       <div className="h-[310px] overflow-hidden">
         <img src={insightImage} alt="INSIGHT CRACRA" className="w-full h-full object-cover hover-invert" />
       </div>
