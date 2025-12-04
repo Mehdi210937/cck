@@ -37,7 +37,7 @@ export interface WeeklyReco {
 export const recommendations: WeeklyReco[] = [
   {
     id: "1",
-    week_start: "2 Décembre 2024",
+    week_start: "2 Décembre 2025",
     film: {
       title: "Possession",
       director: "Andrzej Żuławski",
