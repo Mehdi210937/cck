@@ -4,12 +4,18 @@ import insightImage from "@/assets/insight-cracra.jpg";
 import louPics from "@/assets/lou-pics.jpg";
 import vidmil from "@/assets/vidmil.mp4";
 import fuckmil from "@/assets/fuckmil.jpg";
+import banniereCck from "@/assets/banniere-cck.mp4";
 
 export const DesktopGrid = () => {
   const mainRelease = releases[0];
 
   return (
     <div className="flex flex-col gap-1">
+      {/* Bannière pleine largeur */}
+      <div className="w-full h-[300px] overflow-hidden">
+        <video src={banniereCck} autoPlay muted loop playsInline className="w-full h-full object-cover" />
+      </div>
+
       {/* Ligne 1 : YouTube (2 cols) + Release (1 col) */}
       <div className="grid grid-cols-3 gap-1 h-[500px]">
         <div className="col-span-2 h-full overflow-hidden">
@@ -85,6 +91,11 @@ export const MobileGrid = () => {
 
   return (
     <div className="flex flex-col gap-1">
+      {/* Bannière pleine largeur */}
+      <div className="h-[200px] overflow-hidden">
+        <video src={banniereCck} autoPlay muted loop playsInline className="w-full h-full object-cover" />
+      </div>
+
       {/* YouTube pleine largeur */}
       <div className="h-[250px] overflow-hidden">
         <YouTubeItem videoId="tOcCIcOuul8" />
