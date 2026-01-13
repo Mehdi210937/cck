@@ -11,11 +11,6 @@ export const DesktopGrid = () => {
 
   return (
     <div className="flex flex-col gap-1">
-      {/* Bannière pleine largeur */}
-      <div className="w-full h-[300px] overflow-hidden">
-        <video src={banniereCck} autoPlay muted loop playsInline className="w-full h-full object-cover" />
-      </div>
-
       {/* Ligne 1 : YouTube (2 cols) + Release (1 col) */}
       <div className="grid grid-cols-3 gap-1 h-[500px]">
         <div className="col-span-2 h-full overflow-hidden">
@@ -49,6 +44,11 @@ export const DesktopGrid = () => {
             className="w-full h-full object-cover hover-invert transition-all duration-300"
           />
         </div>
+      </div>
+
+      {/* Bannière pleine largeur */}
+      <div className="w-full h-[300px] overflow-hidden">
+        <video src={banniereCck} autoPlay muted loop playsInline className="w-full h-full object-cover" />
       </div>
 
       {/* Ligne 3 : mill (1 col) + INSIGHT (2 cols) */}
