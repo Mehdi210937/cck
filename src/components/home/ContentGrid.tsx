@@ -48,7 +48,7 @@ export const DesktopGrid = () => {
 
       {/* Bannière pleine largeur */}
       <div className="w-full h-[500px] overflow-hidden">
-        <video src={banniereCck} autoPlay muted loop playsInline className="w-full h-full object-cover" />
+        <video src={banniereCck} autoPlay muted loop playsInline className="w-full h-full object-contain" />
       </div>
 
       {/* Ligne 3 : mill (1 col) + INSIGHT (2 cols) */}
