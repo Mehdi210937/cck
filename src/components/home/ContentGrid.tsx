@@ -47,7 +47,7 @@ export const DesktopGrid = () => {
       </div>
 
       {/* Bannière pleine largeur */}
-      <div className="w-full h-[300px] overflow-hidden">
+      <div className="w-full h-[400px] overflow-hidden">
         <video src={banniereCck} autoPlay muted loop playsInline className="w-full h-full object-cover" />
       </div>
 
@@ -92,7 +92,7 @@ export const MobileGrid = () => {
   return (
     <div className="flex flex-col gap-1">
       {/* Bannière pleine largeur */}
-      <div className="h-[200px] overflow-hidden">
+      <div className="h-[280px] overflow-hidden">
         <video src={banniereCck} autoPlay muted loop playsInline className="w-full h-full object-cover" />
       </div>
 
