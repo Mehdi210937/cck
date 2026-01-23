@@ -54,7 +54,7 @@ export const recommendations: WeeklyReco[] = [
       image_url: "/images/reco/geidi-primes.jpg",
       description:
         "Le premier album de Grimes, une odyssée lo-fi et éthérée inspirée par Dune. Expérimental et hypnotique.",
-      spotify_url: "https://open.spotify.com/album/5bfpRtBW7RNRdsm3tRyl3R",
+      spotify_url: "https://open.spotify.com/intl-fr/album/7HO6IZ3Ff5J9YoRBI8hm1O",
     },
     club: {
       name: "Station - Gare des mines",
