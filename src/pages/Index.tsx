@@ -15,7 +15,7 @@ const Index = () => {
   return (
     <div className="min-h-screen bg-background">
       {/* Hero Video Section - Desktop: Full Screen */}
-      <section className="hidden md:flex relative h-screen w-full items-center justify-center bg-black overflow-hidden">
+      <section className="hidden md:flex relative h-[85vh] w-full items-center justify-center bg-black overflow-hidden">
         <video
           src={banniereCck}
           autoPlay
