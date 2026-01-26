@@ -4,7 +4,7 @@ import insightImage from "@/assets/insight-cracra.jpg";
 import louPics from "@/assets/lou-pics.jpg";
 import vidmil from "@/assets/vidmil.mp4";
 import fuckmil from "@/assets/fuckmil.jpg";
-import banniereCck from "@/assets/banniere-cck.mp4";
+
 
 export const DesktopGrid = () => {
   const mainRelease = releases[0];
@@ -46,10 +46,6 @@ export const DesktopGrid = () => {
         </div>
       </div>
 
-      {/* Bannière pleine largeur */}
-      <div className="w-full h-[500px] overflow-hidden">
-        <video src={banniereCck} autoPlay muted loop playsInline className="w-full h-full object-contain scale-110" />
-      </div>
 
       {/* Ligne 3 : mill (1 col) + INSIGHT (2 cols) */}
       <div className="grid grid-cols-3 gap-1 h-[500px]">
@@ -91,10 +87,6 @@ export const MobileGrid = () => {
 
   return (
     <div className="flex flex-col gap-1">
-      {/* Bannière pleine largeur */}
-      <div className="h-[280px] overflow-hidden">
-        <video src={banniereCck} autoPlay muted loop playsInline className="w-full h-full object-cover" />
-      </div>
 
       {/* YouTube pleine largeur */}
       <div className="h-[250px] overflow-hidden">
