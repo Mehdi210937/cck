@@ -100,7 +100,7 @@ const Index = () => {
         {/* Scroll Indicator centré par rapport à l'écran */}
         <button
           onClick={scrollToContent}
-          className="absolute top-1/2 left-[50vw] -translate-x-1/2 -translate-y-1/2 text-white flex flex-col items-center gap-0.5 animate-bounce cursor-pointer hover:opacity-70 transition-opacity z-10"
+          className="absolute top-2/3 left-[45vw] -translate-x-1/2 -translate-y-1/2 text-white flex flex-col items-center gap-0.5 animate-bounce cursor-pointer hover:opacity-70 transition-opacity z-10"
           aria-label="Scroll vers le contenu"
         >
           <span className="text-xs font-medium tracking-widest uppercase">Scroll</span>
