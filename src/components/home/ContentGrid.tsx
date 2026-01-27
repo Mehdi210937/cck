@@ -1,3 +1,4 @@
+import { useRef, useEffect } from "react";
 import { ReleaseItem, YouTubeItem } from "./ContentItem";
 import { releases } from "@/data/releases";
 import insightImage from "@/assets/insight-cracra.jpg";
@@ -8,6 +9,11 @@ import fuckmil from "@/assets/fuckmil.jpg";
 
 export const DesktopGrid = () => {
   const mainRelease = releases[0];
+  const videoRef = useRef<HTMLVideoElement>(null);
+
+  useEffect(() => {
+    videoRef.current?.play().catch(() => {});
+  }, []);
 
   return (
     <div className="flex flex-col gap-1">
@@ -75,7 +81,7 @@ export const DesktopGrid = () => {
           />
         </div>
         <div className="col-span-2 h-full overflow-hidden">
-          <video src={vidmil} autoPlay muted loop playsInline className="w-full h-full object-cover" />
+          <video ref={videoRef} src={vidmil} autoPlay muted loop playsInline className="w-full h-full object-cover" />
         </div>
       </div>
     </div>
@@ -84,6 +90,11 @@ export const DesktopGrid = () => {
 
 export const MobileGrid = () => {
   const mainRelease = releases[0];
+  const videoRef = useRef<HTMLVideoElement>(null);
+
+  useEffect(() => {
+    videoRef.current?.play().catch(() => {});
+  }, []);
 
   return (
     <div className="flex flex-col gap-1">
@@ -126,7 +137,7 @@ export const MobileGrid = () => {
       </div>
 
       <div className="h-[200px] overflow-hidden">
-        <video src={vidmil} autoPlay muted loop playsInline className="w-full h-full object-cover" />
+        <video ref={videoRef} src={vidmil} autoPlay muted loop playsInline className="w-full h-full object-cover" />
       </div>
     </div>
   );
