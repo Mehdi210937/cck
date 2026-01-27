@@ -9,7 +9,15 @@ const Index = () => {
   const contentRef = useRef<HTMLDivElement>(null);
 
   const scrollToContent = () => {
-    contentRef.current?.scrollIntoView({ behavior: "smooth" });
+    if (contentRef.current) {
+      const elementPosition = contentRef.current.getBoundingClientRect().top + window.pageYOffset;
+      const offsetPosition = elementPosition - 80; // Ajuste cette valeur (80px de marge)
+
+      window.scrollTo({
+        top: offsetPosition,
+        behavior: "smooth",
+      });
+    }
   };
 
   return (
@@ -24,7 +32,7 @@ const Index = () => {
           playsInline
           className="absolute inset-0 w-full h-full object-cover"
         />
-        
+
         {/* Scroll Indicator with inverted colors */}
         <button
           onClick={scrollToContent}
@@ -48,7 +56,7 @@ const Index = () => {
             className="w-full h-auto max-h-[32vh] object-contain"
           />
         </div>
-        
+
         <div className="flex-1 flex items-center justify-center bg-white">
           <video
             src={banniereCck}
@@ -59,7 +67,7 @@ const Index = () => {
             className="w-full h-auto max-h-[32vh] object-contain"
           />
         </div>
-        
+
         {/* Scroll Indicator - Between 2nd and 3rd video */}
         <div className="bg-black py-2 flex justify-center">
           <button
@@ -71,7 +79,7 @@ const Index = () => {
             <ChevronDown size={20} />
           </button>
         </div>
-        
+
         <div className="flex-1 flex items-center justify-center bg-black">
           <video
             src={banniereCck}
@@ -87,7 +95,7 @@ const Index = () => {
       {/* Main Content */}
       <div ref={contentRef} className="pb-16">
         <Header />
-        
+
         <main className="container mx-auto px-4 md:px-6 pb-20">
           {/* Desktop Layout */}
           <div className="hidden md:block space-y-1">
@@ -99,7 +107,7 @@ const Index = () => {
             <MobileGrid />
           </div>
         </main>
-        
+
         <Footer />
       </div>
     </div>
