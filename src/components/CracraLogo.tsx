@@ -5,7 +5,7 @@ const CracraLogo = () => {
     <img 
       src={cracraTypo} 
       alt="CRACRAKREW" 
-      className="h-6 md:h-8 w-auto"
+      className="h-6 md:h-8 w-auto mix-blend-multiply dark:mix-blend-screen dark:invert"
     />
   );
 };

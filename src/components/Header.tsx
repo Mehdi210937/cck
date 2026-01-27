@@ -63,7 +63,7 @@ const Header = () => {
           <img 
             src={cracraLogo} 
             alt="CRACRA KREW Logo" 
-            className="h-10 md:h-12 w-auto filter contrast-125"
+            className="h-10 md:h-12 w-auto filter contrast-125 mix-blend-multiply dark:mix-blend-screen dark:invert"
           />
           <CracraLogo />
         </Link>
