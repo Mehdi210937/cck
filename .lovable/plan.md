@@ -1,30 +1,58 @@
 
 
-## Recentrage du bouton Scroll sur mobile
+## Autoplay des vidéos sur mobile
 
-### Problème identifié
-Le bouton scroll utilise `left-1/2` qui le centre par rapport au conteneur parent (`<section>`), mais pas forcément par rapport à l'écran entier.
+### Vidéos identifiées
+
+| Fichier | Vidéo | Statut actuel |
+|---------|-------|---------------|
+| `src/pages/Index.tsx` | 3 vidéos hero mobile | Déjà avec refs + autoplay forcé |
+| `src/pages/Index.tsx` | 1 vidéo hero desktop | Autoplay simple |
+| `src/components/home/ContentGrid.tsx` | vidmil.mp4 (desktop) | Autoplay simple |
+| `src/components/home/ContentGrid.tsx` | vidmil.mp4 (mobile) | Autoplay simple |
 
 ### Solution
-Utiliser `left-[50vw]` au lieu de `left-1/2` pour centrer le bouton par rapport à la **largeur de l'écran** (viewport) plutôt que par rapport au conteneur parent.
 
-### Modification
+Appliquer la même technique de force autoplay (avec `useRef` + `.play()`) aux vidéos de `ContentGrid.tsx`.
 
-**Fichier:** `src/pages/Index.tsx`
+### Modifications
 
-Changer la classe du bouton scroll mobile de:
-```tsx
-className="absolute top-2/3 left-1/2 -translate-x-1/2 -translate-y-1/2 ..."
-```
+**Fichier:** `src/components/home/ContentGrid.tsx`
 
-À:
-```tsx
-className="absolute top-2/3 left-[50vw] -translate-x-1/2 -translate-y-1/2 ..."
-```
+1. Ajouter `useRef` et `useEffect` imports
+2. Créer des refs pour les vidéos (desktop et mobile)
+3. Ajouter un `useEffect` qui force `.play()` au montage
+
+### Limite technique concernant le son
+
+Les navigateurs mobiles (Safari iOS, Chrome Android) **bloquent systématiquement** le son automatique sans interaction utilisateur. C'est une politique de sécurité impossible à contourner par code.
+
+**Alternative possible :** Ajouter un bouton "Activer le son" qui apparaît au premier clic, puis le son se lance.
 
 ### Détails techniques
-- `left-[50vw]` positionne le bord gauche du bouton à 50% de la largeur du viewport (écran)
-- `-translate-x-1/2` décale ensuite le bouton de la moitié de sa propre largeur vers la gauche
-- Résultat : le bouton est parfaitement centré horizontalement par rapport à l'écran, indépendamment du conteneur parent
-- Aucun changement sur les vidéos ou leur espacement
+
+```tsx
+// ContentGrid.tsx - ajout des refs et useEffect
+import { useRef, useEffect } from "react";
+
+export const DesktopGrid = () => {
+  const videoRef = useRef<HTMLVideoElement>(null);
+  
+  useEffect(() => {
+    videoRef.current?.play().catch(() => {});
+  }, []);
+  
+  // ... appliquer ref à la vidéo
+};
+
+export const MobileGrid = () => {
+  const videoRef = useRef<HTMLVideoElement>(null);
+  
+  useEffect(() => {
+    videoRef.current?.play().catch(() => {});
+  }, []);
+  
+  // ... appliquer ref à la vidéo
+};
+```
 
