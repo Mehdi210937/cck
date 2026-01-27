@@ -36,50 +36,52 @@ const Index = () => {
         </button>
       </section>
 
-      {/* Hero Video Section - Mobile: 3 vidéos espacées avec alternance de fonds */}
-      <section className="md:hidden flex flex-col justify-between min-h-screen py-6">
-        <div className="flex-1 flex items-center justify-center px-4 bg-black">
+      {/* Hero Video Section - Mobile: 3 vidéos avec alternance de fonds */}
+      <section className="md:hidden flex flex-col min-h-screen relative">
+        <div className="flex-1 flex items-center justify-center bg-black">
           <video
             src={banniereCck}
             autoPlay
             muted
             loop
             playsInline
-            className="w-full h-auto max-h-[28vh] object-contain"
+            className="w-full h-auto max-h-[32vh] object-contain"
           />
         </div>
         
-        <div className="flex-1 flex items-center justify-center px-4 bg-white">
+        <div className="flex-1 flex items-center justify-center bg-white">
           <video
             src={banniereCck}
             autoPlay
             muted
             loop
             playsInline
-            className="w-full h-auto max-h-[28vh] object-contain"
+            className="w-full h-auto max-h-[32vh] object-contain"
           />
         </div>
         
-        <div className="flex-1 flex items-center justify-center px-4 bg-black">
+        {/* Scroll Indicator - Between 2nd and 3rd video */}
+        <div className="bg-black py-4 flex justify-center">
+          <button
+            onClick={scrollToContent}
+            className="text-white flex flex-col items-center gap-1 animate-bounce cursor-pointer hover:opacity-70 transition-opacity"
+            aria-label="Scroll vers le contenu"
+          >
+            <span className="text-xs font-medium tracking-widest uppercase">Scroll</span>
+            <ChevronDown size={24} />
+          </button>
+        </div>
+        
+        <div className="flex-1 flex items-center justify-center bg-black">
           <video
             src={banniereCck}
             autoPlay
             muted
             loop
             playsInline
-            className="w-full h-auto max-h-[28vh] object-contain"
+            className="w-full h-auto max-h-[32vh] object-contain"
           />
         </div>
-
-        {/* Scroll Indicator */}
-        <button
-          onClick={scrollToContent}
-          className="absolute bottom-4 left-1/2 -translate-x-1/2 text-white flex flex-col items-center gap-1 animate-bounce cursor-pointer hover:opacity-70 transition-opacity z-10"
-          aria-label="Scroll vers le contenu"
-        >
-          <span className="text-xs font-medium tracking-widest uppercase">Scroll</span>
-          <ChevronDown size={24} />
-        </button>
       </section>
 
       {/* Main Content */}
