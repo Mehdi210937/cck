@@ -7,7 +7,24 @@ import banniereCck from "@/assets/banniere-cck.mp4";
 
 const Index = () => {
   const contentRef = useRef<HTMLDivElement>(null);
+  const videoRef1 = useRef<HTMLVideoElement>(null);
+  const videoRef2 = useRef<HTMLVideoElement>(null);
+  const videoRef3 = useRef<HTMLVideoElement>(null);
   const [isContentVisible, setIsContentVisible] = useState(false);
+
+  // Force autoplay on mobile
+  useEffect(() => {
+    const playVideos = () => {
+      [videoRef1, videoRef2, videoRef3].forEach((ref) => {
+        if (ref.current) {
+          ref.current.play().catch(() => {
+            // Autoplay was prevented, ignore
+          });
+        }
+      });
+    };
+    playVideos();
+  }, []);
 
   const scrollToContent = () => {
     if (contentRef.current) {
@@ -66,6 +83,7 @@ const Index = () => {
       <section className="md:hidden flex flex-col min-h-screen bg-black relative">
         <div className="flex-1 flex items-center justify-center">
           <video
+            ref={videoRef1}
             src={banniereCck}
             autoPlay
             muted
@@ -77,6 +95,7 @@ const Index = () => {
 
         <div className="flex-1 flex items-center justify-center">
           <video
+            ref={videoRef2}
             src={banniereCck}
             autoPlay
             muted
@@ -88,6 +107,7 @@ const Index = () => {
 
         <div className="flex-1 flex items-center justify-center">
           <video
+            ref={videoRef3}
             src={banniereCck}
             autoPlay
             muted
