@@ -45,7 +45,7 @@ const Header = () => {
   }, []);
 
   const navItems = [
-    { path: "/shop", label: "Shop" },
+    // { path: "/shop", label: "Shop" }, // Hidden for now
     { path: "/artists", label: "Artists" },
     { path: "/releases", label: "Releases" },
     { path: "/reco", label: "Reco" },

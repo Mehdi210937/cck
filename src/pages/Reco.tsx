@@ -22,7 +22,7 @@ const Reco = () => {
           </div>
 
           {/* Accordion for weeks */}
-          <Accordion type="single" collapsible defaultValue="week-0">
+          <Accordion type="single" collapsible>
             {recommendations.map((reco, index) => (
               <AccordionItem key={reco.id} value={`week-${index}`} className="border-foreground/20">
                 <AccordionTrigger className="text-lg md:text-xl font-medium tracking-widest">
