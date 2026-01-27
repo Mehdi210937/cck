@@ -15,7 +15,7 @@ const Index = () => {
   return (
     <div className="min-h-screen bg-background">
       {/* Hero Video Section - Desktop: Full Screen */}
-      <section className="hidden md:flex relative h-[85vh] w-full items-center justify-center bg-black overflow-hidden">
+      <section className="hidden md:flex relative h-screen w-full items-center justify-center bg-black overflow-hidden">
         <video
           src={banniereCck}
           autoPlay
@@ -36,9 +36,9 @@ const Index = () => {
         </button>
       </section>
 
-      {/* Hero Video Section - Mobile: 3 vidéos espacées */}
-      <section className="md:hidden flex flex-col justify-between bg-black min-h-screen py-6">
-        <div className="flex-1 flex items-center justify-center px-4">
+      {/* Hero Video Section - Mobile: 3 vidéos espacées avec alternance de fonds */}
+      <section className="md:hidden flex flex-col justify-between min-h-screen py-6">
+        <div className="flex-1 flex items-center justify-center px-4 bg-black">
           <video
             src={banniereCck}
             autoPlay
@@ -49,7 +49,7 @@ const Index = () => {
           />
         </div>
         
-        <div className="flex-1 flex items-center justify-center px-4">
+        <div className="flex-1 flex items-center justify-center px-4 bg-white">
           <video
             src={banniereCck}
             autoPlay
@@ -60,7 +60,7 @@ const Index = () => {
           />
         </div>
         
-        <div className="flex-1 flex items-center justify-center px-4">
+        <div className="flex-1 flex items-center justify-center px-4 bg-black">
           <video
             src={banniereCck}
             autoPlay
