@@ -1,13 +1,18 @@
-import { useEffect } from "react";
+import { useEffect, useCallback, useState } from "react";
 
 /**
  * Mobile browsers (notably iOS Safari) can be picky about autoplay.
  * We retry play() on a few readiness events and ensure properties are set
  * before attempting playback.
+ *
+ * Returns an `enableSound` callback. Call it on a user interaction to unmute
+ * all referenced videos — this bypasses browser autoplay-with-audio blocks.
  */
 export function useForceAutoplay(
   refs: Array<React.RefObject<HTMLVideoElement | null>>,
 ) {
+  const [soundEnabled, setSoundEnabled] = useState(false);
+
   useEffect(() => {
     const videos = refs
       .map((r) => r.current)
@@ -63,4 +68,31 @@ export function useForceAutoplay(
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  const enableSound = useCallback(() => {
+    const videos = refs
+      .map((r) => r.current)
+      .filter(Boolean) as HTMLVideoElement[];
+
+    videos.forEach((v) => {
+      v.muted = false;
+      v.play().catch(() => {});
+    });
+
+    setSoundEnabled(true);
+  }, [refs]);
+
+  const disableSound = useCallback(() => {
+    const videos = refs
+      .map((r) => r.current)
+      .filter(Boolean) as HTMLVideoElement[];
+
+    videos.forEach((v) => {
+      v.muted = true;
+    });
+
+    setSoundEnabled(false);
+  }, [refs]);
+
+  return { soundEnabled, enableSound, disableSound, toggleSound: soundEnabled ? disableSound : enableSound };
 }
