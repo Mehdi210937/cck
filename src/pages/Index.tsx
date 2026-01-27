@@ -1,4 +1,4 @@
-import { useRef } from "react";
+import { useRef, useEffect, useState } from "react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { DesktopGrid, MobileGrid } from "@/components/home/ContentGrid";
@@ -7,11 +7,12 @@ import banniereCck from "@/assets/banniere-cck.mp4";
 
 const Index = () => {
   const contentRef = useRef<HTMLDivElement>(null);
+  const [isContentVisible, setIsContentVisible] = useState(false);
 
   const scrollToContent = () => {
     if (contentRef.current) {
       const elementPosition = contentRef.current.getBoundingClientRect().top + window.pageYOffset;
-      const offsetPosition = elementPosition - 80; // Ajuste cette valeur (80px de marge)
+      const offsetPosition = elementPosition - 80;
 
       window.scrollTo({
         top: offsetPosition,
@@ -19,6 +20,23 @@ const Index = () => {
       });
     }
   };
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsContentVisible(true);
+        }
+      },
+      { threshold: 0.1 }
+    );
+
+    if (contentRef.current) {
+      observer.observe(contentRef.current);
+    }
+
+    return () => observer.disconnect();
+  }, []);
 
   return (
     <div className="min-h-screen bg-background">
@@ -93,7 +111,14 @@ const Index = () => {
       </section>
 
       {/* Main Content */}
-      <div ref={contentRef} className="pb-16">
+      <div 
+        ref={contentRef} 
+        className={`pb-16 transition-all duration-700 ease-out ${
+          isContentVisible 
+            ? "opacity-100 translate-y-0" 
+            : "opacity-0 translate-y-8"
+        }`}
+      >
         <Header />
 
         <main className="container mx-auto px-4 md:px-6 pb-20">
