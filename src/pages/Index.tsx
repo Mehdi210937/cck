@@ -63,7 +63,7 @@ const Index = () => {
       </section>
 
       {/* Hero Video Section - Mobile: 3 vidéos avec fond noir uni */}
-      <section className="md:hidden flex flex-col min-h-screen bg-black relative">
+      <section className="md:hidden flex flex-col min-h-screen bg-black">
         <div className="flex-1 flex items-center justify-center">
           <video
             src={banniereCck}
@@ -86,6 +86,18 @@ const Index = () => {
           />
         </div>
 
+        {/* Scroll Indicator entre vidéo 2 et 3 */}
+        <div className="flex items-center justify-center py-2">
+          <button
+            onClick={scrollToContent}
+            className="text-white flex flex-col items-center gap-0.5 animate-bounce cursor-pointer hover:opacity-70 transition-opacity"
+            aria-label="Scroll vers le contenu"
+          >
+            <span className="text-xs font-medium tracking-widest uppercase">Scroll</span>
+            <ChevronDown size={18} />
+          </button>
+        </div>
+
         <div className="flex-1 flex items-center justify-center">
           <video
             src={banniereCck}
@@ -96,16 +108,6 @@ const Index = () => {
             className="w-full h-auto max-h-[32vh] object-contain"
           />
         </div>
-
-        {/* Scroll Indicator fixé en bas */}
-        <button
-          onClick={scrollToContent}
-          className="absolute bottom-4 left-1/2 -translate-x-1/2 text-white flex flex-col items-center gap-0.5 animate-bounce cursor-pointer hover:opacity-70 transition-opacity"
-          aria-label="Scroll vers le contenu"
-        >
-          <span className="text-xs font-medium tracking-widest uppercase">Scroll</span>
-          <ChevronDown size={18} />
-        </button>
       </section>
 
       {/* Main Content */}
