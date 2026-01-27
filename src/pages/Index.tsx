@@ -63,7 +63,7 @@ const Index = () => {
       </section>
 
       {/* Hero Video Section - Mobile: 3 vidéos avec fond noir uni */}
-      <section className="md:hidden flex flex-col min-h-screen bg-black">
+      <section className="md:hidden flex flex-col min-h-screen bg-black relative">
         <div className="flex-1 flex items-center justify-center">
           <video
             src={banniereCck}
