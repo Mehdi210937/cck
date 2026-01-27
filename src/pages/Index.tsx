@@ -25,10 +25,10 @@ const Index = () => {
           className="absolute inset-0 w-full h-full object-cover"
         />
         
-        {/* Scroll Indicator */}
+        {/* Scroll Indicator with inverted colors */}
         <button
           onClick={scrollToContent}
-          className="absolute bottom-8 left-1/2 -translate-x-1/2 text-white flex flex-col items-center gap-2 animate-bounce cursor-pointer hover:opacity-70 transition-opacity z-10"
+          className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 animate-bounce cursor-pointer hover:opacity-70 transition-opacity z-10 mix-blend-difference text-white"
           aria-label="Scroll vers le contenu"
         >
           <span className="text-sm font-medium tracking-widest uppercase">Scroll</span>
@@ -61,14 +61,14 @@ const Index = () => {
         </div>
         
         {/* Scroll Indicator - Between 2nd and 3rd video */}
-        <div className="bg-black py-4 flex justify-center">
+        <div className="bg-black py-2 flex justify-center">
           <button
             onClick={scrollToContent}
             className="text-white flex flex-col items-center gap-1 animate-bounce cursor-pointer hover:opacity-70 transition-opacity"
             aria-label="Scroll vers le contenu"
           >
             <span className="text-xs font-medium tracking-widest uppercase">Scroll</span>
-            <ChevronDown size={24} />
+            <ChevronDown size={20} />
           </button>
         </div>
         
