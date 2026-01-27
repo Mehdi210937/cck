@@ -28,7 +28,7 @@ const Index = () => {
           setIsContentVisible(true);
         }
       },
-      { threshold: 0.1 }
+      { threshold: 0.1 },
     );
 
     if (contentRef.current) {
@@ -75,6 +75,9 @@ const Index = () => {
           />
         </div>
 
+        {/* Spacing 1 */}
+        <div className="bg-white h-12"></div>
+
         <div className="flex-1 flex items-center justify-center bg-white">
           <video
             src={banniereCck}
@@ -86,8 +89,8 @@ const Index = () => {
           />
         </div>
 
-        {/* Scroll Indicator - Between 2nd and 3rd video with minimal height */}
-        <div className="bg-black flex justify-center py-1">
+        {/* Scroll Indicator - Spacing 2 avec même hauteur */}
+        <div className="bg-black h-12 flex items-center justify-center">
           <button
             onClick={scrollToContent}
             className="text-white flex flex-col items-center gap-0.5 animate-bounce cursor-pointer hover:opacity-70 transition-opacity"
@@ -111,12 +114,10 @@ const Index = () => {
       </section>
 
       {/* Main Content */}
-      <div 
-        ref={contentRef} 
+      <div
+        ref={contentRef}
         className={`pb-16 transition-all duration-700 ease-out ${
-          isContentVisible 
-            ? "opacity-100 translate-y-0" 
-            : "opacity-0 translate-y-8"
+          isContentVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
         }`}
       >
         <Header />
