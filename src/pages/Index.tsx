@@ -4,6 +4,7 @@ import Footer from "@/components/Footer";
 import { DesktopGrid, MobileGrid } from "@/components/home/ContentGrid";
 import { ChevronDown } from "lucide-react";
 import banniereCck from "@/assets/banniere-cck.mp4";
+import { useForceAutoplay } from "@/hooks/useForceAutoplay";
 
 const Index = () => {
   const contentRef = useRef<HTMLDivElement>(null);
@@ -12,19 +13,8 @@ const Index = () => {
   const videoRef3 = useRef<HTMLVideoElement>(null);
   const [isContentVisible, setIsContentVisible] = useState(false);
 
-  // Force autoplay on mobile
-  useEffect(() => {
-    const playVideos = () => {
-      [videoRef1, videoRef2, videoRef3].forEach((ref) => {
-        if (ref.current) {
-          ref.current.play().catch(() => {
-            // Autoplay was prevented, ignore
-          });
-        }
-      });
-    };
-    playVideos();
-  }, []);
+  // Force autoplay on mobile (robust retries for iOS/Android)
+  useForceAutoplay([videoRef1, videoRef2, videoRef3]);
 
   const scrollToContent = () => {
     if (contentRef.current) {
@@ -89,6 +79,7 @@ const Index = () => {
             muted
             loop
             playsInline
+            preload="auto"
             className="w-full h-auto max-h-[32vh] object-contain"
           />
         </div>
@@ -101,6 +92,7 @@ const Index = () => {
             muted
             loop
             playsInline
+            preload="auto"
             className="w-full h-auto max-h-[32vh] object-contain"
           />
         </div>
@@ -113,6 +105,7 @@ const Index = () => {
             muted
             loop
             playsInline
+            preload="auto"
             className="w-full h-auto max-h-[32vh] object-contain"
           />
         </div>
