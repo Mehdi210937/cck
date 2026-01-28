@@ -40,6 +40,20 @@ export function useForceAutoplay(
     const raf2 = requestAnimationFrame(tryAll);
     const t1 = window.setTimeout(tryAll, 150);
     const t2 = window.setTimeout(tryAll, 600);
+    const t3 = window.setTimeout(tryAll, 1000);
+    const t4 = window.setTimeout(tryAll, 2000);
+    const t5 = window.setTimeout(tryAll, 3000);
+
+    // Aggressive interval: check every 500ms for 5 seconds if video is paused
+    const interval = setInterval(() => {
+      videos.forEach((v) => {
+        if (v.paused) {
+          v.muted = true;
+          v.play().catch(() => {});
+        }
+      });
+    }, 500);
+    const stopInterval = window.setTimeout(() => clearInterval(interval), 5000);
 
     const onVisible = () => {
       if (document.visibilityState === "visible") tryAll();
@@ -51,6 +65,7 @@ export function useForceAutoplay(
       v.addEventListener("loadeddata", onReady);
       v.addEventListener("canplay", onReady);
       v.addEventListener("canplaythrough", onReady);
+      v.addEventListener("loadedmetadata", onReady);
       return { v, onReady };
     });
 
@@ -59,11 +74,17 @@ export function useForceAutoplay(
       cancelAnimationFrame(raf2);
       window.clearTimeout(t1);
       window.clearTimeout(t2);
+      window.clearTimeout(t3);
+      window.clearTimeout(t4);
+      window.clearTimeout(t5);
+      window.clearTimeout(stopInterval);
+      clearInterval(interval);
       document.removeEventListener("visibilitychange", onVisible);
       handlers.forEach(({ v, onReady }) => {
         v.removeEventListener("loadeddata", onReady);
         v.removeEventListener("canplay", onReady);
         v.removeEventListener("canplaythrough", onReady);
+        v.removeEventListener("loadedmetadata", onReady);
       });
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps

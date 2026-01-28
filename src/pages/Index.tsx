@@ -80,6 +80,8 @@ const Index = () => {
             loop
             playsInline
             preload="auto"
+            // @ts-ignore
+            webkit-playsinline="true"
             className="w-full h-auto max-h-[32vh] object-contain"
           />
         </div>
@@ -93,6 +95,8 @@ const Index = () => {
             loop
             playsInline
             preload="auto"
+            // @ts-ignore
+            webkit-playsinline="true"
             className="w-full h-auto max-h-[32vh] object-contain"
           />
         </div>
@@ -106,6 +110,8 @@ const Index = () => {
             loop
             playsInline
             preload="auto"
+            // @ts-ignore
+            webkit-playsinline="true"
             className="w-full h-auto max-h-[32vh] object-contain"
           />
         </div>
