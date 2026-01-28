@@ -1,58 +1,66 @@
 
 
-## Autoplay des vidéos sur mobile
+## Optimisation de l'autoplay vidéo mobile
 
-### Vidéos identifiées
+### Diagnostic
 
-| Fichier | Vidéo | Statut actuel |
-|---------|-------|---------------|
-| `src/pages/Index.tsx` | 3 vidéos hero mobile | Déjà avec refs + autoplay forcé |
-| `src/pages/Index.tsx` | 1 vidéo hero desktop | Autoplay simple |
-| `src/components/home/ContentGrid.tsx` | vidmil.mp4 (desktop) | Autoplay simple |
-| `src/components/home/ContentGrid.tsx` | vidmil.mp4 (mobile) | Autoplay simple |
+Le système actuel utilise déjà toutes les techniques recommandées pour forcer l'autoplay. Le problème vient probablement de :
 
-### Solution
+1. **Timing du chargement** : les tentatives de `.play()` arrivent avant que la vidéo soit prête
+2. **Poids du fichier** : `banniere-cck.mp4` peut être trop lourd pour démarrer rapidement sur mobile
 
-Appliquer la même technique de force autoplay (avec `useRef` + `.play()`) aux vidéos de `ContentGrid.tsx`.
+### Solution proposée
 
-### Modifications
+Renforcer le système avec des retries plus agressifs et ajouter une détection d'échec :
 
-**Fichier:** `src/components/home/ContentGrid.tsx`
+| Modification | Fichier | Description |
+|-------------|---------|-------------|
+| Retries prolongés | `useForceAutoplay.ts` | Ajouter plus de tentatives (1s, 2s, 3s) pour couvrir les connexions lentes |
+| Event listener sur `loadedmetadata` | `useForceAutoplay.ts` | Déclencher `.play()` dès que les métadonnées sont chargées |
+| Fallback avec interval | `useForceAutoplay.ts` | Boucle toutes les 500ms pendant 5 secondes si la vidéo ne joue pas |
+| Attribut `webkit-playsinline` | `Index.tsx` | Attribut supplémentaire pour iOS Safari ancien |
 
-1. Ajouter `useRef` et `useEffect` imports
-2. Créer des refs pour les vidéos (desktop et mobile)
-3. Ajouter un `useEffect` qui force `.play()` au montage
+### Modifications techniques
 
-### Limite technique concernant le son
+**Fichier : `src/hooks/useForceAutoplay.ts`**
 
-Les navigateurs mobiles (Safari iOS, Chrome Android) **bloquent systématiquement** le son automatique sans interaction utilisateur. C'est une politique de sécurité impossible à contourner par code.
+```typescript
+// Ajouter un interval qui vérifie si la vidéo est en pause
+const interval = setInterval(() => {
+  videos.forEach((v) => {
+    if (v.paused) {
+      v.muted = true;
+      v.play().catch(() => {});
+    }
+  });
+}, 500);
 
-**Alternative possible :** Ajouter un bouton "Activer le son" qui apparaît au premier clic, puis le son se lance.
+// Stopper après 5 secondes
+const stopInterval = setTimeout(() => clearInterval(interval), 5000);
 
-### Détails techniques
+// Ajouter aussi loadedmetadata comme trigger
+v.addEventListener("loadedmetadata", onReady);
+```
+
+**Fichier : `src/pages/Index.tsx`**
 
 ```tsx
-// ContentGrid.tsx - ajout des refs et useEffect
-import { useRef, useEffect } from "react";
-
-export const DesktopGrid = () => {
-  const videoRef = useRef<HTMLVideoElement>(null);
-  
-  useEffect(() => {
-    videoRef.current?.play().catch(() => {});
-  }, []);
-  
-  // ... appliquer ref à la vidéo
-};
-
-export const MobileGrid = () => {
-  const videoRef = useRef<HTMLVideoElement>(null);
-  
-  useEffect(() => {
-    videoRef.current?.play().catch(() => {});
-  }, []);
-  
-  // ... appliquer ref à la vidéo
-};
+// Ajouter l'attribut webkit pour compatibilité iOS ancienne
+<video
+  ref={videoRef1}
+  src={banniereCck}
+  autoPlay
+  muted
+  loop
+  playsInline
+  preload="auto"
+  // @ts-ignore
+  webkit-playsinline="true"
+  className="w-full h-auto max-h-[32vh] object-contain"
+/>
 ```
+
+### Résultat attendu
+
+Les vidéos démarreront automatiquement muettes dès que possible, avec des tentatives répétées pendant 5 secondes pour garantir le lancement même sur connexion lente.
 
