@@ -4,27 +4,11 @@ import Footer from "@/components/Footer";
 import { DesktopGrid, MobileGrid } from "@/components/home/ContentGrid";
 import { ChevronDown } from "lucide-react";
 import banniereCck from "@/assets/banniere-cck.mp4";
+import banniereCckGif from "@/assets/banniere-cck.gif";
 
 const Index = () => {
   const contentRef = useRef<HTMLDivElement>(null);
-  const videoRef1 = useRef<HTMLVideoElement>(null);
-  const videoRef2 = useRef<HTMLVideoElement>(null);
-  const videoRef3 = useRef<HTMLVideoElement>(null);
   const [isContentVisible, setIsContentVisible] = useState(false);
-
-  // Force autoplay on mobile
-  useEffect(() => {
-    const playVideos = () => {
-      [videoRef1, videoRef2, videoRef3].forEach((ref) => {
-        if (ref.current) {
-          ref.current.play().catch(() => {
-            // Autoplay was prevented, ignore
-          });
-        }
-      });
-    };
-    playVideos();
-  }, []);
 
   const scrollToContent = () => {
     if (contentRef.current) {
@@ -82,37 +66,25 @@ const Index = () => {
       {/* Hero Video Section - Mobile: 3 vidéos avec fond noir uni */}
       <section className="md:hidden flex flex-col min-h-screen bg-black relative">
         <div className="flex-1 flex items-center justify-center">
-          <video
-            ref={videoRef1}
-            src={banniereCck}
-            autoPlay
-            muted
-            loop
-            playsInline
+          <img
+            src={banniereCckGif}
+            alt="Bannière CCK"
             className="w-full h-auto max-h-[32vh] object-contain"
           />
         </div>
 
         <div className="flex-1 flex items-center justify-center">
-          <video
-            ref={videoRef2}
-            src={banniereCck}
-            autoPlay
-            muted
-            loop
-            playsInline
+          <img
+            src={banniereCckGif}
+            alt="Bannière CCK"
             className="w-full h-auto max-h-[32vh] object-contain"
           />
         </div>
 
         <div className="flex-1 flex items-center justify-center">
-          <video
-            ref={videoRef3}
-            src={banniereCck}
-            autoPlay
-            muted
-            loop
-            playsInline
+          <img
+            src={banniereCckGif}
+            alt="Bannière CCK"
             className="w-full h-auto max-h-[32vh] object-contain"
           />
         </div>
