@@ -2,19 +2,13 @@ import { useRef, useEffect, useState } from "react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { DesktopGrid, MobileGrid } from "@/components/home/ContentGrid";
-import { ChevronDown, Volume2, VolumeX } from "lucide-react";
+import { ChevronDown } from "lucide-react";
 import banniereCck from "@/assets/banniere-cck.mp4";
-import { useForceAutoplay } from "@/hooks/useForceAutoplay";
+import VideoMirror from "@/components/VideoMirror";
 
 const Index = () => {
   const contentRef = useRef<HTMLDivElement>(null);
-  const videoRef1 = useRef<HTMLVideoElement>(null);
-  const videoRef2 = useRef<HTMLVideoElement>(null);
-  const videoRef3 = useRef<HTMLVideoElement>(null);
   const [isContentVisible, setIsContentVisible] = useState(false);
-
-  // Force autoplay on mobile (robust retries for iOS/Android) + sound toggle
-  const { soundEnabled, toggleSound } = useForceAutoplay([videoRef1, videoRef2, videoRef3]);
 
   const scrollToContent = () => {
     if (contentRef.current) {
@@ -69,61 +63,13 @@ const Index = () => {
         </button>
       </section>
 
-      {/* Hero Video Section - Mobile: 3 vidéos avec fond noir uni */}
-      <section className="md:hidden flex flex-col min-h-screen bg-black relative">
-        <div className="flex-1 flex items-center justify-center">
-          <video
-            ref={videoRef1}
-            src={banniereCck}
-            autoPlay
-            muted
-            loop
-            playsInline
-            preload="auto"
-            // @ts-ignore
-            webkit-playsinline="true"
-            className="w-full h-auto max-h-[32vh] object-contain"
-          />
-        </div>
-
-        <div className="flex-1 flex items-center justify-center">
-          <video
-            ref={videoRef2}
-            src={banniereCck}
-            autoPlay
-            muted
-            loop
-            playsInline
-            preload="auto"
-            // @ts-ignore
-            webkit-playsinline="true"
-            className="w-full h-auto max-h-[32vh] object-contain"
-          />
-        </div>
-
-        <div className="flex-1 flex items-center justify-center">
-          <video
-            ref={videoRef3}
-            src={banniereCck}
-            autoPlay
-            muted
-            loop
-            playsInline
-            preload="auto"
-            // @ts-ignore
-            webkit-playsinline="true"
-            className="w-full h-auto max-h-[32vh] object-contain"
-          />
-        </div>
-
-        {/* Sound toggle button - Mobile only */}
-        <button
-          onClick={toggleSound}
-          className="absolute top-4 right-4 z-20 p-3 bg-white/20 backdrop-blur-sm rounded-full text-white hover:bg-white/30 transition-colors"
-          aria-label={soundEnabled ? "Couper le son" : "Activer le son"}
-        >
-          {soundEnabled ? <Volume2 size={24} /> : <VolumeX size={24} />}
-        </button>
+      {/* Hero Video Section - Mobile: 1 vidéo + 3 canvas copies */}
+      <section className="md:hidden relative">
+        <VideoMirror
+          src={banniereCck}
+          copies={3}
+          className="w-full h-auto max-h-[32vh] object-contain"
+        />
 
         {/* Scroll Indicator centré par rapport à l'écran */}
         <button
