@@ -1,67 +1,30 @@
 
 
-## Autoplay garanti sur iOS : 1 vidéo + 2 copies visuelles
+## Recentrage du bouton Scroll sur mobile
 
 ### Problème identifié
+Le bouton scroll utilise `left-1/2` qui le centre par rapport au conteneur parent (`<section>`), mais pas forcément par rapport à l'écran entier.
 
-iOS Safari limite le nombre de vidéos qui peuvent jouer simultanément en autoplay. Même avec tous les attributs corrects (`muted`, `playsInline`, `webkit-playsinline`), Safari peut bloquer l'autoplay quand plusieurs balises `<video>` sont présentes.
+### Solution
+Utiliser `left-[50vw]` au lieu de `left-1/2` pour centrer le bouton par rapport à la **largeur de l'écran** (viewport) plutôt que par rapport au conteneur parent.
 
-### Solution retenue
+### Modification
 
-Utiliser **une seule vraie vidéo** qui joue, et **2 canvas** qui copient visuellement cette vidéo en temps réel. Visuellement identique, mais techniquement une seule vidéo autoplay.
+**Fichier:** `src/pages/Index.tsx`
 
-```text
-┌─────────────────────────────────────┐
-│  <video> (source, peut être cachée) │
-│         ↓ copie frame par frame     │
-├─────────────┬─────────────┬─────────┤
-│  <canvas>   │  <canvas>   │<canvas> │
-│   Zone 1    │   Zone 2    │  Zone 3 │
-└─────────────┴─────────────┴─────────┘
+Changer la classe du bouton scroll mobile de:
+```tsx
+className="absolute top-2/3 left-1/2 -translate-x-1/2 -translate-y-1/2 ..."
 ```
 
-### Modifications
-
-| Fichier | Description |
-|---------|-------------|
-| `src/components/VideoMirror.tsx` | Nouveau composant qui affiche 3 canvas synchronisés à partir d'une seule vidéo |
-| `src/pages/Index.tsx` | Remplacer les 3 `<video>` mobiles par le nouveau composant `VideoMirror` |
+À:
+```tsx
+className="absolute top-2/3 left-[50vw] -translate-x-1/2 -translate-y-1/2 ..."
+```
 
 ### Détails techniques
-
-**Nouveau composant `VideoMirror.tsx` :**
-
-```tsx
-// Crée 1 vidéo cachée + 3 canvas qui copient les frames
-// Utilise requestAnimationFrame pour synchroniser en temps réel
-// La vidéo source est muted + playsInline + autoPlay
-// Les canvas héritent automatiquement du contenu vidéo
-```
-
-**Modification `Index.tsx` :**
-
-```tsx
-// Avant (3 vidéos séparées - bloqué par iOS)
-<video ref={videoRef1} src={banniereCck} ... />
-<video ref={videoRef2} src={banniereCck} ... />
-<video ref={videoRef3} src={banniereCck} ... />
-
-// Après (1 composant qui gère tout)
-<VideoMirror 
-  src={banniereCck} 
-  copies={3}
-  className="w-full h-auto max-h-[32vh] object-contain"
-/>
-```
-
-### Avantages
-
-- Contourne la limitation iOS sur les autoplay multiples
-- Une seule vidéo = autoplay garanti (muet)
-- Visuellement identique aux 3 vidéos actuelles
-- Le bouton son reste fonctionnel sur la vidéo source
-
-### Résultat attendu
-
-Les 3 "vidéos" se lancent instantanément à l'ouverture du site sur iOS, sans bouton play.
+- `left-[50vw]` positionne le bord gauche du bouton à 50% de la largeur du viewport (écran)
+- `-translate-x-1/2` décale ensuite le bouton de la moitié de sa propre largeur vers la gauche
+- Résultat : le bouton est parfaitement centré horizontalement par rapport à l'écran, indépendamment du conteneur parent
+- Aucun changement sur les vidéos ou leur espacement
 
