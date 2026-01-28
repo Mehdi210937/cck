@@ -8,40 +8,13 @@ import VideoMirror from "@/components/VideoMirror";
 
 const Index = () => {
   const contentRef = useRef<HTMLDivElement>(null);
-  const videoRef = useRef<HTMLVideoElement>(null);
   const [isContentVisible, setIsContentVisible] = useState(false);
-
-  // Forcer la lecture de la vidéo desktop
-  useEffect(() => {
-    const video = videoRef.current;
-    if (video) {
-      video.muted = true;
-
-      const playVideo = async () => {
-        try {
-          await video.play();
-        } catch (error) {
-          console.log("Autoplay bloqué, attente d'interaction");
-          const handleInteraction = async () => {
-            try {
-              await video.play();
-            } catch (e) {
-              console.error("Impossible de lire la vidéo", e);
-            }
-          };
-          document.addEventListener("click", handleInteraction, { once: true });
-          document.addEventListener("touchstart", handleInteraction, { once: true });
-        }
-      };
-
-      playVideo();
-    }
-  }, []);
 
   const scrollToContent = () => {
     if (contentRef.current) {
       const elementPosition = contentRef.current.getBoundingClientRect().top + window.pageYOffset;
       const offsetPosition = elementPosition - 80;
+
       window.scrollTo({
         top: offsetPosition,
         behavior: "smooth",
@@ -58,9 +31,11 @@ const Index = () => {
       },
       { threshold: 0.1 },
     );
+
     if (contentRef.current) {
       observer.observe(contentRef.current);
     }
+
     return () => observer.disconnect();
   }, []);
 
@@ -69,16 +44,15 @@ const Index = () => {
       {/* Hero Video Section - Desktop: Full Screen */}
       <section className="hidden md:flex relative h-screen w-full items-center justify-center bg-black overflow-hidden">
         <video
-          ref={videoRef}
           src={banniereCck}
           autoPlay
           muted
           loop
           playsInline
-          preload="auto"
           className="absolute inset-0 w-full h-full object-cover"
         />
-        {/* Scroll Indicator */}
+
+        {/* Scroll Indicator with inverted colors */}
         <button
           onClick={scrollToContent}
           className="absolute bottom-12 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 animate-bounce cursor-pointer hover:opacity-70 transition-opacity z-10 mix-blend-difference text-white"
@@ -89,10 +63,11 @@ const Index = () => {
         </button>
       </section>
 
-      {/* Hero Video Section - Mobile: VideoMirror */}
+      {/* Hero Video Section - Mobile: 1 vidéo + 3 canvas copies */}
       <section className="md:hidden relative">
         <VideoMirror src={banniereCck} copies={3} className="w-full h-auto max-h-[32vh] object-contain" />
-        {/* Scroll Indicator mobile */}
+
+        {/* Scroll Indicator centré par rapport à l'écran */}
         <button
           onClick={scrollToContent}
           className="absolute top-2/3 left-[45vw] -translate-x-1/2 -translate-y-1/2 text-white flex flex-col items-center gap-0.5 animate-bounce cursor-pointer hover:opacity-70 transition-opacity z-10"
@@ -103,7 +78,7 @@ const Index = () => {
         </button>
       </section>
 
-      {/* Main Content - CE QUI APPARAÎT EN SCROLLANT */}
+      {/* Main Content */}
       <div
         ref={contentRef}
         className={`pb-16 transition-all duration-700 ease-out ${
@@ -111,16 +86,19 @@ const Index = () => {
         }`}
       >
         <Header />
+
         <main className="container mx-auto px-4 md:px-6 pb-20">
           {/* Desktop Layout */}
           <div className="hidden md:block space-y-1">
             <DesktopGrid />
           </div>
+
           {/* Mobile Layout */}
           <div className="md:hidden">
             <MobileGrid />
           </div>
         </main>
+
         <Footer />
       </div>
     </div>

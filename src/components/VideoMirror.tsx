@@ -1,180 +1,80 @@
-import { useRef, useEffect, useCallback, useState } from "react";
+import { useRef, useEffect, useState } from "react";
 
 interface VideoMirrorProps {
   src: string;
   copies?: number;
   className?: string;
-  onSoundToggle?: (enabled: boolean) => void;
 }
 
 const VideoMirror = ({ src, copies = 3, className = "" }: VideoMirrorProps) => {
-  const videoRef = useRef<HTMLVideoElement>(null);
-  const canvasRefs = useRef<(HTMLCanvasElement | null)[]>([]);
-  const animationRef = useRef<number | null>(null);
+  const videoRefs = useRef<(HTMLVideoElement | null)[]>([]);
   const [soundEnabled, setSoundEnabled] = useState(false);
-  const [isVideoReady, setIsVideoReady] = useState(false);
-
-  const drawFrame = useCallback(() => {
-    const video = videoRef.current;
-    if (!video || video.paused || video.ended) {
-      animationRef.current = requestAnimationFrame(drawFrame);
-      return;
-    }
-
-    canvasRefs.current.forEach((canvas) => {
-      if (!canvas) return;
-      const ctx = canvas.getContext("2d");
-      if (!ctx) return;
-
-      if (canvas.width !== video.videoWidth || canvas.height !== video.videoHeight) {
-        canvas.width = video.videoWidth;
-        canvas.height = video.videoHeight;
-      }
-
-      ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
-    });
-
-    animationRef.current = requestAnimationFrame(drawFrame);
-  }, []);
 
   useEffect(() => {
-    const video = videoRef.current;
-    if (!video) return;
-
-    const tryPlay = () => {
-      video.muted = true;
-      video.playsInline = true;
-      video.autoplay = true;
-      video.loop = true;
-      video
-        .play()
-        .then(() => {
-          setIsVideoReady(true);
-        })
-        .catch(() => {});
+    const tryPlayAll = () => {
+      videoRefs.current.forEach((video) => {
+        if (video) {
+          video.muted = true;
+          video.playsInline = true;
+          video.play().catch(() => {});
+        }
+      });
     };
 
-    tryPlay();
+    // Tentatives multiples
+    tryPlayAll();
     const timers = [
-      setTimeout(tryPlay, 100),
-      setTimeout(tryPlay, 300),
-      setTimeout(tryPlay, 600),
-      setTimeout(tryPlay, 1000),
-      setTimeout(tryPlay, 2000),
+      setTimeout(tryPlayAll, 100),
+      setTimeout(tryPlayAll, 300),
+      setTimeout(tryPlayAll, 600),
+      setTimeout(tryPlayAll, 1000),
     ];
 
-    const interval = setInterval(() => {
-      if (video.paused) tryPlay();
-    }, 500);
-    const stopInterval = setTimeout(() => clearInterval(interval), 5000);
-
-    const onReady = () => {
-      setIsVideoReady(true);
-      tryPlay();
-    };
-    video.addEventListener("loadeddata", onReady);
-    video.addEventListener("canplay", onReady);
-    video.addEventListener("canplaythrough", onReady);
-    video.addEventListener("loadedmetadata", onReady);
-
-    const onVisible = () => {
-      if (document.visibilityState === "visible") tryPlay();
-    };
-    document.addEventListener("visibilitychange", onVisible);
-
-    // Fallback: interaction utilisateur
+    // Fallback sur interaction
     const handleInteraction = () => {
-      tryPlay();
+      tryPlayAll();
     };
     document.addEventListener("click", handleInteraction, { once: true });
     document.addEventListener("touchstart", handleInteraction, { once: true });
 
     return () => {
       timers.forEach(clearTimeout);
-      clearTimeout(stopInterval);
-      clearInterval(interval);
-      video.removeEventListener("loadeddata", onReady);
-      video.removeEventListener("canplay", onReady);
-      video.removeEventListener("canplaythrough", onReady);
-      video.removeEventListener("loadedmetadata", onReady);
-      document.removeEventListener("visibilitychange", onVisible);
       document.removeEventListener("click", handleInteraction);
       document.removeEventListener("touchstart", handleInteraction);
     };
   }, []);
 
-  useEffect(() => {
-    const video = videoRef.current;
-    if (!video) return;
-
-    const startLoop = () => {
-      if (animationRef.current === null) {
-        animationRef.current = requestAnimationFrame(drawFrame);
-      }
-    };
-
-    video.addEventListener("play", startLoop);
-    video.addEventListener("playing", startLoop);
-
-    if (!video.paused) startLoop();
-
-    return () => {
-      video.removeEventListener("play", startLoop);
-      video.removeEventListener("playing", startLoop);
-      if (animationRef.current !== null) {
-        cancelAnimationFrame(animationRef.current);
-        animationRef.current = null;
-      }
-    };
-  }, [drawFrame]);
-
   const toggleSound = () => {
-    const video = videoRef.current;
-    if (!video) return;
+    const firstVideo = videoRefs.current[0];
+    if (!firstVideo) return;
 
     if (soundEnabled) {
-      video.muted = true;
+      firstVideo.muted = true;
       setSoundEnabled(false);
     } else {
-      video.muted = false;
-      video.play().catch(() => {});
+      firstVideo.muted = false;
+      firstVideo.play().catch(() => {});
       setSoundEnabled(true);
     }
   };
 
   return (
     <div className="relative flex flex-col bg-black" style={{ height: "100svh" }}>
-      {/* Hidden source video */}
-      <video
-        ref={videoRef}
-        src={src}
-        autoPlay
-        muted
-        loop
-        playsInline
-        preload="auto"
-        // @ts-ignore
-        webkit-playsinline="true"
-        className="absolute opacity-0 pointer-events-none w-0 h-0"
-        aria-hidden="true"
-      />
-
-      {/* Canvas copies avec hauteur fixe */}
       {Array.from({ length: copies }).map((_, index) => (
-        <div
-          key={index}
-          className="flex-1 flex items-center justify-center overflow-hidden"
-          style={{ height: `${100 / copies}%` }}
-        >
-          <canvas
+        <div key={index} className="flex-1 overflow-hidden">
+          <video
             ref={(el) => {
-              canvasRefs.current[index] = el;
+              videoRefs.current[index] = el;
             }}
+            src={src}
+            autoPlay
+            muted
+            loop
+            playsInline
+            preload="auto"
+            // @ts-ignore
+            webkit-playsinline="true"
             className={`w-full h-full object-cover ${className}`}
-            style={{
-              objectFit: "cover",
-              backgroundColor: isVideoReady ? "transparent" : "#000",
-            }}
           />
         </div>
       ))}
