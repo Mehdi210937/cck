@@ -7,17 +7,13 @@ interface VideoMirrorProps {
   onSoundToggle?: (enabled: boolean) => void;
 }
 
-/**
- * VideoMirror: Renders ONE hidden video + N canvas copies.
- * iOS Safari blocks multiple autoplay videos, but canvas copies bypass this.
- */
 const VideoMirror = ({ src, copies = 3, className = "" }: VideoMirrorProps) => {
   const videoRef = useRef<HTMLVideoElement>(null);
   const canvasRefs = useRef<(HTMLCanvasElement | null)[]>([]);
   const animationRef = useRef<number | null>(null);
   const [soundEnabled, setSoundEnabled] = useState(false);
+  const [isVideoReady, setIsVideoReady] = useState(false);
 
-  // Draw video frame to all canvases
   const drawFrame = useCallback(() => {
     const video = videoRef.current;
     if (!video || video.paused || video.ended) {
@@ -30,7 +26,6 @@ const VideoMirror = ({ src, copies = 3, className = "" }: VideoMirrorProps) => {
       const ctx = canvas.getContext("2d");
       if (!ctx) return;
 
-      // Match canvas size to video
       if (canvas.width !== video.videoWidth || canvas.height !== video.videoHeight) {
         canvas.width = video.videoWidth;
         canvas.height = video.videoHeight;
@@ -42,7 +37,6 @@ const VideoMirror = ({ src, copies = 3, className = "" }: VideoMirrorProps) => {
     animationRef.current = requestAnimationFrame(drawFrame);
   }, []);
 
-  // Force autoplay with aggressive retries
   useEffect(() => {
     const video = videoRef.current;
     if (!video) return;
@@ -52,10 +46,14 @@ const VideoMirror = ({ src, copies = 3, className = "" }: VideoMirrorProps) => {
       video.playsInline = true;
       video.autoplay = true;
       video.loop = true;
-      video.play().catch(() => {});
+      video
+        .play()
+        .then(() => {
+          setIsVideoReady(true);
+        })
+        .catch(() => {});
     };
 
-    // Immediate + delayed attempts
     tryPlay();
     const timers = [
       setTimeout(tryPlay, 100),
@@ -65,24 +63,31 @@ const VideoMirror = ({ src, copies = 3, className = "" }: VideoMirrorProps) => {
       setTimeout(tryPlay, 2000),
     ];
 
-    // Retry every 500ms for 5 seconds if paused
     const interval = setInterval(() => {
       if (video.paused) tryPlay();
     }, 500);
     const stopInterval = setTimeout(() => clearInterval(interval), 5000);
 
-    // Event-based triggers
-    const onReady = () => tryPlay();
+    const onReady = () => {
+      setIsVideoReady(true);
+      tryPlay();
+    };
     video.addEventListener("loadeddata", onReady);
     video.addEventListener("canplay", onReady);
     video.addEventListener("canplaythrough", onReady);
     video.addEventListener("loadedmetadata", onReady);
 
-    // Visibility change
     const onVisible = () => {
       if (document.visibilityState === "visible") tryPlay();
     };
     document.addEventListener("visibilitychange", onVisible);
+
+    // Fallback: interaction utilisateur
+    const handleInteraction = () => {
+      tryPlay();
+    };
+    document.addEventListener("click", handleInteraction, { once: true });
+    document.addEventListener("touchstart", handleInteraction, { once: true });
 
     return () => {
       timers.forEach(clearTimeout);
@@ -93,10 +98,11 @@ const VideoMirror = ({ src, copies = 3, className = "" }: VideoMirrorProps) => {
       video.removeEventListener("canplaythrough", onReady);
       video.removeEventListener("loadedmetadata", onReady);
       document.removeEventListener("visibilitychange", onVisible);
+      document.removeEventListener("click", handleInteraction);
+      document.removeEventListener("touchstart", handleInteraction);
     };
   }, []);
 
-  // Start drawing loop when video plays
   useEffect(() => {
     const video = videoRef.current;
     if (!video) return;
@@ -110,7 +116,6 @@ const VideoMirror = ({ src, copies = 3, className = "" }: VideoMirrorProps) => {
     video.addEventListener("play", startLoop);
     video.addEventListener("playing", startLoop);
 
-    // Also start immediately if already playing
     if (!video.paused) startLoop();
 
     return () => {
@@ -138,7 +143,7 @@ const VideoMirror = ({ src, copies = 3, className = "" }: VideoMirrorProps) => {
   };
 
   return (
-    <div className="relative flex flex-col min-h-screen bg-black">
+    <div className="relative flex flex-col bg-black" style={{ height: "100svh" }}>
       {/* Hidden source video */}
       <video
         ref={videoRef}
@@ -154,14 +159,22 @@ const VideoMirror = ({ src, copies = 3, className = "" }: VideoMirrorProps) => {
         aria-hidden="true"
       />
 
-      {/* Canvas copies */}
+      {/* Canvas copies avec hauteur fixe */}
       {Array.from({ length: copies }).map((_, index) => (
-        <div key={index} className="flex-1 flex items-center justify-center">
+        <div
+          key={index}
+          className="flex-1 flex items-center justify-center overflow-hidden"
+          style={{ height: `${100 / copies}%` }}
+        >
           <canvas
             ref={(el) => {
               canvasRefs.current[index] = el;
             }}
-            className={className}
+            className={`w-full h-full object-cover ${className}`}
+            style={{
+              objectFit: "cover",
+              backgroundColor: isVideoReady ? "transparent" : "#000",
+            }}
           />
         </div>
       ))}
@@ -173,13 +186,33 @@ const VideoMirror = ({ src, copies = 3, className = "" }: VideoMirrorProps) => {
         aria-label={soundEnabled ? "Couper le son" : "Activer le son"}
       >
         {soundEnabled ? (
-          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          >
             <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5" />
             <path d="M15.54 8.46a5 5 0 0 1 0 7.07" />
             <path d="M19.07 4.93a10 10 0 0 1 0 14.14" />
           </svg>
         ) : (
-          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          >
             <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5" />
             <line x1="22" y1="9" x2="16" y2="15" />
             <line x1="16" y1="9" x2="22" y2="15" />
