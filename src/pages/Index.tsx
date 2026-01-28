@@ -11,24 +11,20 @@ const Index = () => {
   const videoRef = useRef<HTMLVideoElement>(null);
   const [isContentVisible, setIsContentVisible] = useState(false);
 
-  // Forcer la lecture de la vidéo
+  // Forcer la lecture de la vidéo desktop
   useEffect(() => {
     const video = videoRef.current;
     if (video) {
-      video.muted = true; // Obligatoire pour l'autoplay
-      video.playsInline = true;
+      video.muted = true;
 
       const playVideo = async () => {
         try {
           await video.play();
         } catch (error) {
-          console.log("Autoplay bloqué, tentative avec interaction utilisateur");
-          // Fallback : jouer au premier clic/touch sur la page
+          console.log("Autoplay bloqué, attente d'interaction");
           const handleInteraction = async () => {
             try {
               await video.play();
-              document.removeEventListener("click", handleInteraction);
-              document.removeEventListener("touchstart", handleInteraction);
             } catch (e) {
               console.error("Impossible de lire la vidéo", e);
             }
@@ -70,7 +66,7 @@ const Index = () => {
 
   return (
     <div className="min-h-screen bg-background">
-      {/* Hero Video Section - Desktop */}
+      {/* Hero Video Section - Desktop: Full Screen */}
       <section className="hidden md:flex relative h-screen w-full items-center justify-center bg-black overflow-hidden">
         <video
           ref={videoRef}
@@ -82,9 +78,51 @@ const Index = () => {
           preload="auto"
           className="absolute inset-0 w-full h-full object-cover"
         />
-        {/* ... reste du code */}
+        {/* Scroll Indicator */}
+        <button
+          onClick={scrollToContent}
+          className="absolute bottom-12 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 animate-bounce cursor-pointer hover:opacity-70 transition-opacity z-10 mix-blend-difference text-white"
+          aria-label="Scroll vers le contenu"
+        >
+          <span className="text-sm font-medium tracking-widest uppercase">Scroll</span>
+          <ChevronDown size={28} />
+        </button>
       </section>
-      {/* ... reste du composant */}
+
+      {/* Hero Video Section - Mobile: VideoMirror */}
+      <section className="md:hidden relative">
+        <VideoMirror src={banniereCck} copies={3} className="w-full h-auto max-h-[32vh] object-contain" />
+        {/* Scroll Indicator mobile */}
+        <button
+          onClick={scrollToContent}
+          className="absolute top-2/3 left-[45vw] -translate-x-1/2 -translate-y-1/2 text-white flex flex-col items-center gap-0.5 animate-bounce cursor-pointer hover:opacity-70 transition-opacity z-10"
+          aria-label="Scroll vers le contenu"
+        >
+          <span className="text-xs font-medium tracking-widest uppercase">Scroll</span>
+          <ChevronDown size={18} />
+        </button>
+      </section>
+
+      {/* Main Content - CE QUI APPARAÎT EN SCROLLANT */}
+      <div
+        ref={contentRef}
+        className={`pb-16 transition-all duration-700 ease-out ${
+          isContentVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
+        }`}
+      >
+        <Header />
+        <main className="container mx-auto px-4 md:px-6 pb-20">
+          {/* Desktop Layout */}
+          <div className="hidden md:block space-y-1">
+            <DesktopGrid />
+          </div>
+          {/* Mobile Layout */}
+          <div className="md:hidden">
+            <MobileGrid />
+          </div>
+        </main>
+        <Footer />
+      </div>
     </div>
   );
 };
