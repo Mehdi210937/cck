@@ -16,7 +16,6 @@ const Auth = () => {
   const { toast } = useToast();
 
   useEffect(() => {
-    // Check if user is already logged in
     const checkUser = async () => {
       const { data: { session } } = await supabase.auth.getSession();
       if (session) {
@@ -25,7 +24,6 @@ const Auth = () => {
     };
     checkUser();
 
-    // Listen for auth changes
     const { data: { subscription } } = supabase.auth.onAuthStateChange((event, session) => {
       if (session) {
         navigate('/');
@@ -47,8 +45,8 @@ const Auth = () => {
         });
         if (error) throw error;
         toast({
-          title: "Connexion réussie ! 🎉",
-          description: "Bienvenue dans le KREW !",
+          title: "Connexion reussie",
+          description: "Bienvenue dans le KREW",
         });
       } else {
         const redirectUrl = `${window.location.origin}/`;
@@ -61,8 +59,8 @@ const Auth = () => {
         });
         if (error) throw error;
         toast({
-          title: "Inscription réussie ! 📧",
-          description: "Vérifie ton email pour confirmer ton compte !",
+          title: "Inscription reussie",
+          description: "Verifie ton email pour confirmer ton compte",
         });
       }
     } catch (error: any) {
@@ -79,14 +77,14 @@ const Auth = () => {
   return (
     <div className="min-h-screen bg-background">
       <Header />
-      
+
       <div className="container mx-auto px-4 py-8 flex items-center justify-center min-h-[80vh]">
-        <Card className="w-full max-w-md border border-border">
+        <Card className="w-full max-w-md border border-border/50 bg-card">
           <CardHeader className="text-center">
-            <CardTitle className="text-2xl font-light tracking-tight">
+            <CardTitle className="text-3xl font-serif">
               {isLogin ? 'Sign In' : 'Join'}
             </CardTitle>
-            <CardDescription className="text-muted-foreground">
+            <CardDescription className="text-muted-foreground text-xs tracking-[0.15em] uppercase">
               {isLogin ? 'Access the collective' : 'Become part of the collective'}
             </CardDescription>
           </CardHeader>
@@ -99,7 +97,7 @@ const Auth = () => {
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   required
-                  className="border-border focus:border-foreground"
+                  className="border-border/50 bg-background focus:border-accent text-foreground placeholder:text-muted-foreground"
                 />
               </div>
               <div>
@@ -109,21 +107,21 @@ const Auth = () => {
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   required
-                  className="border-border focus:border-foreground"
+                  className="border-border/50 bg-background focus:border-accent text-foreground placeholder:text-muted-foreground"
                 />
               </div>
               <Button
                 type="submit"
                 disabled={loading}
-                className="w-full"
+                className="w-full tracking-[0.15em] uppercase text-xs"
               >
                 {loading ? '...' : (isLogin ? 'Sign In' : 'Join')}
               </Button>
             </form>
-            <div className="mt-4 text-center">
+            <div className="mt-6 text-center">
               <button
                 onClick={() => setIsLogin(!isLogin)}
-                className="text-muted-foreground hover:text-foreground underline text-sm"
+                className="text-muted-foreground hover:text-accent text-xs tracking-wide transition-colors duration-300"
               >
                 {isLogin ? 'Need an account?' : 'Already have an account?'}
               </button>

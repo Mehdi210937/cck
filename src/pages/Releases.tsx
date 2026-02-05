@@ -22,78 +22,78 @@ const Releases = () => {
   return (
     <div className="min-h-screen bg-background pb-16">
       <Header />
-      
-      <main className="container mx-auto px-4 py-6 mb-24">
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+
+      <main className="container mx-auto px-4 py-8 mb-24">
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-[2px]">
           {releases.map((release) => (
-            <Dialog 
+            <Dialog
               key={release.id}
               open={openDialogId === release.id}
               onOpenChange={(open) => setOpenDialogId(open ? release.id : null)}
             >
-              <Card className="overflow-hidden hover:shadow-lg transition-all relative">
+              <Card className="overflow-hidden border-border/30 hover:border-accent/50 transition-all duration-500 relative bg-card group">
                 {release.coming_soon && (
-                  <Badge className="absolute top-2 left-2 z-10 bg-primary">
+                  <Badge className="absolute top-3 left-3 z-10 bg-accent text-accent-foreground text-[10px] tracking-[0.15em] uppercase">
                     DISPO
                   </Badge>
                 )}
-                <div className="aspect-square relative">
-                  <img 
-                    src={release.image_url} 
+                <div className="aspect-square relative overflow-hidden">
+                  <img
+                    src={release.image_url}
                     alt={release.title}
-                    className="w-full h-full object-cover"
+                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.03]"
                   />
                 </div>
-                <div className="p-3">
-                  <h3 className="font-bold font-helvetica text-sm mb-1 truncate">{release.title}</h3>
-                  <p className="text-xs text-muted-foreground mb-2">{release.artist_name}</p>
+                <div className="p-4">
+                  <h3 className="font-serif text-base mb-1 truncate">{release.title}</h3>
+                  <p className="text-xs text-muted-foreground mb-3 tracking-wide">{release.artist_name}</p>
                   <DialogTrigger asChild>
-                    <Button variant="outline" size="sm" className="w-full text-xs">
+                    <Button variant="outline" size="sm" className="w-full text-[10px] tracking-[0.15em] uppercase border-border/50 hover:border-accent hover:text-accent">
                       En savoir plus
                     </Button>
                   </DialogTrigger>
                 </div>
               </Card>
 
-              <DialogContent className="max-w-2xl">
+              <DialogContent className="max-w-2xl bg-card border-border/50">
                 <DialogHeader>
-                  <DialogTitle className="text-2xl font-helvetica">{release.title}</DialogTitle>
-                  <DialogDescription className="text-base">
+                  <DialogTitle className="text-3xl font-serif">{release.title}</DialogTitle>
+                  <DialogDescription className="text-sm tracking-wide text-muted-foreground">
                     {release.artist_name}
-                    {release.release_date && ` • ${release.release_date}`}
-                    {release.coming_soon && " • À venir"}
+                    {release.release_date && ` \u2014 ${release.release_date}`}
+                    {release.coming_soon && " \u2014 A venir"}
                   </DialogDescription>
                 </DialogHeader>
                 <div className="grid md:grid-cols-2 gap-6">
                   <div className="aspect-square">
-                    <img 
-                      src={release.image_url} 
+                    <img
+                      src={release.image_url}
                       alt={release.title}
-                      className="w-full h-full object-cover rounded-lg"
+                      className="w-full h-full object-cover"
                     />
                   </div>
                   <div className="space-y-4">
-                    <p className="text-foreground leading-relaxed">
+                    <p className="text-sm text-foreground/80 leading-relaxed">
                       {release.description}
                     </p>
                     {release.soundcloud_url && (
-                      <Button variant="outline" className="w-full" asChild>
+                      <Button variant="outline" className="w-full text-[10px] tracking-[0.15em] uppercase border-border/50 hover:border-accent hover:text-accent" asChild>
                         <a href={release.soundcloud_url} target="_blank" rel="noopener noreferrer">
-                          Écouter sur SoundCloud
+                          SoundCloud
                         </a>
                       </Button>
                     )}
                     {release.spotify_url && (
-                      <Button variant="outline" className="w-full" asChild>
+                      <Button variant="outline" className="w-full text-[10px] tracking-[0.15em] uppercase border-border/50 hover:border-accent hover:text-accent" asChild>
                         <a href={release.spotify_url} target="_blank" rel="noopener noreferrer">
-                          Écouter sur Spotify
+                          Spotify
                         </a>
                       </Button>
                     )}
                     {release.bandcamp_url && (
-                      <Button variant="outline" className="w-full" asChild>
+                      <Button variant="outline" className="w-full text-[10px] tracking-[0.15em] uppercase border-border/50 hover:border-accent hover:text-accent" asChild>
                         <a href={release.bandcamp_url} target="_blank" rel="noopener noreferrer">
-                          Acheter sur Bandcamp
+                          Bandcamp
                         </a>
                       </Button>
                     )}
@@ -104,7 +104,7 @@ const Releases = () => {
           ))}
         </div>
       </main>
-      
+
       <Footer />
     </div>
   );

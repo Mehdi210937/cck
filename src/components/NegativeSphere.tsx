@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 
 const NegativeSphere = () => {
   const [mouse, setMouse] = useState({ x: 0, y: 0 });
+  const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
     let mouseX = window.innerWidth / 2;
@@ -10,18 +11,17 @@ const NegativeSphere = () => {
     let currentY = mouseY;
 
     const handleMouseMove = (e: MouseEvent) => {
-      // Inverse x and y axes
       mouseX = window.innerWidth - e.clientX;
       mouseY = window.innerHeight - e.clientY;
+      if (!isVisible) setIsVisible(true);
     };
 
     window.addEventListener('mousemove', handleMouseMove);
 
     const animate = () => {
-      // Smooth follow effect
-      currentX += (mouseX - currentX) * 0.2;
-      currentY += (mouseY - currentY) * 0.2;
-      
+      currentX += (mouseX - currentX) * 0.12;
+      currentY += (mouseY - currentY) * 0.12;
+
       setMouse({ x: currentX, y: currentY });
 
       requestAnimationFrame(animate);
@@ -30,20 +30,22 @@ const NegativeSphere = () => {
     animate();
 
     return () => window.removeEventListener('mousemove', handleMouseMove);
-  }, []);
+  }, [isVisible]);
 
   return (
     <div
-      className="fixed pointer-events-none rounded-full"
+      className="fixed pointer-events-none rounded-full hidden md:block"
       style={{
-        width: '100px',
-        height: '100px',
+        width: '80px',
+        height: '80px',
         left: `${mouse.x}px`,
         top: `${mouse.y}px`,
         transform: 'translate(-50%, -50%)',
         background: 'hsl(var(--foreground))',
         mixBlendMode: 'difference',
         zIndex: 50,
+        opacity: isVisible ? 0.9 : 0,
+        transition: 'opacity 0.8s ease',
       }}
     />
   );

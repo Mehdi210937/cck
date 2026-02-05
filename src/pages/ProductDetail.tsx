@@ -64,7 +64,7 @@ const ProductDetail = () => {
   useEffect(() => {
     const fetchProduct = async () => {
       if (!handle) return;
-      
+
       setLoading(true);
       try {
         const data = await storefrontApiRequest(PRODUCT_QUERY, { handle });
@@ -94,9 +94,9 @@ const ProductDetail = () => {
       quantity: 1,
       selectedOptions: selectedVariant.selectedOptions || []
     };
-    
+
     addItem(cartItem);
-    toast.success("Ajouté au panier");
+    toast.success("Ajoute au panier");
   };
 
   if (loading) {
@@ -104,7 +104,7 @@ const ProductDetail = () => {
       <div className="min-h-screen bg-background pb-16">
         <Header />
         <main className="container mx-auto px-4 py-12 flex items-center justify-center">
-          <Loader2 className="h-8 w-8 animate-spin" />
+          <Loader2 className="h-6 w-6 animate-spin text-accent" />
         </main>
         <Footer />
       </div>
@@ -116,7 +116,7 @@ const ProductDetail = () => {
       <div className="min-h-screen bg-background pb-16">
         <Header />
         <main className="container mx-auto px-4 py-12">
-          <p className="text-center text-muted-foreground">Produit non trouvé</p>
+          <p className="text-center text-muted-foreground font-serif italic">Produit non trouve</p>
         </main>
         <Footer />
       </div>
@@ -126,46 +126,48 @@ const ProductDetail = () => {
   return (
     <div className="min-h-screen bg-background pb-16">
       <Header />
-      
+
       <main className="container mx-auto px-4 py-12 mb-24">
-        <div className="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+        <div className="grid md:grid-cols-2 gap-12 max-w-5xl mx-auto">
           <div className="aspect-square">
             {product.node.images?.edges?.[0]?.node && (
               <img
                 src={product.node.images.edges[0].node.url}
                 alt={product.node.title}
-                className="w-full h-full object-cover rounded-lg"
+                className="w-full h-full object-cover"
               />
             )}
           </div>
-          
-          <div className="space-y-6">
+
+          <div className="space-y-8">
             <div>
-              <h1 className="text-4xl font-bold font-helvetica mb-2">{product.node.title}</h1>
-              <p className="text-2xl font-semibold">
+              <p className="label-editorial mb-2">Produit</p>
+              <h1 className="text-3xl md:text-4xl font-serif mb-3">{product.node.title}</h1>
+              <p className="text-xl font-mono text-accent">
                 {selectedVariant?.price.currencyCode} {parseFloat(selectedVariant?.price.amount || '0').toFixed(2)}
               </p>
             </div>
-            
+
             {product.node.description && (
-              <p className="text-muted-foreground leading-relaxed">{product.node.description}</p>
+              <p className="text-sm text-muted-foreground leading-relaxed">{product.node.description}</p>
             )}
-            
+
             {product.node.options.map((option) => (
-              <div key={option.name} className="space-y-2">
-                <label className="text-sm font-medium">{option.name}</label>
+              <div key={option.name} className="space-y-3">
+                <label className="text-xs tracking-[0.15em] uppercase text-muted-foreground">{option.name}</label>
                 <div className="flex flex-wrap gap-2">
                   {option.values.map((value) => {
-                    const variant = product.node.variants.edges.find(v => 
+                    const variant = product.node.variants.edges.find(v =>
                       v.node.selectedOptions.some(opt => opt.name === option.name && opt.value === value)
                     )?.node;
-                    
+
                     return (
                       <Button
                         key={value}
                         variant={selectedVariant?.id === variant?.id ? "default" : "outline"}
                         size="sm"
                         onClick={() => setSelectedVariant(variant)}
+                        className="text-xs tracking-wide"
                       >
                         {value}
                       </Button>
@@ -174,10 +176,10 @@ const ProductDetail = () => {
                 </div>
               </div>
             ))}
-            
+
             <Button
               onClick={handleAddToCart}
-              className="w-full"
+              className="w-full tracking-[0.15em] uppercase text-xs"
               size="lg"
               disabled={!selectedVariant?.availableForSale}
             >
@@ -186,7 +188,7 @@ const ProductDetail = () => {
           </div>
         </div>
       </main>
-      
+
       <Footer />
     </div>
   );

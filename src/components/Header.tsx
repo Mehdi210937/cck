@@ -4,7 +4,6 @@ import { supabase } from '@/integrations/supabase/client';
 import { Button } from '@/components/ui/button';
 import cracraLogo from '@/assets/cracra-logo.jpg';
 import MobileMenu from './MobileMenu';
-import CracraLogo from './CracraLogo';
 
 const Header = () => {
   const [user, setUser] = useState<any>(null);
@@ -54,35 +53,37 @@ const Header = () => {
   ];
 
   return (
-    <header className="sticky top-0 z-50 w-full backdrop-blur-sm py-3 bg-background/80">
+    <header className="sticky top-0 z-50 w-full backdrop-blur-md py-4 bg-background/90 border-b border-border/50">
       <div className="container mx-auto px-4 flex justify-between items-center">
-        <Link 
-          to="/" 
-          className="flex items-center gap-2 md:gap-3 hover:opacity-70 transition-opacity"
+        <Link
+          to="/"
+          className="flex items-center gap-3 hover:opacity-70 transition-opacity duration-300"
         >
-          <img 
-            src={cracraLogo} 
-            alt="CRACRA KREW Logo" 
-            className="h-10 md:h-12 w-auto filter contrast-125 mix-blend-multiply dark:mix-blend-screen dark:invert"
+          <img
+            src={cracraLogo}
+            alt="CRACRA KREW Logo"
+            className="h-8 md:h-10 w-auto invert brightness-200"
           />
-          <CracraLogo />
+          <span className="hidden md:block text-xs tracking-[0.3em] uppercase text-muted-foreground font-light">
+            Paris / Berlin
+          </span>
         </Link>
-        
-        {/* Desktop Navigation */}
-        <nav className="hidden md:flex items-center gap-6">
+
+        {/* Desktop Navigation — numbered */}
+        <nav className="hidden md:flex items-center gap-8 nav-numbered">
           {navItems.map((item) => (
             <Link
               key={item.path}
               to={item.path}
-              className="text-base font-black tracking-wide transition-opacity hover:opacity-60"
+              className="text-sm tracking-[0.15em] uppercase transition-all duration-300 hover:text-accent link-reveal text-foreground/80 hover:text-foreground"
             >
-              {item.label.toUpperCase()}
+              {item.label}
             </Link>
           ))}
-          
+
           {isAdmin && (
             <Link to="/admin">
-              <Button variant="outline" className="text-xs font-bold">
+              <Button variant="outline" className="text-xs tracking-widest border-accent/30 hover:border-accent hover:bg-accent/10">
                 ADMIN
               </Button>
             </Link>

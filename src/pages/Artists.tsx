@@ -3,124 +3,172 @@ import Footer from "@/components/Footer";
 import { artists } from "@/data/artists";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { ExternalLink } from "lucide-react";
+
 const Artists = () => {
-  return <div className="min-h-screen bg-background pb-16">
+  return (
+    <div className="min-h-screen bg-background pb-16">
       <Header />
-      
-      <main className="container mx-auto px-4 py-6 mb-24">
+
+      <main className="container mx-auto px-4 py-8 mb-24">
         <Accordion type="single" collapsible className="w-full">
-          {artists.map(artist => <AccordionItem key={artist.id} value={artist.id} className="border-b border-border">
-              <AccordionTrigger className="text-2xl font-bold font-helvetica py-6 hover:no-underline">
-                {artist.name}
+          {artists.map((artist, index) => (
+            <AccordionItem key={artist.id} value={artist.id} className="border-b border-border/50">
+              <AccordionTrigger className="py-8 hover:no-underline group">
+                <div className="flex items-baseline gap-4">
+                  <span className="text-xs text-muted-foreground font-mono tabular-nums">
+                    {String(index + 1).padStart(2, '0')}
+                  </span>
+                  <span className="text-3xl md:text-4xl font-serif group-hover:text-accent transition-colors duration-300">
+                    {artist.name}
+                  </span>
+                </div>
               </AccordionTrigger>
               <AccordionContent>
                 <div className="py-6">
-                  {/* Layout Desktop - 2 colonnes */}
-                  <div className="hidden lg:grid lg:grid-cols-2 gap-6">
-                    {/* Colonne gauche : Photo + Liens */}
-                    <div className="flex gap-6">
-                      <div className="space-y-4 flex-shrink-0">
+                  {/* Desktop */}
+                  <div className="hidden lg:grid lg:grid-cols-2 gap-8">
+                    <div className="flex gap-8">
+                      <div className="space-y-6 flex-shrink-0 max-w-xs">
                         {artist.bio && (
-                          <p className="text-sm text-muted-foreground leading-relaxed max-w-xs mb-4">
+                          <p className="text-sm text-muted-foreground leading-relaxed">
                             {artist.bio}
                           </p>
                         )}
-                        <div className="space-y-2">
-                          {artist.soundcloud_embed_url && <a href={artist.soundcloud_embed_url.replace('https://w.soundcloud.com/player/?url=', '')} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-foreground hover:text-muted-foreground transition-colors">
+                        <div className="space-y-3">
+                          {artist.soundcloud_embed_url && (
+                            <a href={artist.soundcloud_embed_url.replace('https://w.soundcloud.com/player/?url=', '')} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-sm text-foreground/70 hover:text-accent transition-colors duration-300 link-reveal">
                               <span>SoundCloud</span>
-                              <ExternalLink className="w-4 h-4" />
-                            </a>}
-                          {artist.other_url && <a href={artist.other_url} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-foreground hover:text-muted-foreground transition-colors">
-                              <span>Quopée</span>
-                              <ExternalLink className="w-4 h-4" />
-                            </a>}
-                          {artist.instagram_url && <a href={artist.instagram_url} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-foreground hover:text-muted-foreground transition-colors">
+                              <ExternalLink className="w-3 h-3" />
+                            </a>
+                          )}
+                          {artist.other_url && (
+                            <a href={artist.other_url} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-sm text-foreground/70 hover:text-accent transition-colors duration-300 link-reveal">
+                              <span>Quopee</span>
+                              <ExternalLink className="w-3 h-3" />
+                            </a>
+                          )}
+                          {artist.instagram_url && (
+                            <a href={artist.instagram_url} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-sm text-foreground/70 hover:text-accent transition-colors duration-300 link-reveal">
                               <span>Instagram</span>
-                              <ExternalLink className="w-4 h-4" />
-                            </a>}
-                          {artist.resident_advisor_url && <a href={artist.resident_advisor_url} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-foreground hover:text-muted-foreground transition-colors">
+                              <ExternalLink className="w-3 h-3" />
+                            </a>
+                          )}
+                          {artist.resident_advisor_url && (
+                            <a href={artist.resident_advisor_url} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-sm text-foreground/70 hover:text-accent transition-colors duration-300 link-reveal">
                               <span>Resident Advisor</span>
-                              <ExternalLink className="w-4 h-4" />
-                            </a>}
-                          {artist.spotify_url && <a href={artist.spotify_url} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-foreground hover:text-muted-foreground transition-colors">
+                              <ExternalLink className="w-3 h-3" />
+                            </a>
+                          )}
+                          {artist.spotify_url && (
+                            <a href={artist.spotify_url} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-sm text-foreground/70 hover:text-accent transition-colors duration-300 link-reveal">
                               <span>Spotify</span>
-                              <ExternalLink className="w-4 h-4" />
-                            </a>}
+                              <ExternalLink className="w-3 h-3" />
+                            </a>
+                          )}
                         </div>
                       </div>
 
-                      {/* Photo Desktop */}
                       <div className="flex items-start">
-                        <img src={artist.photo_url} alt={artist.name} className="w-[416px] h-[416px] object-cover rounded-lg border border-border" />
+                        <img src={artist.photo_url} alt={artist.name} className="w-[416px] h-[416px] object-cover border border-border/30 grayscale hover:grayscale-0 transition-all duration-700" />
                       </div>
                     </div>
 
-                    {/* Colonne droite : SoundCloud + Spotify */}
                     <div className="space-y-4">
-                      {artist.soundcloud_embed_url ? <iframe width="100%" height="200" scrolling="no" frameBorder="no" allow="autoplay" src={artist.soundcloud_embed_url} className="rounded-lg" /> : <p className="text-3xl font-sans font-semibold bg-neutral-50 text-stone-700">En parution hebdo    </p>}
-                      
-                      {artist.spotify_url && <iframe style={{
-                    borderRadius: '12px'
-                  }} src={`https://open.spotify.com/embed/artist/${artist.spotify_url.split('/artist/')[1]?.split('?')[0]}`} width="100%" height="200" frameBorder="0" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy" className="rounded-lg" />}
+                      {artist.soundcloud_embed_url ? (
+                        <iframe width="100%" height="200" scrolling="no" frameBorder="no" allow="autoplay" src={artist.soundcloud_embed_url} />
+                      ) : (
+                        <p className="text-sm text-muted-foreground italic font-serif">En parution hebdo</p>
+                      )}
+
+                      {artist.spotify_url && (
+                        <iframe
+                          style={{ borderRadius: '0px' }}
+                          src={`https://open.spotify.com/embed/artist/${artist.spotify_url.split('/artist/')[1]?.split('?')[0]}`}
+                          width="100%"
+                          height="200"
+                          frameBorder="0"
+                          allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+                          loading="lazy"
+                        />
+                      )}
                     </div>
                   </div>
 
-                  {/* Layout Mobile - Empilé verticalement */}
+                  {/* Mobile */}
                   <div className="lg:hidden space-y-6">
-                    {/* Photo Mobile - Pleine largeur */}
                     <div className="w-full">
-                      <img src={artist.photo_url} alt={artist.name} className="w-full aspect-square object-cover rounded-lg border border-border" />
+                      <img src={artist.photo_url} alt={artist.name} className="w-full aspect-square object-cover border border-border/30 grayscale hover:grayscale-0 transition-all duration-700" />
                     </div>
 
-                    {/* Bio Mobile */}
                     {artist.bio && (
                       <p className="text-sm text-muted-foreground leading-relaxed">
                         {artist.bio}
                       </p>
                     )}
 
-                    {/* Liens Mobile */}
-                    <div className="space-y-4">
-                      <div className="flex flex-wrap gap-4">
-                        {artist.soundcloud_embed_url && <a href={artist.soundcloud_embed_url.replace('https://w.soundcloud.com/player/?url=', '')} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-foreground hover:text-muted-foreground transition-colors">
-                            <span>SoundCloud</span>
-                            <ExternalLink className="w-4 h-4" />
-                          </a>}
-                        {artist.other_url && <a href={artist.other_url} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-foreground hover:text-muted-foreground transition-colors">
-                            <span>Quopée</span>
-                            <ExternalLink className="w-4 h-4" />
-                          </a>}
-                        {artist.instagram_url && <a href={artist.instagram_url} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-foreground hover:text-muted-foreground transition-colors">
-                            <span>Instagram</span>
-                            <ExternalLink className="w-4 h-4" />
-                          </a>}
-                        {artist.resident_advisor_url && <a href={artist.resident_advisor_url} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-foreground hover:text-muted-foreground transition-colors">
-                            <span>Resident Advisor</span>
-                            <ExternalLink className="w-4 h-4" />
-                          </a>}
-                        {artist.spotify_url && <a href={artist.spotify_url} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-foreground hover:text-muted-foreground transition-colors">
-                            <span>Spotify</span>
-                            <ExternalLink className="w-4 h-4" />
-                          </a>}
-                      </div>
+                    <div className="flex flex-wrap gap-4">
+                      {artist.soundcloud_embed_url && (
+                        <a href={artist.soundcloud_embed_url.replace('https://w.soundcloud.com/player/?url=', '')} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-sm text-foreground/70 hover:text-accent transition-colors duration-300">
+                          <span>SoundCloud</span>
+                          <ExternalLink className="w-3 h-3" />
+                        </a>
+                      )}
+                      {artist.other_url && (
+                        <a href={artist.other_url} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-sm text-foreground/70 hover:text-accent transition-colors duration-300">
+                          <span>Quopee</span>
+                          <ExternalLink className="w-3 h-3" />
+                        </a>
+                      )}
+                      {artist.instagram_url && (
+                        <a href={artist.instagram_url} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-sm text-foreground/70 hover:text-accent transition-colors duration-300">
+                          <span>Instagram</span>
+                          <ExternalLink className="w-3 h-3" />
+                        </a>
+                      )}
+                      {artist.resident_advisor_url && (
+                        <a href={artist.resident_advisor_url} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-sm text-foreground/70 hover:text-accent transition-colors duration-300">
+                          <span>Resident Advisor</span>
+                          <ExternalLink className="w-3 h-3" />
+                        </a>
+                      )}
+                      {artist.spotify_url && (
+                        <a href={artist.spotify_url} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-sm text-foreground/70 hover:text-accent transition-colors duration-300">
+                          <span>Spotify</span>
+                          <ExternalLink className="w-3 h-3" />
+                        </a>
+                      )}
                     </div>
 
-                    {/* Players Mobile */}
                     <div className="space-y-4">
-                      {artist.soundcloud_embed_url ? <iframe width="100%" height="200" scrolling="no" frameBorder="no" allow="autoplay" src={artist.soundcloud_embed_url} className="rounded-lg" /> : <p className="text-muted-foreground">Quopée en parution</p>}
-                      
-                      {artist.spotify_url && <iframe style={{
-                    borderRadius: '12px'
-                  }} src={`https://open.spotify.com/embed/artist/${artist.spotify_url.split('/artist/')[1]?.split('?')[0]}`} width="100%" height="200" frameBorder="0" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy" className="rounded-lg" />}
+                      {artist.soundcloud_embed_url ? (
+                        <iframe width="100%" height="200" scrolling="no" frameBorder="no" allow="autoplay" src={artist.soundcloud_embed_url} />
+                      ) : (
+                        <p className="text-sm text-muted-foreground italic font-serif">Quopee en parution</p>
+                      )}
+
+                      {artist.spotify_url && (
+                        <iframe
+                          style={{ borderRadius: '0px' }}
+                          src={`https://open.spotify.com/embed/artist/${artist.spotify_url.split('/artist/')[1]?.split('?')[0]}`}
+                          width="100%"
+                          height="200"
+                          frameBorder="0"
+                          allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+                          loading="lazy"
+                        />
+                      )}
                     </div>
                   </div>
                 </div>
               </AccordionContent>
-            </AccordionItem>)}
+            </AccordionItem>
+          ))}
         </Accordion>
       </main>
-      
+
       <Footer />
-    </div>;
+    </div>
+  );
 };
+
 export default Artists;
