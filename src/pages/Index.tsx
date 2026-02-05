@@ -85,41 +85,35 @@ const Index = () => {
       </section>
 
       {/* Hero - Mobile */}
-      <section className="md:hidden flex flex-col min-h-screen bg-black relative">
-        <div className="flex-1 flex items-center justify-center">
-          <img
-            src={banniereCckGif}
-            alt="Banniere CCK"
-            className="w-full h-auto max-h-[32vh] object-contain"
-          />
-        </div>
+      <section className="md:hidden flex relative h-screen w-full items-center justify-center bg-black overflow-hidden">
+        <img
+          src={banniereCckGif}
+          alt="Banniere CCK"
+          className="absolute inset-0 w-full h-full object-cover opacity-90"
+        />
 
-        <div className="flex-1 flex items-center justify-center">
-          <img
-            src={banniereCckGif}
-            alt="Banniere CCK"
-            className="w-full h-auto max-h-[32vh] object-contain"
-          />
-        </div>
+        {/* Overlay gradient */}
+        <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-transparent to-black/60" />
 
-        <div className="flex-1 flex items-center justify-center">
-          <img
-            src={banniereCckGif}
-            alt="Banniere CCK"
-            className="w-full h-auto max-h-[32vh] object-contain"
-          />
-        </div>
-
-        {/* Mobile editorial overlay */}
-        <div className="absolute bottom-16 left-6 z-10">
-          <p className="text-[9px] tracking-[0.3em] uppercase text-white/50 mb-2">
-            Paris &mdash; Berlin
+        {/* Editorial title overlay */}
+        <div className="absolute bottom-20 left-6 z-10 mix-blend-difference">
+          <p className="text-[9px] tracking-[0.4em] uppercase text-white/60 mb-2">
+            Collectif artistique
           </p>
+          <h1 className="text-5xl font-serif text-white leading-none">
+            CraCra<br />Krew
+          </h1>
+          <div className="flex items-center gap-3 mt-3">
+            <div className="w-6 h-px bg-white/40" />
+            <span className="text-[9px] tracking-[0.3em] uppercase text-white/50">
+              Paris &mdash; Berlin
+            </span>
+          </div>
         </div>
 
         <button
           onClick={scrollToContent}
-          className="absolute bottom-6 right-6 text-white/60 flex items-center gap-2 animate-bounce cursor-pointer hover:opacity-70 transition-opacity z-10"
+          className="absolute bottom-6 right-6 text-white/60 flex items-center gap-2 animate-bounce cursor-pointer hover:opacity-70 transition-opacity z-10 mix-blend-difference"
           aria-label="Scroll vers le contenu"
         >
           <span className="text-[9px] tracking-[0.2em] uppercase">Explore</span>
