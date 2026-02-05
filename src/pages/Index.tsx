@@ -44,6 +44,27 @@ const Index = () => {
 
   return (
     <div className="min-h-screen bg-background">
+      {/* Mobile Header - Fixed */}
+      <div className="md:hidden fixed top-0 left-0 right-0 z-[60] px-6 py-4 flex justify-between items-center bg-gradient-to-b from-black/80 to-transparent">
+        <Link to="/" className="hover:opacity-70 transition-opacity">
+          <img
+            src={cracraTypo}
+            alt="CRACRAKREW"
+            className="h-6 w-auto invert brightness-200"
+          />
+        </Link>
+        <MobileMenu 
+          isAdmin={false} 
+          navItems={[
+            { path: "/artists", label: "Artists" },
+            { path: "/releases", label: "Releases" },
+            { path: "/reco", label: "Reco" },
+            { path: "/archive", label: "Archive" },
+            { path: "/infos", label: "Infos" }
+          ]} 
+        />
+      </div>
+
       {/* Hero Video Section - Desktop */}
       <section className="hidden md:flex relative h-screen w-full items-center justify-center bg-black overflow-hidden">
         <video
@@ -89,27 +110,6 @@ const Index = () => {
 
       {/* Hero - Mobile */}
       <section className="md:hidden flex relative h-screen w-full items-center justify-center bg-black overflow-hidden">
-        {/* Mobile Header Overlay */}
-        <div className="absolute top-0 left-0 right-0 z-50 px-6 py-4 flex justify-between items-center">
-          <Link to="/" className="hover:opacity-70 transition-opacity">
-            <img
-              src={cracraTypo}
-              alt="CRACRAKREW"
-              className="h-6 w-auto invert brightness-200"
-            />
-          </Link>
-          <MobileMenu 
-            isAdmin={false} 
-            navItems={[
-              { path: "/artists", label: "Artists" },
-              { path: "/releases", label: "Releases" },
-              { path: "/reco", label: "Reco" },
-              { path: "/archive", label: "Archive" },
-              { path: "/infos", label: "Infos" }
-            ]} 
-          />
-        </div>
-
         <img
           src={banniereCckGif}
           alt="Banniere CCK"
