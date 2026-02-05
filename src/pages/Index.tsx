@@ -152,7 +152,9 @@ const Index = () => {
           isContentVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
         }`}
       >
-        <Header />
+        <div className="hidden md:block">
+          <Header />
+        </div>
 
         <main className="container mx-auto px-4 md:px-6 pb-20">
           {/* Desktop Layout */}
