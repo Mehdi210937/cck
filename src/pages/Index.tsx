@@ -1,10 +1,13 @@
 import { useRef, useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import MobileMenu from "@/components/MobileMenu";
 import { DesktopGrid, MobileGrid } from "@/components/home/ContentGrid";
 import { ArrowDown } from "lucide-react";
 import banniereCck from "@/assets/banniere-cck.mp4";
 import banniereCckGif from "@/assets/banniere-cck.gif";
+import cracraTypo from "@/assets/cracra-typo.jpg";
 
 const Index = () => {
   const contentRef = useRef<HTMLDivElement>(null);
@@ -86,6 +89,27 @@ const Index = () => {
 
       {/* Hero - Mobile */}
       <section className="md:hidden flex relative h-screen w-full items-center justify-center bg-black overflow-hidden">
+        {/* Mobile Header Overlay */}
+        <div className="absolute top-0 left-0 right-0 z-50 px-6 py-4 flex justify-between items-center">
+          <Link to="/" className="hover:opacity-70 transition-opacity">
+            <img
+              src={cracraTypo}
+              alt="CRACRAKREW"
+              className="h-6 w-auto invert brightness-200"
+            />
+          </Link>
+          <MobileMenu 
+            isAdmin={false} 
+            navItems={[
+              { path: "/artists", label: "Artists" },
+              { path: "/releases", label: "Releases" },
+              { path: "/reco", label: "Reco" },
+              { path: "/archive", label: "Archive" },
+              { path: "/infos", label: "Infos" }
+            ]} 
+          />
+        </div>
+
         <img
           src={banniereCckGif}
           alt="Banniere CCK"
