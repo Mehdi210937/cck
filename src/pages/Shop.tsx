@@ -44,9 +44,9 @@ const Shop = () => {
       quantity: 1,
       selectedOptions: variant.selectedOptions || []
     };
-    
+
     addItem(cartItem);
-    toast.success("Ajouté au panier", {
+    toast.success("Ajoute au panier", {
       position: "top-center",
     });
   };
@@ -54,56 +54,59 @@ const Shop = () => {
   return (
     <div className="min-h-screen bg-background pb-16">
       <Header />
-      
-      <main className="container mx-auto px-4 py-6 mb-24">
+
+      <main className="container mx-auto px-4 py-8 mb-24">
         <div className="flex justify-between items-center mb-8">
-          <h1 className="text-4xl font-bold">Shop</h1>
+          <div>
+            <p className="label-editorial mb-2">Boutique</p>
+            <h1 className="text-4xl md:text-5xl font-serif">Shop</h1>
+          </div>
           <CartDrawer />
         </div>
 
         {loading ? (
           <div className="flex items-center justify-center py-12">
-            <Loader2 className="h-8 w-8 animate-spin" />
+            <Loader2 className="h-6 w-6 animate-spin text-accent" />
           </div>
         ) : products.length === 0 ? (
-          <div className="text-center py-12">
-            <ShoppingCart className="h-16 w-16 mx-auto mb-4 text-muted-foreground" />
-            <p className="text-xl text-muted-foreground mb-4">Aucun produit disponible</p>
-            <p className="text-sm text-muted-foreground">
-              Créez votre premier produit en me disant ce que vous souhaitez vendre.
+          <div className="text-center py-20">
+            <ShoppingCart className="h-12 w-12 mx-auto mb-4 text-muted-foreground/30" />
+            <p className="text-lg font-serif text-muted-foreground mb-2">Aucun produit disponible</p>
+            <p className="text-xs text-muted-foreground/60">
+              Creez votre premier produit en me disant ce que vous souhaitez vendre.
             </p>
           </div>
         ) : (
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-[2px]">
             {products.map((product) => (
               <Link key={product.node.id} to={`/product/${product.node.handle}`}>
-                <Card className="overflow-hidden hover:shadow-lg transition-all h-full flex flex-col">
-                  <div className="aspect-square relative">
+                <Card className="overflow-hidden border-border/30 hover:border-accent/50 transition-all duration-500 h-full flex flex-col bg-card group">
+                  <div className="aspect-square relative overflow-hidden">
                     {product.node.images?.edges?.[0]?.node ? (
                       <img
                         src={product.node.images.edges[0].node.url}
                         alt={product.node.title}
-                        className="w-full h-full object-cover"
+                        className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.03]"
                       />
                     ) : (
                       <div className="w-full h-full bg-muted flex items-center justify-center">
-                        <ShoppingCart className="h-12 w-12 text-muted-foreground" />
+                        <ShoppingCart className="h-8 w-8 text-muted-foreground/30" />
                       </div>
                     )}
                   </div>
-                  <div className="p-3 flex flex-col flex-1">
-                    <h3 className="font-bold font-helvetica text-sm mb-1 line-clamp-2">{product.node.title}</h3>
-                    <p className="text-sm font-semibold mb-2">
+                  <div className="p-4 flex flex-col flex-1">
+                    <h3 className="font-serif text-base mb-1 line-clamp-2">{product.node.title}</h3>
+                    <p className="text-sm text-accent mb-3 font-mono">
                       {product.node.priceRange.minVariantPrice.currencyCode}{' '}
                       {parseFloat(product.node.priceRange.minVariantPrice.amount).toFixed(2)}
                     </p>
                     <Button
                       variant="outline"
                       size="sm"
-                      className="w-full mt-auto"
+                      className="w-full mt-auto text-[10px] tracking-[0.15em] uppercase border-border/50 hover:border-accent hover:text-accent"
                       onClick={(e) => handleAddToCart(product, e)}
                     >
-                      <ShoppingCart className="h-4 w-4 mr-2" />
+                      <ShoppingCart className="h-3 w-3 mr-2" />
                       Ajouter
                     </Button>
                   </div>
@@ -113,7 +116,7 @@ const Shop = () => {
           </div>
         )}
       </main>
-      
+
       <Footer />
     </div>
   );

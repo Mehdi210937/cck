@@ -2,7 +2,7 @@ import { useRef, useEffect, useState } from "react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { DesktopGrid, MobileGrid } from "@/components/home/ContentGrid";
-import { ChevronDown } from "lucide-react";
+import { ArrowDown } from "lucide-react";
 import banniereCck from "@/assets/banniere-cck.mp4";
 import banniereCckGif from "@/assets/banniere-cck.gif";
 
@@ -41,7 +41,7 @@ const Index = () => {
 
   return (
     <div className="min-h-screen bg-background">
-      {/* Hero Video Section - Desktop: Full Screen */}
+      {/* Hero Video Section - Desktop */}
       <section className="hidden md:flex relative h-screen w-full items-center justify-center bg-black overflow-hidden">
         <video
           src={banniereCck}
@@ -49,26 +49,47 @@ const Index = () => {
           muted
           loop
           playsInline
-          className="absolute inset-0 w-full h-full object-cover"
+          className="absolute inset-0 w-full h-full object-cover opacity-90"
         />
 
-        {/* Scroll Indicator with inverted colors */}
+        {/* Overlay gradient */}
+        <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-transparent to-black/60" />
+
+        {/* Editorial title overlay */}
+        <div className="absolute bottom-24 left-8 z-10 mix-blend-difference">
+          <p className="text-[10px] tracking-[0.4em] uppercase text-white/60 mb-3">
+            Collectif artistique
+          </p>
+          <h1 className="text-6xl md:text-7xl font-serif text-white leading-none">
+            CraCra<br />Krew
+          </h1>
+          <div className="flex items-center gap-3 mt-4">
+            <div className="w-8 h-px bg-white/40" />
+            <span className="text-[10px] tracking-[0.3em] uppercase text-white/50">
+              Paris &mdash; Berlin
+            </span>
+          </div>
+        </div>
+
+        {/* Scroll indicator */}
         <button
           onClick={scrollToContent}
-          className="absolute bottom-12 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 animate-bounce cursor-pointer hover:opacity-70 transition-opacity z-10 mix-blend-difference text-white"
+          className="absolute bottom-8 right-8 flex items-center gap-3 cursor-pointer hover:opacity-70 transition-opacity z-10 mix-blend-difference text-white group"
           aria-label="Scroll vers le contenu"
         >
-          <span className="text-sm font-medium tracking-widest uppercase">Scroll</span>
-          <ChevronDown size={28} />
+          <span className="text-[10px] tracking-[0.3em] uppercase opacity-60 group-hover:opacity-100 transition-opacity">
+            Explore
+          </span>
+          <ArrowDown size={14} className="animate-bounce" />
         </button>
       </section>
 
-      {/* Hero Video Section - Mobile: 3 vidéos avec fond noir uni */}
+      {/* Hero - Mobile */}
       <section className="md:hidden flex flex-col min-h-screen bg-black relative">
         <div className="flex-1 flex items-center justify-center">
           <img
             src={banniereCckGif}
-            alt="Bannière CCK"
+            alt="Banniere CCK"
             className="w-full h-auto max-h-[32vh] object-contain"
           />
         </div>
@@ -76,7 +97,7 @@ const Index = () => {
         <div className="flex-1 flex items-center justify-center">
           <img
             src={banniereCckGif}
-            alt="Bannière CCK"
+            alt="Banniere CCK"
             className="w-full h-auto max-h-[32vh] object-contain"
           />
         </div>
@@ -84,26 +105,32 @@ const Index = () => {
         <div className="flex-1 flex items-center justify-center">
           <img
             src={banniereCckGif}
-            alt="Bannière CCK"
+            alt="Banniere CCK"
             className="w-full h-auto max-h-[32vh] object-contain"
           />
         </div>
 
-        {/* Scroll Indicator centré par rapport à l'écran */}
+        {/* Mobile editorial overlay */}
+        <div className="absolute bottom-16 left-6 z-10">
+          <p className="text-[9px] tracking-[0.3em] uppercase text-white/50 mb-2">
+            Paris &mdash; Berlin
+          </p>
+        </div>
+
         <button
           onClick={scrollToContent}
-          className="absolute top-2/3 left-[45vw] -translate-x-1/2 -translate-y-1/2 text-white flex flex-col items-center gap-0.5 animate-bounce cursor-pointer hover:opacity-70 transition-opacity z-10"
+          className="absolute bottom-6 right-6 text-white/60 flex items-center gap-2 animate-bounce cursor-pointer hover:opacity-70 transition-opacity z-10"
           aria-label="Scroll vers le contenu"
         >
-          <span className="text-xs font-medium tracking-widest uppercase">Scroll</span>
-          <ChevronDown size={18} />
+          <span className="text-[9px] tracking-[0.2em] uppercase">Explore</span>
+          <ArrowDown size={12} />
         </button>
       </section>
 
       {/* Main Content */}
       <div
         ref={contentRef}
-        className={`pb-16 transition-all duration-700 ease-out ${
+        className={`pb-16 transition-all duration-1000 ease-out ${
           isContentVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
         }`}
       >
@@ -111,7 +138,7 @@ const Index = () => {
 
         <main className="container mx-auto px-4 md:px-6 pb-20">
           {/* Desktop Layout */}
-          <div className="hidden md:block space-y-1">
+          <div className="hidden md:block">
             <DesktopGrid />
           </div>
 

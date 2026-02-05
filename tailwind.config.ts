@@ -59,8 +59,9 @@ export default {
 				sm: 'var(--radius)'
 			},
 		fontFamily: {
+			sans: ['Space Grotesk', '-apple-system', 'BlinkMacSystemFont', 'sans-serif'],
+			serif: ['Instrument Serif', 'Georgia', 'serif'],
 			mono: ['IBM Plex Mono', 'Courier New', 'monospace'],
-			sans: ['IBM Plex Mono', '-apple-system', 'BlinkMacSystemFont', 'sans-serif'],
 			helvetica: ['Helvetica Neue', 'Helvetica', 'Arial', 'sans-serif']
 		},
 			keyframes: {
@@ -81,9 +82,16 @@ export default {
 					}
 				}
 			},
+			keyframes: {
+				'fade-up': {
+					from: { opacity: '0', transform: 'translateY(20px)' },
+					to: { opacity: '1', transform: 'translateY(0)' }
+				}
+			},
 			animation: {
 				'accordion-down': 'accordion-down 0.2s ease-out',
-				'accordion-up': 'accordion-up 0.2s ease-out'
+				'accordion-up': 'accordion-up 0.2s ease-out',
+				'fade-up': 'fade-up 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards'
 			}
 		}
 	},
