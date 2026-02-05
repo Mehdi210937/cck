@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { supabase } from '@/integrations/supabase/client';
 import { Button } from '@/components/ui/button';
 import cracraLogo from '@/assets/cracra-logo.jpg';
+import cracraTypo from '@/assets/cracra-typo.jpg';
 import MobileMenu from './MobileMenu';
 
 const Header = () => {
@@ -60,13 +61,10 @@ const Header = () => {
           className="flex items-center gap-3 hover:opacity-70 transition-opacity duration-300"
         >
           <img
-            src={cracraLogo}
-            alt="CRACRA KREW Logo"
-            className="h-8 md:h-10 w-auto invert brightness-200"
+            src={cracraTypo}
+            alt="CRACRAKREW"
+            className="h-6 md:h-8 w-auto invert brightness-200"
           />
-          <span className="hidden md:block text-xs tracking-[0.3em] uppercase text-muted-foreground font-light">
-            Paris / Berlin
-          </span>
         </Link>
 
         {/* Desktop Navigation — numbered */}
