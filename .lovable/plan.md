@@ -1,40 +1,62 @@
 
-## Remplacement des vidéos mobiles par un GIF
 
-### Objectif
-Remplacer les 3 éléments `<video>` de la section hero mobile par un seul GIF animé qui se lancera automatiquement sans restriction des navigateurs mobiles.
+## Correction du menu mobile sur la page d'accueil
 
-### Modifications
+### Probleme identifie
+Sur la page d'accueil (`/`), le Header est positionne **apres** la section hero fullscreen. Sur mobile, cela signifie que le bouton hamburger du menu n'est pas visible tant que l'utilisateur n'a pas scrolle jusqu'au contenu principal.
+
+### Solution
+Ajouter un bouton hamburger flottant directement sur la section hero mobile, qui ouvrira le meme menu overlay existant. Ce bouton sera visible en permanence sur le hero.
+
+### Modifications prevues
 
 **Fichier:** `src/pages/Index.tsx`
 
-1. **Copier le GIF** dans le dossier `src/assets/`
-   - Source: `user-uploads://bannirecck-ezgif.com-video-to-gif-converter.gif`
-   - Destination: `src/assets/banniere-cck.gif`
+1. Importer les icones necessaires et le composant MobileMenu ou son state
+2. Ajouter un bouton hamburger fixe en haut a droite de la section hero mobile
+3. Ce bouton ouvrira le menu overlay fullscreen existant
 
-2. **Importer le GIF** en haut du fichier :
-   ```tsx
-   import banniereCckGif from "@/assets/banniere-cck.gif";
-   ```
+**Fichier:** `src/components/MobileMenu.tsx`
 
-3. **Supprimer le code inutile** :
-   - Supprimer les refs vidéo (`videoRef1`, `videoRef2`, `videoRef3`)
-   - Supprimer le `useEffect` qui forçait l'autoplay des vidéos
+1. Modifier le composant pour accepter un prop optionnel `externalTrigger` permettant de controler l'ouverture depuis l'exterieur
+2. Ou creer une version du menu qui peut etre declenchee depuis Index.tsx
 
-4. **Remplacer les 3 vidéos** par 3 images GIF :
-   ```tsx
-   <div className="flex-1 flex items-center justify-center">
-     <img
-       src={banniereCckGif}
-       alt="Bannière CCK"
-       className="w-full h-auto max-h-[32vh] object-contain"
-     />
-   </div>
-   ```
-   (Répété 3 fois pour garder la même structure visuelle)
+### Implementation technique
 
-### Avantages
-- Les GIFs se lancent automatiquement sur tous les navigateurs mobiles sans restriction
-- Aucun JavaScript nécessaire pour forcer la lecture
-- Code simplifié (moins de refs et d'effets)
-- La version desktop conserve la vidéo originale
+Option retenue : Ajouter un Header mobile overlay directement sur le hero
+
+```text
++------------------------------------------+
+|  [Logo]                    [Hamburger]   |  <- Barre fixe sur hero mobile
+|                                          |
+|            HERO GIF                      |
+|                                          |
++------------------------------------------+
+```
+
+**Changements dans `src/pages/Index.tsx`:**
+- Ajouter un header mobile simplifie (logo + hamburger) en position absolue sur la section hero mobile
+- Utiliser le meme composant MobileMenu avec son comportement existant
+
+**Alternative plus simple:**
+- Deplacer le Header avant les sections hero mais le rendre visible uniquement sur mobile sur le hero
+- Utiliser un z-index eleve pour le superposer au hero
+
+### Plan detaille
+
+1. **Modifier `src/pages/Index.tsx`:**
+   - Importer MobileMenu, les navItems et l'asset logo
+   - Ajouter une barre de navigation mobile overlay sur la section hero mobile avec:
+     - Logo a gauche (lien vers `/`)
+     - Bouton hamburger a droite (via MobileMenu)
+   - Style: position absolue, z-index eleve, fond semi-transparent ou transparent
+
+2. **Conserver le style actuel du menu overlay:**
+   - L'animation `menu-overlay-enter` reste inchangee
+   - Le design editorial avec numeros reste identique
+   - Seul l'emplacement du declencheur change
+
+### Resultat attendu
+- Le bouton hamburger sera visible en haut du hero mobile
+- Au clic, le menu fullscreen s'ouvrira avec l'animation actuelle
+- Le design et le style restent coherents avec l'existant
