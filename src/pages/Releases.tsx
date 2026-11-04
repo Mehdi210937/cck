@@ -7,6 +7,7 @@ import { Card } from "@/components/ui/card";
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
+import { ReleaseArtwork } from "@/components/ReleaseArtwork";
 
 const Releases = () => {
   const [searchParams] = useSearchParams();
@@ -34,18 +35,14 @@ const Releases = () => {
               <Card className="overflow-hidden border-border/30 hover:border-accent/50 transition-all duration-500 relative bg-card group">
                 {release.coming_soon && (
                   <Badge className="absolute top-3 left-3 z-10 bg-accent text-accent-foreground text-[10px] tracking-[0.15em] uppercase">
-                    DISPO
+                     SOON
                   </Badge>
                 )}
                 <div className="aspect-square relative overflow-hidden">
-                  <img
-                    src={release.image_url}
-                    alt={release.title}
-                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.03]"
-                  />
+                  <ReleaseArtwork release={release} className="transition-transform duration-700 group-hover:scale-[1.03]" />
                 </div>
                 <div className="p-4">
-                  <h3 className="font-serif text-base mb-1 truncate">{release.title}</h3>
+                  <h3 className="font-serif text-base mb-1 break-words">{release.title}</h3>
                   <p className="text-xs text-muted-foreground mb-3 tracking-wide">{release.artist_name}</p>
                   <DialogTrigger asChild>
                     <Button variant="outline" size="sm" className="w-full text-[10px] tracking-[0.15em] uppercase border-border/50 hover:border-accent hover:text-accent">
@@ -61,16 +58,12 @@ const Releases = () => {
                   <DialogDescription className="text-sm tracking-wide text-muted-foreground">
                     {release.artist_name}
                     {release.release_date && ` \u2014 ${release.release_date}`}
-                    {release.coming_soon && " \u2014 A venir"}
+                    {release.coming_soon && " \u2014 Soon"}
                   </DialogDescription>
                 </DialogHeader>
                 <div className="grid md:grid-cols-2 gap-6">
                   <div className="aspect-square">
-                    <img
-                      src={release.image_url}
-                      alt={release.title}
-                      className="w-full h-full object-cover"
-                    />
+                    <ReleaseArtwork release={release} />
                   </div>
                   <div className="space-y-4">
                     <p className="text-sm text-foreground/80 leading-relaxed">

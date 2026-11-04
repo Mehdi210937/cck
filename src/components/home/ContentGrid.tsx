@@ -20,6 +20,14 @@ export const DesktopGrid = () => {
         </div>
       </div>
 
+      <div className="grid grid-cols-3 gap-[2px]">
+        {releases.slice(1).map((release) => (
+          <div key={release.id} className="aspect-square overflow-hidden img-zoom">
+            <ReleaseItem release={release} scaleClass="" />
+          </div>
+        ))}
+      </div>
+
       {/* Row 2 : 3 vertical images */}
       <div className="grid grid-cols-3 gap-[2px] h-[550px]">
         <div className="col-span-1 h-full overflow-hidden img-zoom">
@@ -94,6 +102,14 @@ export const MobileGrid = () => {
       {/* Release */}
       <div className="h-[350px] overflow-hidden img-zoom">
         <ReleaseItem release={mainRelease} scaleClass="" />
+      </div>
+
+      <div className="grid grid-cols-2 gap-[2px]">
+        {releases.slice(1).map((release) => (
+          <div key={release.id} className="aspect-square overflow-hidden img-zoom">
+            <ReleaseItem release={release} scaleClass="" />
+          </div>
+        ))}
       </div>
 
       {/* Images */}
