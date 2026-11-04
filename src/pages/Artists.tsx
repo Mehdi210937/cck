@@ -3,6 +3,8 @@ import Footer from "@/components/Footer";
 import { artists } from "@/data/artists";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { ExternalLink } from "lucide-react";
+import { Link } from "react-router-dom";
+import { releases } from "@/data/releases";
 
 const Artists = () => {
   return (
@@ -68,17 +70,17 @@ const Artists = () => {
                         </div>
                       </div>
 
-                      <div className="flex items-start">
+                      {artist.photo_url && <div className="flex items-start">
                         <img src={artist.photo_url} alt={artist.name} className="w-[416px] h-[416px] object-cover border border-border/30 grayscale hover:grayscale-0 transition-all duration-700" />
-                      </div>
+                      </div>}
                     </div>
 
                     <div className="space-y-4">
                       {artist.soundcloud_embed_url ? (
                         <iframe width="100%" height="200" scrolling="no" frameBorder="no" allow="autoplay" src={artist.soundcloud_embed_url} />
-                      ) : (
+                      ) : artist.other_url ? (
                         <p className="text-sm text-muted-foreground italic font-serif">En parution hebdo</p>
-                      )}
+                      ) : null}
 
                       {artist.spotify_url && (
                         <iframe
@@ -96,9 +98,9 @@ const Artists = () => {
 
                   {/* Mobile */}
                   <div className="lg:hidden space-y-6">
-                    <div className="w-full">
+                    {artist.photo_url && <div className="w-full">
                       <img src={artist.photo_url} alt={artist.name} className="w-full aspect-square object-cover border border-border/30 grayscale hover:grayscale-0 transition-all duration-700" />
-                    </div>
+                    </div>}
 
                     {artist.bio && (
                       <p className="text-sm text-muted-foreground leading-relaxed">
@@ -142,9 +144,9 @@ const Artists = () => {
                     <div className="space-y-4">
                       {artist.soundcloud_embed_url ? (
                         <iframe width="100%" height="200" scrolling="no" frameBorder="no" allow="autoplay" src={artist.soundcloud_embed_url} />
-                      ) : (
+                      ) : artist.other_url ? (
                         <p className="text-sm text-muted-foreground italic font-serif">Quopee en parution</p>
-                      )}
+                      ) : null}
 
                       {artist.spotify_url && (
                         <iframe
@@ -158,6 +160,15 @@ const Artists = () => {
                         />
                       )}
                     </div>
+                  </div>
+                  <div className="mt-8 border-t border-border/50 pt-6 space-y-3">
+                    <h3 className="text-xl font-serif">Releases</h3>
+                    {releases.filter((release) => release.artist_id === artist.id).map((release) => (
+                      <Link key={release.id} to={`/releases?release=${release.id}`} className="flex items-center justify-between gap-4 text-sm hover:text-accent transition-colors">
+                        <span>{release.title}{release.coming_soon ? " · Soon" : ""}</span>
+                        <ExternalLink className="w-3 h-3 shrink-0" />
+                      </Link>
+                    ))}
                   </div>
                 </div>
               </AccordionContent>

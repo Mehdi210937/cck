@@ -1,7 +1,7 @@
 export interface Artist {
   id: string;
   name: string;
-  photo_url: string;
+  photo_url?: string;
   bio?: string;
   instagram_url?: string;
   resident_advisor_url?: string;
@@ -18,7 +18,7 @@ export const artists: Artist[] = [
     bio: "Producteur et DJ basé à Paris, Pablo Hassan explore les frontières entre UK garage, house et electronica. Son approche unique mêle textures organiques et rythmes hypnotiques pour créer des ambiances immersives.",
     instagram_url: "https://www.instagram.com/elpablohassan",
     spotify_url: "https://open.spotify.com/artist/592AK4l03lpoUE9bosrEAB",
-    soundcloud_embed_url: "https://w.soundcloud.com/player/?url=https://soundcloud.com/lololadmt"
+    soundcloud_embed_url: "https://w.soundcloud.com/player/?url=https://soundcloud.com/pablohassan"
   },
   {
     id: "2",
@@ -33,5 +33,10 @@ export const artists: Artist[] = [
     photo_url: "/images/don-badder.png",
     bio: "Une écriture qui arpente les zones d'ombre de la Ville Lumière. Mêlant la violence du béton à la poésie de l'instant, il capture ce qu'il voit et ce qu'il entend pour le retranscrire de la manière la plus brute possible. Une lecture immersive, à vos risques et périls.",
     other_url: "https://quopee.lovable.app"
+  },
+  {
+    id: "4",
+    name: "meurs un autre jour",
+    spotify_url: "https://open.spotify.com/artist/5lxe5m6nW62i706KHbEafs"
   }
 ];

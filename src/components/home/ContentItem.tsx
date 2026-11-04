@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { Badge } from "@/components/ui/badge";
 import { Volume2, VolumeX } from "lucide-react";
 import { Release } from "@/data/releases";
+import { ReleaseArtwork } from "@/components/ReleaseArtwork";
 
 interface ImageItemProps {
   src: string;
@@ -28,20 +29,12 @@ interface ReleaseItemProps {
 
 export const ReleaseItem = ({ release, scaleClass }: ReleaseItemProps) => (
   <div className="w-full h-full overflow-hidden transition-all duration-500 relative group">
-    {release.coming_soon && (
-      <Link to={`/releases?release=${release.id}`}>
-        <Badge className="absolute top-3 left-3 z-10 bg-accent text-accent-foreground text-[10px] tracking-[0.15em] uppercase hover:bg-accent/90 cursor-pointer transition-colors">
-          DISPO
-        </Badge>
-      </Link>
-    )}
-    {release.soundcloud_url ? (
-      <a href={release.soundcloud_url} target="_blank" rel="noopener noreferrer" className="block w-full h-full">
-        <img src={release.image_url} alt={release.title} className={`w-full h-full object-cover ${scaleClass} transition-transform duration-700 group-hover:scale-[1.03]`} />
-      </a>
-    ) : (
-      <img src={release.image_url} alt={release.title} className={`w-full h-full object-cover ${scaleClass} transition-transform duration-700 group-hover:scale-[1.03]`} />
-    )}
+    <Link to={`/releases?release=${release.id}`} className="block w-full h-full" aria-label={`${release.artist_name} — ${release.title}`}>
+      {release.coming_soon && (
+        <Badge className="absolute top-3 left-3 z-10 bg-accent text-accent-foreground text-[10px] uppercase">SOON</Badge>
+      )}
+      <ReleaseArtwork release={release} className={`${scaleClass} transition-transform duration-700 group-hover:scale-[1.03]`} />
+    </Link>
   </div>
 );
 
