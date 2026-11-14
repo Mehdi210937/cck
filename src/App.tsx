@@ -9,7 +9,6 @@ import Shop from "./pages/Shop";
 import ProductDetail from "./pages/ProductDetail";
 import Artists from "./pages/Artists";
 import Releases from "./pages/Releases";
-import Reco from "./pages/Reco";
 import Archive from "./pages/Archive";
 import Infos from "./pages/Infos";
 import Auth from "./pages/Auth";
@@ -30,7 +29,6 @@ const App = () => (
           <Route path="/product/:handle" element={<ProductDetail />} />
           <Route path="/artists" element={<Artists />} />
           <Route path="/releases" element={<Releases />} />
-          <Route path="/reco" element={<Reco />} />
           <Route path="/archive" element={<Archive />} />
           <Route path="/infos" element={<Infos />} />
           <Route path="/auth" element={<Auth />} />

@@ -7,7 +7,7 @@ export interface Release {
   artist_id: string;
   artist_name: string;
   image_url?: string;
-  description: string;
+  description?: string;
   release_date?: string;
   coming_soon?: boolean;
   spotify_url?: string;
@@ -15,7 +15,16 @@ export interface Release {
   soundcloud_url?: string;
 }
 
-export const releases: Release[] = [
+export const sortReleasesByNewest = (items: Release[]): Release[] =>
+  [...items].sort((a, b) => {
+    const aDate = a.release_date ? Date.parse(`${a.release_date} 00:00:00 UTC`) : NaN;
+    const bDate = b.release_date ? Date.parse(`${b.release_date} 00:00:00 UTC`) : NaN;
+    if (Number.isNaN(aDate)) return Number.isNaN(bDate) ? 0 : 1;
+    if (Number.isNaN(bDate)) return -1;
+    return bDate - aDate;
+  });
+
+export const releases: Release[] = sortReleasesByNewest([
   {
     id: "meurs-un-autre-jour-echappee",
     title: "L’échappée",
@@ -40,8 +49,7 @@ export const releases: Release[] = [
     id: "don-badder-ep",
     title: "EP",
     artist_id: "3",
-    artist_name: "Don Badder",
-    description: "Un EP de Don Badder à venir.",
+    artist_name: "Don Baader",
     coming_soon: true
   },
   {
@@ -55,4 +63,4 @@ export const releases: Release[] = [
     coming_soon: false,
     soundcloud_url: "https://soundcloud.com/residence-de-la-gare/sets/imaginal-disc-forgotten-works"
   }
-];
+]);

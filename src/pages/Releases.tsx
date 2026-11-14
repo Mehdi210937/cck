@@ -66,9 +66,9 @@ const Releases = () => {
                     <ReleaseArtwork release={release} />
                   </div>
                   <div className="space-y-4">
-                    <p className="text-sm text-foreground/80 leading-relaxed">
+                     {release.description && <p className="text-sm text-foreground/80 leading-relaxed">
                       {release.description}
-                    </p>
+                     </p>}
                     {release.soundcloud_url && (
                       <Button variant="outline" className="w-full text-[10px] tracking-[0.15em] uppercase border-border/50 hover:border-accent hover:text-accent" asChild>
                         <a href={release.soundcloud_url} target="_blank" rel="noopener noreferrer">

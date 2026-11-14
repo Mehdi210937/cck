@@ -48,7 +48,6 @@ const Header = () => {
     // { path: "/shop", label: "Shop" }, // Hidden for now
     { path: "/artists", label: "Artists" },
     { path: "/releases", label: "Releases" },
-    { path: "/reco", label: "Reco" },
     { path: "/archive", label: "Archive" },
     { path: "/infos", label: "Infos" }
   ];

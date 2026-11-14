@@ -29,9 +29,8 @@ export const artists: Artist[] = [
   },
   {
     id: "3",
-    name: "Don Badder",
+    name: "Don Baader",
     photo_url: "/images/don-badder.png",
-    bio: "Une écriture qui arpente les zones d'ombre de la Ville Lumière. Mêlant la violence du béton à la poésie de l'instant, il capture ce qu'il voit et ce qu'il entend pour le retranscrire de la manière la plus brute possible. Une lecture immersive, à vos risques et périls.",
     other_url: "https://quopee.lovable.app"
   },
   {
